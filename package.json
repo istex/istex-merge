@@ -13,6 +13,7 @@
   "author": "INIST",
   "license": "CECILL-2.1",
   "dependencies": {
+    "fs-extra": "^10.0.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

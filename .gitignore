@@ -1,5 +1,4 @@
-conf.json
-datasets/*.json
+test/output
 
 # Logs
 logs

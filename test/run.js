@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 
 const { expect } = require('chai');
-const { select } = require('../index');
+const { select, generateHalTEI } = require('../index');
 
 describe('index.js', () => {
   describe('#select()', () => {
@@ -97,6 +97,18 @@ describe('index.js', () => {
     it('Success: merge orcId', (done) => {
       expectSuccess(testData.mergeOrcId, expected.mergeOrcId);
       done();
+    });
+  });
+
+  describe('#generateHalTEI()', () => {
+    const testData = require('./dataset/in/generateHalTEI');
+
+    it('Success: correct reference record', () => {
+      const { record, path } = testData.correctRecord;
+
+      return generateHalTEI(record, path)
+        .then(value => expect(value).to.be.undefined)
+        .catch(error => expect(error).to.be.undefined);
     });
   });
 });
