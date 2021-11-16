@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 
+const fs = require('fs-extra');
 const { expect } = require('chai');
 const { select, generateHalTEI } = require('../index');
 
@@ -107,8 +108,10 @@ describe('index.js', () => {
       const { record, path } = testData.correctRecord;
 
       return generateHalTEI(record, path)
-        .then(value => expect(value).to.be.undefined)
-        .catch(error => expect(error).to.be.undefined);
+        .then(value => {
+          expect(value).to.be.undefined;
+          expect(fs.existsSync(path)).to.be.true;
+        });
     });
   });
 });
