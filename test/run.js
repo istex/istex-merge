@@ -109,13 +109,22 @@ describe('index.js', () => {
       const { record, path } = testData.correctRecord;
 
       return generateHalTEI(record, path)
-        .then(value => {
-          expect(value).to.be.undefined;
-          return fs.readFile(path, 'utf-8');
-        })
+        .then(() => fs.readFile(path, 'utf-8'))
         .then(xmlContent => {
           const xmlDoc = create(xmlContent).end({ format: 'object' });
           expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
+        });
+    });
+
+    it('Success: language', () => {
+      const { record, path } = testData.correctRecord;
+
+      return generateHalTEI(record, path)
+        .then(() => fs.readFile(path, 'utf-8'))
+        .then(xmlContent => {
+          const xmlDoc = create(xmlContent).end({ format: 'object' });
+          expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.langUsage.language['@ident']).to.be.equal('en');
+          expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.langUsage.language['#']).to.be.equal('English');
         });
     });
   });
