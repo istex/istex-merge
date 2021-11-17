@@ -1,4 +1,5 @@
 const fs = require('fs-extra');
+const { create } = require('xmlbuilder2');
 
 /**
  * Generates a Hal TEI from a reference record.
@@ -7,14 +8,7 @@ const fs = require('fs-extra');
  * @returns {Promise} A Promise.
  */
 function generateHalTEI (referenceRecord, path) {
-  const fileContent =
-`<?xml version="1.0" encoding="UTF-8"?>
-<TEI>
-  <text>
-    <body/>
-  </text>
-  <back/>
-</TEI>`;
+  const fileContent = create(referenceRecord).end();
 
   return fs.outputFile(path, fileContent, 'utf-8');
 }
