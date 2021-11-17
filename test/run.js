@@ -3,6 +3,7 @@
 
 const fs = require('fs-extra');
 const { expect } = require('chai');
+const { create } = require('xmlbuilder2');
 const { select, generateHalTEI } = require('../index');
 
 describe('index.js', () => {
@@ -104,13 +105,17 @@ describe('index.js', () => {
   describe('#generateHalTEI()', () => {
     const testData = require('./dataset/in/generateHalTEI');
 
-    it('Success: correct reference record', () => {
+    it('Success: abstract', () => {
       const { record, path } = testData.correctRecord;
 
       return generateHalTEI(record, path)
         .then(value => {
           expect(value).to.be.undefined;
-          expect(fs.existsSync(path)).to.be.true;
+          return fs.readFile(path, 'utf-8');
+        })
+        .then(xmlContent => {
+          const xmlDoc = create(xmlContent).end({ format: 'object' });
+          expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
         });
     });
   });
