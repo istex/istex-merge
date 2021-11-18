@@ -25,48 +25,66 @@ function generateHalTEI (referenceRecord, path) {
 
   // Language
   if (_.isArray(referenceRecord.language) && !_.isEmpty(referenceRecord.language)) {
-    _.set(biblFull, 'profileDesc.langUsage.language', []);
-
-    for (const languageName of referenceRecord.language) {
-      const currentLanguageNode = {};
-
-      // Records should only be in either English or French
-      const languageNameLower = languageName.toLowerCase();
-      if (languageNameLower.includes('english')) {
-        currentLanguageNode['@ident'] = 'en';
-      } else if (languageNameLower.includes('french')) {
-        currentLanguageNode['@ident'] = 'fr';
-      } else {
-        currentLanguageNode['@ident'] = 'und';
-      }
-
-      // The text content of a node is under the '#' key with xmlbuilder2
-      currentLanguageNode['#'] = languageName;
-
-      biblFull.profileDesc.langUsage.language.push(currentLanguageNode);
-    }
+    insertLanguage(biblFull, referenceRecord);
   }
 
   // Abstract
   if (_.isObject(referenceRecord.abstract)) {
-    let language;
-    if (referenceRecord.abstract.en) language = 'en';
-    else if (referenceRecord.abstract.fr) language = 'fr';
-
-    // Create the abstract node
-    _.set(xmlDoc, 'TEI.text.body.listBibl.biblFull.profileDesc.abstract', {});
-    const { abstract } = xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc;
-
-    // Set the language attribute
-    abstract['@xml:lang'] = language;
-
-    // Insert the abstract text
-    abstract.p = referenceRecord.abstract[language];
+    insertAbstract(biblFull, referenceRecord);
   }
 
-  const fileContent = create(xmlDoc).end();
+  const fileContent = create(xmlDoc).end({ prettyPrint: true });
 
   return fs.outputFile(path, fileContent, 'utf-8');
+}
+
+/**
+ * Inserts the language from `referenceRecord` into `biblFull`.
+ * @param {object} biblFull The <biblFull> node to insert the language in.
+ * @param {object} referenceRecord The reference record to get the language from.
+ */
+function insertLanguage (biblFull, referenceRecord) {
+  _.set(biblFull, 'profileDesc.langUsage.language', []);
+
+  for (const languageName of referenceRecord.language) {
+    const currentLanguageNode = {};
+
+    // Records should only be in either English or French
+    const languageNameLower = languageName.toLowerCase();
+    if (languageNameLower.includes('english')) {
+      currentLanguageNode['@ident'] = 'en';
+    } else if (languageNameLower.includes('french')) {
+      currentLanguageNode['@ident'] = 'fr';
+    } else {
+      currentLanguageNode['@ident'] = 'und';
+    }
+
+    // The text content of a node is under the '#' key with xmlbuilder2
+    currentLanguageNode['#'] = languageName;
+
+    biblFull.profileDesc.langUsage.language.push(currentLanguageNode);
+  }
+}
+
+/**
+ * Inserts the abstract from `referenceRecord` into `biblFull`.
+ * @param {object} biblFull The <biblFull> node to insert the abstract in.
+ * @param {object} referenceRecord The reference record to get the abstract from.
+ */
+function insertAbstract (biblFull, referenceRecord) {
+  let language;
+  if (referenceRecord.abstract.en) language = 'en';
+  else if (referenceRecord.abstract.fr) language = 'fr';
+
+  // Create the abstract node
+  _.set(biblFull, 'profileDesc.abstract', {});
+  const { abstract } = biblFull.profileDesc;
+
+  // Set the language attribute
+  abstract['@xml:lang'] = language;
+
+  // Insert the abstract text
+  abstract.p = referenceRecord.abstract[language];
 }
 
 module.exports = generateHalTEI;
