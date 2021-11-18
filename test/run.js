@@ -11,121 +11,98 @@ describe('index.js', () => {
     const testData = require('./dataset/in/select');
     const expected = require('./dataset/expected/select');
 
-    it('Fail: no docObjects were found', (done) => {
+    it('Fail: no docObjects were found', () => {
       expectError(testData.noDocObjects, 'docObjects not found');
-      done();
     });
 
-    it('Fail: no docObjects with a source were found', (done) => {
+    it('Fail: no docObjects with a source were found', () => {
       expectError(testData.noDocObjectsWithSource, 'docObjects with source not found');
-      done();
     });
 
-    it('Fail: no docObjects with a known source were found', (done) => {
+    it('Fail: no docObjects with a known source were found', () => {
       expectError(testData.noDocObjectsWithKnownSource, 'docObject corresponding to one of given sources not found');
-      done();
     });
 
-    it('Fail: no priorities were found', (done) => {
+    it('Fail: no priorities were found', () => {
       expectError(testData.noPriorities, 'priorities not found');
-      done();
     });
 
-    it('Success: global priorities)', (done) => {
+    it('Success: global priorities)', () => {
       expectSuccess(testData.globalPriorities, expected.globalPriorities);
-      done();
     });
 
-    it('Success: global and custom priorities', (done) => {
+    it('Success: global and custom priorities', () => {
       expectSuccess(testData.globalAndCustomPriorities, expected.globalAndCustomPriorities);
-      done();
     });
 
-    it('Success: global and custom priorities but no data', (done) => {
+    it('Success: global and custom priorities but no data', () => {
       expectSuccess(testData.globalAndCustomPrioritiesButNoData, expected.globalAndCustomPrioritiesButNoData);
-      done();
     });
 
-    it('Success: global priorities for 2 identical sources and and delete unwanted data', (done) => {
+    it('Success: global priorities for 2 identical sources and and delete unwanted data', () => {
       expectSuccess(testData.globalPrioritiesAndDeleteUnwantedData, expected.globalPrioritiesAndDeleteUnwantedData);
-      done();
     });
 
-    it('Success: default prorities and Hal without a fulltext', (done) => {
+    it('Success: default prorities and Hal without a fulltext', () => {
       expectSuccess(testData.defaultPrioritiesAndHalWithoutFulltext, expected.defaultPrioritiesAndHalWithoutFulltext);
-      done();
     });
 
-    it('Success: default prorities and Hal with a fulltext', (done) => {
+    it('Success: default prorities and Hal with a fulltext', () => {
       expectSuccess(testData.defaultPrioritiesAndHalWithFulltext, expected.defaultPrioritiesAndHalWithFulltext);
-      done();
     });
 
-    it('Success: merge duplicates with idConditor', (done) => {
+    it('Success: merge duplicates with idConditor', () => {
       expectSuccess(testData.mergeDuplicates, expected.mergeDuplicates);
-      done();
     });
 
-    it('Success: merge duplicates with idConditor (one empty duplicate)', (done) => {
+    it('Success: merge duplicates with idConditor (one empty duplicate)', () => {
       expectSuccess(testData.mergeDuplicatesWithOneEmptyDuplicate, expected.mergeDuplicatesWithOneEmptyDuplicate);
-      done();
     });
 
-    it('Success: merge duplicates with idConditor (identical duplicates)', (done) => {
+    it('Success: merge duplicates with idConditor (identical duplicates)', () => {
       expectSuccess(testData.mergeDuplicatesWithSameDuplicates, expected.mergeDuplicatesWithSameDuplicates);
-      done();
     });
 
-    it('Success: merge sourceUid', (done) => {
+    it('Success: merge sourceUid', () => {
       expectSuccess(testData.mergeSourceUid, expected.mergeSourceUid);
-      done();
     });
 
-    it('Success: merge sourceUid (same sourceUid)', (done) => {
+    it('Success: merge sourceUid (same sourceUid)', () => {
       expectSuccess(testData.mergeSourceUidButSameSourceUid, expected.mergeSourceUidButSameSourceUid);
-      done();
     });
 
-    it('Success: merge enrichments', (done) => {
+    it('Success: merge enrichments', () => {
       expectSuccess(testData.mergeEnrichments, expected.mergeEnrichments);
-      done();
     });
 
-    it('Success: merge keywords', (done) => {
+    it('Success: merge keywords', () => {
       expectSuccess(testData.mergeKeywords, expected.mergeKeywords);
-      done();
     });
 
-    it('Success: merge orcId', (done) => {
+    it('Success: merge orcId', () => {
       expectSuccess(testData.mergeOrcId, expected.mergeOrcId);
-      done();
     });
   });
 
   describe('#generateHalTEI()', () => {
     const testData = require('./dataset/in/generateHalTEI');
+    let xmlDoc;
 
-    it('Success: abstract', () => {
+    before(() => {
       const { record, path } = testData.correctRecord;
 
       return generateHalTEI(record, path)
         .then(() => fs.readFile(path, 'utf-8'))
-        .then(xmlContent => {
-          const xmlDoc = create(xmlContent).end({ format: 'object' });
-          expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
-        });
+        .then(xmlContent => { xmlDoc = create(xmlContent).end({ format: 'object' }); });
+    });
+
+    it('Success: abstract', () => {
+      expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
     });
 
     it('Success: language', () => {
-      const { record, path } = testData.correctRecord;
-
-      return generateHalTEI(record, path)
-        .then(() => fs.readFile(path, 'utf-8'))
-        .then(xmlContent => {
-          const xmlDoc = create(xmlContent).end({ format: 'object' });
-          expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.langUsage.language['@ident']).to.be.equal('en');
-          expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.langUsage.language['#']).to.be.equal('English');
-        });
+      expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.langUsage.language['@ident']).to.be.equal('en');
+      expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.langUsage.language['#']).to.be.equal('English');
     });
   });
 });
