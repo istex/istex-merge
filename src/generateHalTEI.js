@@ -20,6 +20,9 @@ function generateHalTEI (referenceRecord, path) {
   _.set(xmlDoc.TEI, 'text.body.listBibl.biblFull', {});
   const biblFull = xmlDoc.TEI.text.body.listBibl.biblFull;
 
+  // Identifiers
+  insertIdentifiers(biblFull, referenceRecord);
+
   // Language
   if (_.isArray(referenceRecord.language) && !_.isEmpty(referenceRecord.language)) {
     insertLanguage(biblFull, referenceRecord);
@@ -33,6 +36,22 @@ function generateHalTEI (referenceRecord, path) {
   const fileContent = create(xmlDoc).end();
 
   return fs.outputFile(path, fileContent, 'utf-8');
+}
+
+/**
+ * Inserts the identifiers from `referenceRecord` into `biblFull`.
+ * @param {object} biblFull The <biblFull> node to insert the identifiers in.
+ * @param {object} referenceRecord The reference record to get the identifiers from.
+ */
+function insertIdentifiers (biblFull, referenceRecord) {
+  // DOI
+  if (referenceRecord.doi) {
+    if (!_.has(biblFull, 'sourceDesc.biblStruct.idno')) {
+      _.set(biblFull, 'sourceDesc.biblStruct.idno', []);
+    }
+
+    biblFull.sourceDesc.biblStruct.idno.push({ '@type': 'doi', '#': referenceRecord.doi });
+  }
 }
 
 /**

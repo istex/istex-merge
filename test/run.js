@@ -96,6 +96,11 @@ describe('index.js', () => {
         .then(xmlContent => { xmlDoc = create(xmlContent).end({ format: 'object' }); });
     });
 
+    it('Success: identifiers', () => {
+      expect(xmlDoc.TEI.text.body.listBibl.biblFull.sourceDesc.biblStruct.idno).to.be.not.undefined;
+      expect(xmlDoc.TEI.text.body.listBibl.biblFull.sourceDesc.biblStruct.idno).to.include({ '@type': 'doi', '#': '10.1039/c8nr07898j' });
+    });
+
     it('Success: abstract', () => {
       expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
     });
