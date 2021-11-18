@@ -14,10 +14,7 @@ function generateHalTEI (referenceRecord, path) {
 
   // Set the root TEI node attributes
   xmlDoc.TEI['@xmlns'] = 'http://www.tei-c.org/ns/1.0';
-  xmlDoc.TEI['@xmlns:xsi'] = 'http://www.w3.org/2001/XMLSchema-instance';
   xmlDoc.TEI['@xmlns:hal'] = 'http://hal.archives-ouvertes.fr/';
-  xmlDoc.TEI['@version'] = '1.1';
-  xmlDoc.TEI['@xsi:schemaLocation'] = 'http://www.tei-c.org/ns/1.0 http://api.archives-ouvertes.fr/documents/aofr-sword.xsd';
 
   // Create the base <text> structure
   _.set(xmlDoc.TEI, 'text.body.listBibl.biblFull', {});
@@ -33,7 +30,7 @@ function generateHalTEI (referenceRecord, path) {
     insertAbstract(biblFull, referenceRecord);
   }
 
-  const fileContent = create(xmlDoc).end({ prettyPrint: true });
+  const fileContent = create(xmlDoc).end();
 
   return fs.outputFile(path, fileContent, 'utf-8');
 }
