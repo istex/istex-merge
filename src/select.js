@@ -8,7 +8,7 @@ const conditorRules = {
 };
 
 /**
- * Creates a reference record from records of various sources.
+ * Creates a unified record from records of various sources.
  * @param {[]} docObjects The array of `docObject`s.
  * @param {object} rules The object defining the rules.
  * @param {boolean} isConditor Tells whether we are in a Conditor environment.

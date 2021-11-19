@@ -1,5 +1,5 @@
 # co-reference
-Library to build reference records (or unified records).
+Library to build unified records.
 
 ## Install
 ```
@@ -46,7 +46,7 @@ This JSON file's structure is as follows:
   "fulltextPath": false
 }
 ```
-This file describes the fields that will be present in the generated reference record.
+This file describes the fields that will be present in the generated unified record.
 
 **Note**: For fields with an array value (`duplicates`, `nearDuplicates` or `nearDuplicatesDetectedBySimilarity`), `co-reference` can merge the data coming from all sources. A property (`idConditor` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
 
@@ -87,7 +87,7 @@ The priority mechanism:
 - `keys.<field>` defines a specific priority order for `<field>`. Use an empty array (`[]`) to tell `co-reference` to use the default priority order.
 
 ## Usage
-This library strictly builds the reference record. It must be integrated in an environment with direct access to the `docObject`s and the JSON file with the rules.
+This library strictly builds the unified record. It must be integrated in an environment with direct access to the `docObject`s and the JSON file with the rules.
 
 Example:
 ```JS
@@ -95,10 +95,10 @@ const reference = require('co-reference');
 const rules = require('./myCustomFile.json');
 const docObjects = [{...}, {...}, {...}];
 
-const firstReferenceRecord = reference.select(docObjects, rules);
+const firstUnifiedRecord = reference.select(docObjects, rules);
 
 // With the third parameter set to false (true by default), no verification will be done on the full text of documents coming from Hal.
-const secondReferenceRecord = reference.select(docObjects, rules, false);
+const secondUnifiedRecord = reference.select(docObjects, rules, false);
 ```
 
 ## Example
@@ -148,9 +148,9 @@ Considering the following list of documents:
   }
 ]
 ```
-**Note: The `docObject`s used to create the reference record MUST contain a `source` field.**
+**Note: The `docObject`s used to create the unified record MUST contain a `source` field.**
 
-I want to build a reference record according to the following rules:
+I want to build a unified record according to the following rules:
 - By default, use data coming from "hal", then "crossref", then "pubmed" and finally "sudoc".
 - For `abstract.fr`, use data coming from "crossref", then "pubmed" and finally "sudoc".
 - For `abstract.en`, use data coming from "pubmed", then "sudoc".
@@ -210,5 +210,5 @@ Which will give me the following result:
 Description:
 - `source`: the base source
 - `origins.<field>`: the source that was modified by `co-reference` for `<field>`
-- `origins.sources`: an array compiling all the sources used in the reference record
+- `origins.sources`: an array compiling all the sources used in the unified record
 - If the source on top of the priority list has no data for a field (in our example, the prioritized source (hal) has no `authors`), `co-reference` will go down the priority list until it finds a source with data for this field.
