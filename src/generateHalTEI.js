@@ -49,16 +49,22 @@ function generateHalTEI (unifiedRecord, path) {
  * @param {object} unifiedRecord The unified record to get the titles from.
  */
 function insertTitles (biblFull, unifiedRecord) {
+  // Initialize the title container
   _.set(biblFull, 'titleStmt.title', []);
   const titles = biblFull.titleStmt.title;
 
+  // English title
   if (_.get(unifiedRecord, 'title.en')) {
     titles.push({ '@xml:lang': 'en', '#': unifiedRecord.title.en });
   }
 
+  // French title
   if (_.get(unifiedRecord, 'title.fr')) {
     titles.push({ '@xml:lang': 'fr', '#': unifiedRecord.title.fr });
   }
+
+  // The title is repeated under <sourceDesc>
+  _.set(biblFull, 'sourceDesc.biblStruct.analytic.title', titles);
 }
 
 /**

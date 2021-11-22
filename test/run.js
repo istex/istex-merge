@@ -87,32 +87,37 @@ describe('index.js', () => {
   describe('#generateHalTEI()', () => {
     const testData = require('./dataset/in/generateHalTEI');
     let xmlDoc;
+    let biblFull;
 
     before(() => {
       const { record, path } = testData.correctRecord;
 
       return generateHalTEI(record, path)
         .then(() => fs.readFile(path, 'utf-8'))
-        .then(xmlContent => { xmlDoc = create(xmlContent).end({ format: 'object' }); });
+        .then(xmlContent => {
+          xmlDoc = create(xmlContent).end({ format: 'object' });
+          biblFull = xmlDoc.TEI.text.body.listBibl.biblFull;
+        });
     });
 
     it('Success: identifiers', () => {
-      expect(xmlDoc.TEI.text.body.listBibl.biblFull.sourceDesc.biblStruct.idno).to.be.not.undefined;
-      expect(xmlDoc.TEI.text.body.listBibl.biblFull.sourceDesc.biblStruct.idno).to.include({ '@type': 'doi', '#': '10.1039/c8nr07898j' });
+      expect(biblFull.sourceDesc.biblStruct.idno).to.be.not.undefined;
+      expect(biblFull.sourceDesc.biblStruct.idno).to.include({ '@type': 'doi', '#': '10.1039/c8nr07898j' });
     });
 
     it('Success: abstract', () => {
-      expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
+      expect(biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
     });
 
     it('Success: language', () => {
-      expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.langUsage.language['@ident']).to.be.equal('en');
-      expect(xmlDoc.TEI.text.body.listBibl.biblFull.profileDesc.langUsage.language['#']).to.be.equal('English');
+      expect(biblFull.profileDesc.langUsage.language['@ident']).to.be.equal('en');
+      expect(biblFull.profileDesc.langUsage.language['#']).to.be.equal('English');
     });
 
     it('Success: titles', () => {
-      expect(xmlDoc.TEI.text.body.listBibl.biblFull.titleStmt.title['@xml:lang']).to.be.equal('en');
-      expect(xmlDoc.TEI.text.body.listBibl.biblFull.titleStmt.title['#']).to.be.equal('Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.');
+      expect(biblFull.titleStmt.title['@xml:lang']).to.be.equal('en');
+      expect(biblFull.titleStmt.title['#']).to.be.equal('Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.');
+      expect(biblFull.sourceDesc.biblStruct.analytic.title).to.eql(biblFull.titleStmt.title);
     });
   });
 });
