@@ -94,11 +94,11 @@ function insertAuthors (biblFull, unifiedRecord) {
       surname: author.surname,
     };
 
-    // idHal
-    if (author.idHal) {
+    // idRef
+    if (!_.isEmpty(author.idRef)) {
       if (!_.has(halAuthor, 'idno')) halAuthor.idno = [];
 
-      halAuthor.idno.push({ '@type': 'idHal', '#': author.idHal });
+      halAuthor.idno.push({ '@type': 'http://www.idref.fr/', '#': author.idRef[0] });
     }
 
     biblFull.titleStmt.author.push(halAuthor);
