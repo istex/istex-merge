@@ -114,13 +114,28 @@ function insertAuthors (biblFull, unifiedRecord) {
  * @param {object} unifiedRecord The unified record to get the identifiers from.
  */
 function insertIdentifiers (biblFull, unifiedRecord) {
+  // Initialize the identifier containers
+  if (!_.has(biblFull, 'sourceDesc.biblStruct.idno')) {
+    _.set(biblFull, 'sourceDesc.biblStruct.idno', []);
+  }
+
+  if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.idno')) {
+    _.set(biblFull, 'sourceDesc.biblStruct.monogr.idno', []);
+  }
+
   // DOI
   if (unifiedRecord.doi) {
-    if (!_.has(biblFull, 'sourceDesc.biblStruct.idno')) {
-      _.set(biblFull, 'sourceDesc.biblStruct.idno', []);
-    }
-
     biblFull.sourceDesc.biblStruct.idno.push({ '@type': 'doi', '#': unifiedRecord.doi });
+  }
+
+  // ISSN
+  if (!_.isEmpty(unifiedRecord.issn)) {
+    biblFull.sourceDesc.biblStruct.monogr.idno.push({ '@type': 'issn', '#': unifiedRecord.issn });
+  }
+
+  // EISSN
+  if (!_.isEmpty(unifiedRecord.eissn)) {
+    biblFull.sourceDesc.biblStruct.monogr.idno.push({ '@type': 'eissn', '#': unifiedRecord.eissn });
   }
 }
 

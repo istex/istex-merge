@@ -101,8 +101,9 @@ describe('index.js', () => {
     });
 
     it('Success: identifiers', () => {
-      expect(biblFull.sourceDesc.biblStruct.idno).to.be.not.undefined;
-      expect(biblFull.sourceDesc.biblStruct.idno).to.include({ '@type': 'doi', '#': '10.1039/c8nr07898j' });
+      expect(biblFull.sourceDesc.biblStruct.idno).to.deep.include({ '@type': 'doi', '#': '10.1039/c8nr07898j' });
+      expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'issn', '#': '2040-3364' });
+      expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'eissn', '#': '2040-3372' });
     });
 
     it('Success: abstract', () => {
