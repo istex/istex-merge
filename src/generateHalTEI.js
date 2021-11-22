@@ -25,6 +25,11 @@ function generateHalTEI (unifiedRecord, path) {
     insertTitles(biblFull, unifiedRecord);
   }
 
+  // Authors
+  if (_.isArray(unifiedRecord.authors) && !_.isEmpty(unifiedRecord.authors)) {
+    insertAuthors(biblFull, unifiedRecord);
+  }
+
   // Identifiers
   insertIdentifiers(biblFull, unifiedRecord);
 
@@ -65,6 +70,35 @@ function insertTitles (biblFull, unifiedRecord) {
 
   // The title is repeated under <sourceDesc>
   _.set(biblFull, 'sourceDesc.biblStruct.analytic.title', titles);
+}
+
+/**
+ * Inserts the authors from `unifiedRecord` into `biblFull`.
+ * @param {object} biblFull The <biblFull> node to insert the authors in.
+ * @param {object} unifiedRecord The unified record to get the authors from.
+ */
+function insertAuthors (biblFull, unifiedRecord) {
+  // Initialize the author container
+  _.set(biblFull, 'titleStmt.author', []);
+  const authors = unifiedRecord.authors;
+
+  authors.forEach(author => {
+    const halAuthor = {};
+
+    // Role
+    halAuthor['@role'] = 'aut';
+
+    // Name
+    halAuthor.persName = {
+      forename: { '@type': 'first', '#': author.forename },
+      surname: author.surname,
+    };
+
+    biblFull.titleStmt.author.push(halAuthor);
+  });
+
+  // The authors are repeated under <sourceDesc>
+  _.set(biblFull, 'sourceDesc.biblStruct.analytic.author', biblFull.titleStmt.author);
 }
 
 /**
