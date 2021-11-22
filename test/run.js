@@ -129,6 +129,14 @@ describe('index.js', () => {
       expect(biblFull.titleStmt.author[0].persName.surname).to.be.equal('Fonseca');
       expect(biblFull.sourceDesc.biblStruct.analytic.author).to.eql(biblFull.titleStmt.author);
     });
+
+    it('Success: catalog data', () => {
+      expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'issue', '#': '3' });
+      expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'pp', '#': '1273-1285' });
+      expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'volume', '#': '11' });
+      expect(biblFull.sourceDesc.biblStruct.monogr.imprint.date).to.deep.include({ '@type': 'datePub', '#': '2019-01-17' });
+      expect(biblFull.sourceDesc.biblStruct.monogr.imprint.date).to.deep.include({ '@type': 'dateEpub', '#': '2019' });
+    });
   });
 });
 

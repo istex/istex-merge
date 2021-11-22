@@ -43,6 +43,9 @@ function generateHalTEI (unifiedRecord, path) {
     insertAbstract(biblFull, unifiedRecord);
   }
 
+  // Catalog data
+  insertCatalogData(biblFull, unifiedRecord);
+
   const fileContent = create(xmlDoc).end();
 
   return fs.outputFile(path, fileContent, 'utf-8');
@@ -186,6 +189,44 @@ function insertAbstract (biblFull, unifiedRecord) {
 
   // Insert the abstract text
   abstract.p = unifiedRecord.abstract[language];
+}
+
+/**
+ * Inserts the catalog data from `unifiedRecord` into `biblFull`.
+ * @param {object} biblFull The <biblFull> node to insert the catalog data in.
+ * @param {object} unifiedRecord The unified record to get the catalog data from.
+ */
+function insertCatalogData (biblFull, unifiedRecord) {
+  // Initialize the catalog data container
+  _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.biblScope', []);
+  _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.date', []);
+  const biblScopes = biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope;
+  const dates = biblFull.sourceDesc.biblStruct.monogr.imprint.date;
+
+  // Issue
+  if (unifiedRecord.issue) {
+    biblScopes.push({ '@unit': 'issue', '#': unifiedRecord.issue });
+  }
+
+  // Page range
+  if (unifiedRecord.pageRange) {
+    biblScopes.push({ '@unit': 'pp', '#': unifiedRecord.pageRange });
+  }
+
+  // Volume
+  if (unifiedRecord.volume) {
+    biblScopes.push({ '@unit': 'volume', '#': unifiedRecord.volume });
+  }
+
+  // Publication date
+  if (unifiedRecord.publicationDate) {
+    dates.push({ '@type': 'datePub', '#': unifiedRecord.publicationDate });
+  }
+
+  // Electronic publication date
+  if (unifiedRecord.electronicPublicationDate) {
+    dates.push({ '@type': 'dateEpub', '#': unifiedRecord.electronicPublicationDate });
+  }
 }
 
 module.exports = generateHalTEI;
