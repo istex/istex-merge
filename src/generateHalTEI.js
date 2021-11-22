@@ -20,6 +20,11 @@ function generateHalTEI (unifiedRecord, path) {
   _.set(xmlDoc.TEI, 'text.body.listBibl.biblFull', {});
   const biblFull = xmlDoc.TEI.text.body.listBibl.biblFull;
 
+  // Titles
+  if (_.isObject(unifiedRecord.title)) {
+    insertTitles(biblFull, unifiedRecord);
+  }
+
   // Identifiers
   insertIdentifiers(biblFull, unifiedRecord);
 
@@ -36,6 +41,24 @@ function generateHalTEI (unifiedRecord, path) {
   const fileContent = create(xmlDoc).end();
 
   return fs.outputFile(path, fileContent, 'utf-8');
+}
+
+/**
+ * Inserts the titles from `unifiedRecord` into `biblFull`.
+ * @param {object} biblFull The <biblFull> node to insert the titles in.
+ * @param {object} unifiedRecord The unified record to get the titles from.
+ */
+function insertTitles (biblFull, unifiedRecord) {
+  _.set(biblFull, 'titleStmt.title', []);
+  const titles = biblFull.titleStmt.title;
+
+  if (_.get(unifiedRecord, 'title.en')) {
+    titles.push({ '@xml:lang': 'en', '#': unifiedRecord.title.en });
+  }
+
+  if (_.get(unifiedRecord, 'title.fr')) {
+    titles.push({ '@xml:lang': 'fr', '#': unifiedRecord.title.fr });
+  }
 }
 
 /**
