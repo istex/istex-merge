@@ -94,6 +94,13 @@ function insertAuthors (biblFull, unifiedRecord) {
       surname: author.surname,
     };
 
+    // idHal
+    if (author.idHal) {
+      if (!_.has(halAuthor, 'idno')) halAuthor.idno = [];
+
+      halAuthor.idno.push({ '@type': 'idHal', '#': author.idHal });
+    }
+
     biblFull.titleStmt.author.push(halAuthor);
   });
 
