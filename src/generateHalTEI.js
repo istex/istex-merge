@@ -118,12 +118,12 @@ function insertAuthors (biblFull, unifiedRecord) {
  */
 function insertIdentifiers (biblFull, unifiedRecord) {
   // Initialize the identifier containers
-  if (!_.has(biblFull, 'sourceDesc.biblStruct.idno')) {
-    _.set(biblFull, 'sourceDesc.biblStruct.idno', []);
-  }
-
   if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.idno')) {
     _.set(biblFull, 'sourceDesc.biblStruct.monogr.idno', []);
+  }
+
+  if (!_.has(biblFull, 'sourceDesc.biblStruct.idno')) {
+    _.set(biblFull, 'sourceDesc.biblStruct.idno', []);
   }
 
   // DOI
