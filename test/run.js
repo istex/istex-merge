@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 
 const { expect } = require('chai');
-const { create } = require('xmlbuilder2');
-const { select, generateHalTEI } = require('../index');
+const rewire = require('rewire');
+const { select } = require('../index');
 
 describe('index.js', () => {
   describe('#select()', () => {
@@ -84,38 +84,47 @@ describe('index.js', () => {
   });
 
   describe('#generateHalTEI()', () => {
+    const generateHalTEIModule = rewire('../src/generateHalTEI.js');
     const testData = require('./dataset/in/generateHalTEI');
-    let xmlDoc;
-    let biblFull;
-
-    before(() => {
-      const xmlContent = generateHalTEI(testData.correctRecord);
-      xmlDoc = create(xmlContent).end({ format: 'object' });
-      biblFull = xmlDoc.TEI.text.body.listBibl.biblFull;
-    });
+    const biblFull = {};
 
     it('Success: identifiers', () => {
+      const insertIdentifiers = generateHalTEIModule.__get__('insertIdentifiers');
+      insertIdentifiers(biblFull, testData.correctRecord);
+
       expect(biblFull.sourceDesc.biblStruct.idno).to.deep.include({ '@type': 'doi', '#': '10.1039/c8nr07898j' });
-      expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'issn', '#': '2040-3364' });
-      expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'eissn', '#': '2040-3372' });
+      expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'issn', '#': ['2040-3364'] });
+      expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'eissn', '#': ['2040-3372'] });
     });
 
     it('Success: abstract', () => {
+      const insertAbstract = generateHalTEIModule.__get__('insertAbstract');
+      insertAbstract(biblFull, testData.correctRecord);
+
       expect(biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
     });
 
     it('Success: language', () => {
-      expect(biblFull.profileDesc.langUsage.language['@ident']).to.be.equal('en');
-      expect(biblFull.profileDesc.langUsage.language['#']).to.be.equal('English');
+      const insertLanguage = generateHalTEIModule.__get__('insertLanguage');
+      insertLanguage(biblFull, testData.correctRecord);
+
+      expect(biblFull.profileDesc.langUsage.language[0]['@ident']).to.be.equal('en');
+      expect(biblFull.profileDesc.langUsage.language[0]['#']).to.be.equal('English');
     });
 
     it('Success: titles', () => {
-      expect(biblFull.titleStmt.title['@xml:lang']).to.be.equal('en');
-      expect(biblFull.titleStmt.title['#']).to.be.equal('Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.');
+      const insertTitles = generateHalTEIModule.__get__('insertTitles');
+      insertTitles(biblFull, testData.correctRecord);
+
+      expect(biblFull.titleStmt.title[0]['@xml:lang']).to.be.equal('en');
+      expect(biblFull.titleStmt.title[0]['#']).to.be.equal('Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.');
       expect(biblFull.sourceDesc.biblStruct.analytic.title).to.eql(biblFull.titleStmt.title);
     });
 
     it('Success: authors', () => {
+      const insertAuthors = generateHalTEIModule.__get__('insertAuthors');
+      insertAuthors(biblFull, testData.correctRecord);
+
       expect(biblFull.titleStmt.author.length).to.be.equal(7);
       expect(biblFull.titleStmt.author[0]['@role']).to.be.equal('aut');
       expect(biblFull.titleStmt.author[0].persName.forename['@type']).to.be.equal('first');
@@ -125,6 +134,9 @@ describe('index.js', () => {
     });
 
     it('Success: catalog data', () => {
+      const insertCatalogData = generateHalTEIModule.__get__('insertCatalogData');
+      insertCatalogData(biblFull, testData.correctRecord);
+
       expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'issue', '#': '3' });
       expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'pp', '#': '1273-1285' });
       expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'volume', '#': '11' });
@@ -136,8 +148,8 @@ describe('index.js', () => {
 
 /**
  * Runs tests for success cases.
- * @param {object} inputData The input data
- * @param {object} expectedResult The expect result
+ * @param {object} inputData The input data.
+ * @param {object} expectedResult The expect result.
  */
 function expectSuccess (inputData, expectedResult) {
   const result = select(inputData.docObjects, inputData.rules, inputData.isConditor);
@@ -148,8 +160,8 @@ function expectSuccess (inputData, expectedResult) {
 
 /**
  * Runs tests for error cases.
- * @param {object} inputData The input data
- * @param {string} expectedErrorMessage The expect error message
+ * @param {object} inputData The input data.
+ * @param {string} expectedErrorMessage The expect error message.
  */
 function expectError (inputData, expectedErrorMessage) {
   const result = select(inputData.docObjects, inputData.rules, inputData.isConditor);
