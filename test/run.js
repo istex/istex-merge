@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 
-const fs = require('fs-extra');
 const { expect } = require('chai');
 const { create } = require('xmlbuilder2');
 const { select, generateHalTEI } = require('../index');
@@ -90,14 +89,9 @@ describe('index.js', () => {
     let biblFull;
 
     before(() => {
-      const { record, path } = testData.correctRecord;
-
-      return generateHalTEI(record, path)
-        .then(() => fs.readFile(path, 'utf-8'))
-        .then(xmlContent => {
-          xmlDoc = create(xmlContent).end({ format: 'object' });
-          biblFull = xmlDoc.TEI.text.body.listBibl.biblFull;
-        });
+      const xmlContent = generateHalTEI(testData.correctRecord);
+      xmlDoc = create(xmlContent).end({ format: 'object' });
+      biblFull = xmlDoc.TEI.text.body.listBibl.biblFull;
     });
 
     it('Success: identifiers', () => {
