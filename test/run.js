@@ -87,9 +87,13 @@ describe('generateHalTEI.js', () => {
   const testData = require('./dataset/in/generateHalTEI');
   const biblFull = {};
 
+  function callPrivateFunction (name, ...args) {
+    const func = generateHalTEIModule.__get__(name);
+    func(...args);
+  }
+
   it('Success: identifiers', () => {
-    const insertIdentifiers = generateHalTEIModule.__get__('insertIdentifiers');
-    insertIdentifiers(biblFull, testData.correctRecord);
+    callPrivateFunction('insertIdentifiers', biblFull, testData.correctRecord);
 
     expect(biblFull.sourceDesc.biblStruct.idno).to.deep.include({ '@type': 'doi', '#': '10.1039/c8nr07898j' });
     expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'issn', '#': ['2040-3364'] });
@@ -97,23 +101,20 @@ describe('generateHalTEI.js', () => {
   });
 
   it('Success: abstract', () => {
-    const insertAbstract = generateHalTEIModule.__get__('insertAbstract');
-    insertAbstract(biblFull, testData.correctRecord);
+    callPrivateFunction('insertAbstract', biblFull, testData.correctRecord);
 
     expect(biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
   });
 
   it('Success: language', () => {
-    const insertLanguage = generateHalTEIModule.__get__('insertLanguage');
-    insertLanguage(biblFull, testData.correctRecord);
+    callPrivateFunction('insertLanguage', biblFull, testData.correctRecord);
 
     expect(biblFull.profileDesc.langUsage.language[0]['@ident']).to.be.equal('en');
     expect(biblFull.profileDesc.langUsage.language[0]['#']).to.be.equal('English');
   });
 
   it('Success: titles', () => {
-    const insertTitles = generateHalTEIModule.__get__('insertTitles');
-    insertTitles(biblFull, testData.correctRecord);
+    callPrivateFunction('insertTitles', biblFull, testData.correctRecord);
 
     expect(biblFull.titleStmt.title[0]['@xml:lang']).to.be.equal('en');
     expect(biblFull.titleStmt.title[0]['#']).to.be.equal('Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.');
@@ -121,8 +122,7 @@ describe('generateHalTEI.js', () => {
   });
 
   it('Success: authors', () => {
-    const insertAuthors = generateHalTEIModule.__get__('insertAuthors');
-    insertAuthors(biblFull, testData.correctRecord);
+    callPrivateFunction('insertAuthors', biblFull, testData.correctRecord);
 
     expect(biblFull.titleStmt.author.length).to.be.equal(7);
     expect(biblFull.titleStmt.author[0]['@role']).to.be.equal('aut');
@@ -133,8 +133,7 @@ describe('generateHalTEI.js', () => {
   });
 
   it('Success: catalog data', () => {
-    const insertCatalogData = generateHalTEIModule.__get__('insertCatalogData');
-    insertCatalogData(biblFull, testData.correctRecord);
+    callPrivateFunction('insertCatalogData', biblFull, testData.correctRecord);
 
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'issue', '#': '3' });
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'pp', '#': '1273-1285' });
