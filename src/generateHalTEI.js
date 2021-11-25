@@ -55,7 +55,9 @@ function generateHalTEI (unifiedRecord) {
  */
 function insertTitles (biblFull, unifiedRecord) {
   // Initialize the title container
-  _.set(biblFull, 'titleStmt.title', []);
+  if (!_.has(biblFull, 'titleStmt.title')) {
+    _.set(biblFull, 'titleStmt.title', []);
+  }
   if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.title')) {
     _.set(biblFull, 'sourceDesc.biblStruct.monogr.title', []);
   }
@@ -99,7 +101,10 @@ function insertTitles (biblFull, unifiedRecord) {
  */
 function insertAuthors (biblFull, unifiedRecord) {
   // Initialize the author container
-  _.set(biblFull, 'titleStmt.author', []);
+  if (!_.has(biblFull, 'titleStmt.author')) {
+    _.set(biblFull, 'titleStmt.author', []);
+  }
+
   const authors = unifiedRecord.authors;
 
   authors.forEach(author => {
@@ -170,7 +175,10 @@ function insertIdentifiers (biblFull, unifiedRecord) {
  * @param {object} unifiedRecord The unified record to get the language from.
  */
 function insertLanguage (biblFull, unifiedRecord) {
-  _.set(biblFull, 'profileDesc.langUsage.language', []);
+  // Initialize the language container
+  if (!_.has(biblFull, 'profileDesc.langUsage.language')) {
+    _.set(biblFull, 'profileDesc.langUsage.language', []);
+  }
 
   for (const languageName of unifiedRecord.language) {
     const currentLanguageNode = {};
@@ -203,7 +211,10 @@ function insertAbstract (biblFull, unifiedRecord) {
   else if (unifiedRecord.abstract.fr) language = 'fr';
 
   // Create the abstract node
-  _.set(biblFull, 'profileDesc.abstract', {});
+  if (!_.has(biblFull, 'profileDesc.abstract')) {
+    _.set(biblFull, 'profileDesc.abstract', {});
+  }
+
   const { abstract } = biblFull.profileDesc;
 
   // Set the language attribute
@@ -220,8 +231,13 @@ function insertAbstract (biblFull, unifiedRecord) {
  */
 function insertCatalogData (biblFull, unifiedRecord) {
   // Initialize the catalog data container
-  _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.biblScope', []);
-  _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.date', []);
+  if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.imprint.biblScope')) {
+    _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.biblScope', []);
+  }
+  if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.imprint.date')) {
+    _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.date', []);
+  }
+
   const biblScopes = biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope;
   const dates = biblFull.sourceDesc.biblStruct.monogr.imprint.date;
 
