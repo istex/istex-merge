@@ -119,6 +119,7 @@ describe('generateHalTEI.js', () => {
     expect(biblFull.titleStmt.title[0]['@xml:lang']).to.be.equal('en');
     expect(biblFull.titleStmt.title[0]['#']).to.be.equal('Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.');
     expect(biblFull.sourceDesc.biblStruct.analytic.title).to.eql(biblFull.titleStmt.title);
+    expect(biblFull.sourceDesc.biblStruct.monogr.title).to.deep.include({ '@level': 'j', '#': 'Nanoscale' });
   });
 
   it('Success: authors', () => {

@@ -56,7 +56,12 @@ function generateHalTEI (unifiedRecord) {
 function insertTitles (biblFull, unifiedRecord) {
   // Initialize the title container
   _.set(biblFull, 'titleStmt.title', []);
+  if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.title')) {
+    _.set(biblFull, 'sourceDesc.biblStruct.monogr.title', []);
+  }
+
   const titles = biblFull.titleStmt.title;
+  const monogrTitles = biblFull.sourceDesc.biblStruct.monogr.title;
 
   // English title
   if (_.get(unifiedRecord, 'title.en')) {
@@ -66,6 +71,21 @@ function insertTitles (biblFull, unifiedRecord) {
   // French title
   if (_.get(unifiedRecord, 'title.fr')) {
     titles.push({ '@xml:lang': 'fr', '#': unifiedRecord.title.fr });
+  }
+
+  // Journal title
+  if (_.get(unifiedRecord, 'title.journal')) {
+    monogrTitles.push({ '@level': 'j', '#': unifiedRecord.title.journal });
+  }
+
+  // Monography title
+  if (_.get(unifiedRecord, 'title.monography')) {
+    monogrTitles.push({ '@level': 'm', '#': unifiedRecord.title.monography });
+  }
+
+  // Meeting title
+  if (_.get(unifiedRecord, 'title.meeting')) {
+    monogrTitles.push({ '@level': 'm', '#': unifiedRecord.title.meeting });
   }
 
   // The title is repeated under <sourceDesc>
