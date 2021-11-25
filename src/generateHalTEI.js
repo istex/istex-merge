@@ -128,6 +128,11 @@ function insertIdentifiers (biblFull, unifiedRecord) {
     biblFull.sourceDesc.biblStruct.idno.push({ '@type': 'doi', '#': unifiedRecord.doi });
   }
 
+  // PMID
+  if (unifiedRecord.pmId) {
+    biblFull.sourceDesc.biblStruct.idno.push({ '@type': 'pubmed', '#': unifiedRecord.pmId });
+  }
+
   // ISSN
   if (!_.isEmpty(unifiedRecord.issn)) {
     biblFull.sourceDesc.biblStruct.monogr.idno.push({ '@type': 'issn', '#': unifiedRecord.issn });
