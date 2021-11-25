@@ -103,6 +103,7 @@ describe('generateHalTEI.js', () => {
   it('Success: abstract', () => {
     callPrivateFunction('insertAbstract', biblFull, testData.correctRecord);
 
+    expect(biblFull.profileDesc.abstract['@xml:lang']).to.be.equal('en');
     expect(biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
   });
 

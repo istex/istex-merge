@@ -215,13 +215,7 @@ function insertAbstract (biblFull, unifiedRecord) {
     _.set(biblFull, 'profileDesc.abstract', {});
   }
 
-  const { abstract } = biblFull.profileDesc;
-
-  // Set the language attribute
-  abstract['@xml:lang'] = language;
-
-  // Insert the abstract text
-  abstract.p = unifiedRecord.abstract[language];
+  biblFull.profileDesc.abstract = { '@xml:lang': language, p: unifiedRecord.abstract[language] };
 }
 
 /**
