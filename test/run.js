@@ -109,15 +109,13 @@ describe('generateHalTEI.js', () => {
   it('Success: language', () => {
     callPrivateFunction('insertLanguage', biblFull, testData.correctRecord);
 
-    expect(biblFull.profileDesc.langUsage.language[0]['@ident']).to.be.equal('en');
-    expect(biblFull.profileDesc.langUsage.language[0]['#']).to.be.equal('English');
+    expect(biblFull.profileDesc.langUsage.language).to.deep.include({ '@ident': 'en', '#': 'English' });
   });
 
   it('Success: titles', () => {
     callPrivateFunction('insertTitles', biblFull, testData.correctRecord);
 
-    expect(biblFull.titleStmt.title[0]['@xml:lang']).to.be.equal('en');
-    expect(biblFull.titleStmt.title[0]['#']).to.be.equal('Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.');
+    expect(biblFull.titleStmt.title).to.deep.include({ '@xml:lang': 'en', '#': 'Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.' });
     expect(biblFull.sourceDesc.biblStruct.analytic.title).to.eql(biblFull.titleStmt.title);
     expect(biblFull.sourceDesc.biblStruct.monogr.title).to.deep.include({ '@level': 'j', '#': 'Nanoscale' });
   });
@@ -126,10 +124,13 @@ describe('generateHalTEI.js', () => {
     callPrivateFunction('insertAuthors', biblFull, testData.correctRecord);
 
     expect(biblFull.titleStmt.author.length).to.be.equal(7);
-    expect(biblFull.titleStmt.author[0]['@role']).to.be.equal('aut');
-    expect(biblFull.titleStmt.author[0].persName.forename['@type']).to.be.equal('first');
-    expect(biblFull.titleStmt.author[0].persName.forename['#']).to.be.equal('Juliana');
-    expect(biblFull.titleStmt.author[0].persName.surname).to.be.equal('Fonseca');
+    expect(biblFull.titleStmt.author).to.deep.include({
+      '@role': 'aut',
+      persName: {
+        forename: { '@type': 'first', '#': 'Juliana' },
+        surname: 'Fonseca',
+      },
+    });
     expect(biblFull.sourceDesc.biblStruct.analytic.author).to.eql(biblFull.titleStmt.author);
   });
 
