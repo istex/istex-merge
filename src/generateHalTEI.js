@@ -55,12 +55,8 @@ function generateHalTEI (unifiedRecord) {
  */
 function insertTitles (biblFull, unifiedRecord) {
   // Initialize the title container
-  if (!_.has(biblFull, 'titleStmt.title')) {
-    _.set(biblFull, 'titleStmt.title', []);
-  }
-  if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.title')) {
-    _.set(biblFull, 'sourceDesc.biblStruct.monogr.title', []);
-  }
+  setIfNotExists(biblFull, 'titleStmt.title', []);
+  setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.title', []);
 
   const titles = biblFull.titleStmt.title;
   const monogrTitles = biblFull.sourceDesc.biblStruct.monogr.title;
@@ -101,9 +97,7 @@ function insertTitles (biblFull, unifiedRecord) {
  */
 function insertAuthors (biblFull, unifiedRecord) {
   // Initialize the author container
-  if (!_.has(biblFull, 'titleStmt.author')) {
-    _.set(biblFull, 'titleStmt.author', []);
-  }
+  setIfNotExists(biblFull, 'titleStmt.author', []);
 
   const authors = unifiedRecord.authors;
 
@@ -140,13 +134,8 @@ function insertAuthors (biblFull, unifiedRecord) {
  */
 function insertIdentifiers (biblFull, unifiedRecord) {
   // Initialize the identifier containers
-  if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.idno')) {
-    _.set(biblFull, 'sourceDesc.biblStruct.monogr.idno', []);
-  }
-
-  if (!_.has(biblFull, 'sourceDesc.biblStruct.idno')) {
-    _.set(biblFull, 'sourceDesc.biblStruct.idno', []);
-  }
+  setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.idno', []);
+  setIfNotExists(biblFull, 'sourceDesc.biblStruct.idno', []);
 
   // DOI
   if (unifiedRecord.doi) {
@@ -176,9 +165,7 @@ function insertIdentifiers (biblFull, unifiedRecord) {
  */
 function insertLanguage (biblFull, unifiedRecord) {
   // Initialize the language container
-  if (!_.has(biblFull, 'profileDesc.langUsage.language')) {
-    _.set(biblFull, 'profileDesc.langUsage.language', []);
-  }
+  setIfNotExists(biblFull, 'profileDesc.langUsage.language', []);
 
   for (const languageName of unifiedRecord.language) {
     const currentLanguageNode = {};
@@ -211,11 +198,7 @@ function insertAbstract (biblFull, unifiedRecord) {
   else if (unifiedRecord.abstract.fr) language = 'fr';
 
   // Create the abstract node
-  if (!_.has(biblFull, 'profileDesc.abstract')) {
-    _.set(biblFull, 'profileDesc.abstract', {});
-  }
-
-  biblFull.profileDesc.abstract = { '@xml:lang': language, p: unifiedRecord.abstract[language] };
+  setIfNotExists(biblFull, 'profileDesc.abstract', { '@xml:lang': language, p: unifiedRecord.abstract[language] });
 }
 
 /**
@@ -225,12 +208,8 @@ function insertAbstract (biblFull, unifiedRecord) {
  */
 function insertCatalogData (biblFull, unifiedRecord) {
   // Initialize the catalog data container
-  if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.imprint.biblScope')) {
-    _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.biblScope', []);
-  }
-  if (!_.has(biblFull, 'sourceDesc.biblStruct.monogr.imprint.date')) {
-    _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.date', []);
-  }
+  setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.imprint.biblScope', []);
+  setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.imprint.date', []);
 
   const biblScopes = biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope;
   const dates = biblFull.sourceDesc.biblStruct.monogr.imprint.date;
@@ -263,6 +242,18 @@ function insertCatalogData (biblFull, unifiedRecord) {
   // Publisher
   if (unifiedRecord.publisher) {
     _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.publisher', unifiedRecord.publisher);
+  }
+}
+
+/**
+ * Sets `value` at `path` in `object` only if `path` does not exist in `object`.
+ * @param {object} object The object to modify.
+ * @param {string} path The path of the property to set.
+ * @param {any} value The value to set.
+ */
+function setIfNotExists (object, path, value) {
+  if (!_.has(object, path)) {
+    _.set(object, path, value);
   }
 }
 
