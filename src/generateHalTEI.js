@@ -229,6 +229,11 @@ function insertCatalogData (biblFull, unifiedRecord) {
   if (unifiedRecord.electronicPublicationDate) {
     dates.push({ '@type': 'dateEpub', '#': unifiedRecord.electronicPublicationDate });
   }
+
+  // Publisher
+  if (unifiedRecord.publisher) {
+    _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.publisher', unifiedRecord.publisher);
+  }
 }
 
 module.exports = generateHalTEI;

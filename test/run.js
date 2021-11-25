@@ -140,6 +140,7 @@ describe('generateHalTEI.js', () => {
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'volume', '#': '11' });
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.date).to.deep.include({ '@type': 'datePub', '#': '2019-01-17' });
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.date).to.deep.include({ '@type': 'dateEpub', '#': '2019' });
+    expect(biblFull.sourceDesc.biblStruct.monogr.imprint.publisher).to.be.equal('My Publisher');
   });
 });
 
