@@ -45,6 +45,9 @@ function generateHalTEI (unifiedRecord) {
   // Catalog data
   insertCatalogData(biblFull, unifiedRecord);
 
+  // Meeting data
+  insertMeetingData(biblFull, unifiedRecord);
+
   return create(xmlDoc).end();
 }
 
@@ -71,19 +74,20 @@ function insertTitles (biblFull, unifiedRecord) {
     titles.push({ '@xml:lang': 'fr', '#': unifiedRecord.title.fr });
   }
 
-  // Journal title
-  if (_.get(unifiedRecord, 'title.journal')) {
-    monogrTitles.push({ '@level': 'j', '#': unifiedRecord.title.journal });
-  }
+  // Host title
+  if (_.get(unifiedRecord, 'host.title')) {
+    const genreLowerCase = unifiedRecord.genre.toLowerCase();
 
-  // Monography title
-  if (_.get(unifiedRecord, 'title.monography')) {
-    monogrTitles.push({ '@level': 'm', '#': unifiedRecord.title.monography });
+    let level; // Hal identifers for genres
+    if (genreLowerCase === 'article') level = 'j';
+    else if (genreLowerCase === 'ouvrage' || genreLowerCase === 'chapitre') level = 'm';
+
+    if (level) monogrTitles.push({ '@level': level, '#': unifiedRecord.host.title });
   }
 
   // Meeting title
-  if (_.get(unifiedRecord, 'title.meeting')) {
-    monogrTitles.push({ '@level': 'm', '#': unifiedRecord.title.meeting });
+  if (_.get(unifiedRecord, 'host.conference.name')) {
+    monogrTitles.push({ '@level': 'm', '#': unifiedRecord.host.conference.name });
   }
 
   // The title is repeated under <sourceDesc>
@@ -114,10 +118,12 @@ function insertAuthors (biblFull, unifiedRecord) {
     };
 
     // idRef
-    if (!_.isEmpty(author.idRef)) {
-      if (!_.has(halAuthor, 'idno')) halAuthor.idno = [];
+    if (!_.isEmpty(author.idRef) || !_.isEmpty(author.enrichments.idRef)) {
+      setIfNotExists(halAuthor, 'idno', []);
 
-      halAuthor.idno.push({ '@type': 'http://www.idref.fr/', '#': author.idRef[0] });
+      const idRef = _.get(author, 'idRef[0]') || _.get(author, 'enrichments.idRef[0]');
+
+      halAuthor.idno.push({ '@type': 'http://www.idref.fr/', '#': idRef });
     }
 
     biblFull.titleStmt.author.push(halAuthor);
@@ -148,13 +154,13 @@ function insertIdentifiers (biblFull, unifiedRecord) {
   }
 
   // ISSN
-  if (!_.isEmpty(unifiedRecord.issn)) {
-    biblFull.sourceDesc.biblStruct.monogr.idno.push({ '@type': 'issn', '#': unifiedRecord.issn });
+  if (_.get(unifiedRecord, 'host.issn')) {
+    biblFull.sourceDesc.biblStruct.monogr.idno.push({ '@type': 'issn', '#': unifiedRecord.host.issn });
   }
 
   // EISSN
-  if (!_.isEmpty(unifiedRecord.eissn)) {
-    biblFull.sourceDesc.biblStruct.monogr.idno.push({ '@type': 'eissn', '#': unifiedRecord.eissn });
+  if (_.get(unifiedRecord, 'host.eissn')) {
+    biblFull.sourceDesc.biblStruct.monogr.idno.push({ '@type': 'eissn', '#': unifiedRecord.host.eissn });
   }
 }
 
@@ -194,8 +200,8 @@ function insertLanguage (biblFull, unifiedRecord) {
  */
 function insertAbstract (biblFull, unifiedRecord) {
   let language;
-  if (unifiedRecord.abstract.en) language = 'en';
-  else if (unifiedRecord.abstract.fr) language = 'fr';
+  if (_.get(unifiedRecord, 'abstract.en')) language = 'en';
+  else if (_.get(unifiedRecord, 'abstract.fr')) language = 'fr';
 
   // Create the abstract node
   setIfNotExists(biblFull, 'profileDesc.abstract', { '@xml:lang': language, p: unifiedRecord.abstract[language] });
@@ -215,33 +221,65 @@ function insertCatalogData (biblFull, unifiedRecord) {
   const dates = biblFull.sourceDesc.biblStruct.monogr.imprint.date;
 
   // Issue
-  if (unifiedRecord.issue) {
-    biblScopes.push({ '@unit': 'issue', '#': unifiedRecord.issue });
+  if (_.get(unifiedRecord, 'host.issue')) {
+    biblScopes.push({ '@unit': 'issue', '#': unifiedRecord.host.issue });
   }
 
   // Page range
-  if (unifiedRecord.pageRange) {
-    biblScopes.push({ '@unit': 'pp', '#': unifiedRecord.pageRange });
+  if (_.get(unifiedRecord, 'host.pages[0].range')) {
+    biblScopes.push({ '@unit': 'pp', '#': unifiedRecord.host.pages[0].range });
   }
 
   // Volume
-  if (unifiedRecord.volume) {
-    biblScopes.push({ '@unit': 'volume', '#': unifiedRecord.volume });
+  if (_.get(unifiedRecord, 'host.volume')) {
+    biblScopes.push({ '@unit': 'volume', '#': unifiedRecord.host.volume });
   }
 
   // Publication date
-  if (unifiedRecord.publicationDate) {
-    dates.push({ '@type': 'datePub', '#': unifiedRecord.publicationDate });
+  if (_.get(unifiedRecord, 'host.publicationDate')) {
+    dates.push({ '@type': 'datePub', '#': unifiedRecord.host.publicationDate });
   }
 
   // Electronic publication date
-  if (unifiedRecord.electronicPublicationDate) {
-    dates.push({ '@type': 'dateEpub', '#': unifiedRecord.electronicPublicationDate });
+  if (_.get(unifiedRecord, 'host.electronicPublicationDate')) {
+    dates.push({ '@type': 'dateEpub', '#': unifiedRecord.host.electronicPublicationDate });
   }
 
   // Publisher
-  if (unifiedRecord.publisher) {
-    _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.publisher', unifiedRecord.publisher);
+  if (_.get(unifiedRecord, 'host.publisher')) {
+    _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.publisher', unifiedRecord.host.publisher);
+  }
+}
+
+/**
+ * Inserts the meeting data from `unifiedRecord` into `biblFull`.
+ * @param {object} biblFull The <biblFull> node to insert the meeting data in.
+ * @param {object} unifiedRecord The unified record to get the meeting data from.
+ */
+function insertMeetingData (biblFull, unifiedRecord) {
+  // Initialize the meeting data container
+  setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.meeting', {});
+
+  const { meeting } = biblFull.sourceDesc.biblStruct.monogr;
+
+  // Name
+  if (_.get(unifiedRecord, 'host.conference.name')) {
+    meeting.title = unifiedRecord.host.conference.name;
+  }
+
+  // Date (there is no end date in the Corhal data format)
+  if (_.get(unifiedRecord, 'host.conference.date')) {
+    meeting.date = { '@type': 'start', '#': unifiedRecord.host.conference.date };
+  }
+
+  // City
+  if (_.get(unifiedRecord, 'host.conference.place')) {
+    meeting.settlement = unifiedRecord.host.conference.place;
+  }
+
+  // Country
+  if (_.get(unifiedRecord, 'host.conference.country')) {
+    meeting.country = unifiedRecord.host.conference.country;
   }
 }
 

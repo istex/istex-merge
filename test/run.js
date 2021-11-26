@@ -96,8 +96,8 @@ describe('generateHalTEI.js', () => {
     callPrivateFunction('insertIdentifiers', biblFull, testData.correctRecord);
 
     expect(biblFull.sourceDesc.biblStruct.idno).to.deep.include({ '@type': 'doi', '#': '10.1039/c8nr07898j' });
-    expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'issn', '#': ['2040-3364'] });
-    expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'eissn', '#': ['2040-3372'] });
+    expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'issn', '#': '2040-3364' });
+    expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'eissn', '#': '2040-3372' });
   });
 
   it('Success: abstract', () => {
@@ -119,6 +119,7 @@ describe('generateHalTEI.js', () => {
     expect(biblFull.titleStmt.title).to.deep.include({ '@xml:lang': 'en', '#': 'Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.' });
     expect(biblFull.sourceDesc.biblStruct.analytic.title).to.eql(biblFull.titleStmt.title);
     expect(biblFull.sourceDesc.biblStruct.monogr.title).to.deep.include({ '@level': 'j', '#': 'Nanoscale' });
+    expect(biblFull.sourceDesc.biblStruct.monogr.title).to.deep.include({ '@level': 'm', '#': 'My Conference' });
   });
 
   it('Success: authors', () => {
@@ -144,6 +145,12 @@ describe('generateHalTEI.js', () => {
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.date).to.deep.include({ '@type': 'datePub', '#': '2019-01-17' });
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.date).to.deep.include({ '@type': 'dateEpub', '#': '2019' });
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.publisher).to.be.equal('My Publisher');
+  });
+
+  it('Success: meeting data', () => {
+    callPrivateFunction('insertMeetingData', biblFull, testData.correctRecord);
+
+    expect(biblFull.sourceDesc.biblStruct.monogr.meeting.title).to.equal('My Conference');
   });
 });
 
