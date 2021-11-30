@@ -20,7 +20,6 @@ const noDocObjects = {
       ],
     },
   },
-  isConditor: false,
 };
 
 const noDocObjectsWithSource = {
@@ -56,7 +55,6 @@ const noDocObjectsWithSource = {
       ],
     },
   },
-  isConditor: false,
 };
 
 const noDocObjectsWithKnownSource = {
@@ -93,7 +91,6 @@ const noDocObjectsWithKnownSource = {
       ],
     },
   },
-  isConditor: false,
 };
 
 const noPriorities = {
@@ -107,6 +104,9 @@ const noPriorities = {
       abstract: {
         fr: 'abstract.hal.fr',
         en: 'abstract.hal.en',
+      },
+      _business: {
+        hasFulltext: true,
       },
     },
     {
@@ -158,7 +158,6 @@ const noPriorities = {
       ],
     },
   },
-  isConditor: false,
 };
 
 const globalPriorities = {
@@ -172,6 +171,9 @@ const globalPriorities = {
       abstract: {
         fr: 'abstract.hal.fr',
         en: 'abstract.hal.en',
+      },
+      _business: {
+        hasFulltext: true,
       },
     },
     {
@@ -221,7 +223,6 @@ const globalPriorities = {
       'abstract.en': [],
     },
   },
-  isConditor: false,
 };
 
 const globalAndCustomPriorities = {
@@ -236,6 +237,9 @@ const globalAndCustomPriorities = {
         fr: 'abstract.hal.fr',
         en: 'abstract.hal.en',
       },
+      _business: {
+        hasFulltext: true,
+      },
     },
     {
       source: 'crossref',
@@ -291,7 +295,6 @@ const globalAndCustomPriorities = {
       ],
     },
   },
-  isConditor: false,
 };
 
 const globalAndCustomPrioritiesButNoData = {
@@ -303,6 +306,9 @@ const globalAndCustomPrioritiesButNoData = {
         fr: 'abstract.hal.fr',
         en: 'abstract.hal.en',
       },
+      _business: {
+        hasFulltext: true,
+      },
     },
     {
       source: 'crossref',
@@ -358,7 +364,6 @@ const globalAndCustomPrioritiesButNoData = {
       ],
     },
   },
-  isConditor: false,
 };
 
 const globalPrioritiesAndDeleteUnwantedData = {
@@ -402,7 +407,6 @@ const globalPrioritiesAndDeleteUnwantedData = {
       ],
     },
   },
-  isConditor: false,
 };
 
 const defaultPrioritiesAndHalWithoutFulltext = {
@@ -429,7 +433,6 @@ const defaultPrioritiesAndHalWithoutFulltext = {
       },
     },
   ],
-  isConditor: true,
 };
 
 const defaultPrioritiesAndHalWithFulltext = {
@@ -456,7 +459,6 @@ const defaultPrioritiesAndHalWithFulltext = {
       },
     },
   ],
-  isConditor: true,
 };
 
 const mergeDuplicates = {
@@ -497,7 +499,6 @@ const mergeDuplicates = {
       },
     },
   ],
-  isConditor: true,
 };
 
 const mergeDuplicatesWithOneEmptyDuplicate = {
@@ -544,7 +545,6 @@ const mergeDuplicatesWithOneEmptyDuplicate = {
       abstract: {},
     },
   ],
-  isConditor: true,
 };
 
 const mergeDuplicatesWithSameDuplicates = {
@@ -585,7 +585,6 @@ const mergeDuplicatesWithSameDuplicates = {
       },
     },
   ],
-  isConditor: true,
 };
 
 const mergeSourceUid = {
@@ -628,7 +627,6 @@ const mergeSourceUid = {
       },
     },
   ],
-  isConditor: true,
 };
 
 const mergeSourceUidButSameSourceUid = {
@@ -688,7 +686,6 @@ const mergeSourceUidButSameSourceUid = {
       },
     },
   ],
-  isConditor: true,
 };
 
 const mergeEnrichments = {
@@ -746,7 +743,6 @@ const mergeEnrichments = {
       },
     },
   ],
-  isConditor: true,
 };
 
 const mergeKeywords = {
@@ -782,7 +778,6 @@ const mergeKeywords = {
       },
     },
   ],
-  isConditor: true,
 };
 
 const mergeOrcId = {
@@ -828,7 +823,6 @@ const mergeOrcId = {
       ],
     },
   ],
-  isConditor: true,
 };
 
 module.exports = {

@@ -11,10 +11,9 @@ const conditorRules = {
  * Creates a unified record from records of various sources.
  * @param {[]} docObjects The array of `docObject`s.
  * @param {object} rules The object defining the rules.
- * @param {boolean} isConditor Tells whether we are in a Conditor environment.
  * @returns {object} An object with the result and potentially an error message.
  */
-function select (docObjects, rules = conditorRules.default, isConditor = true) {
+function select (docObjects, rules = conditorRules.default) {
   const sourceManager = new SourceManager();
   const sources = {};
   let properties;
@@ -32,7 +31,7 @@ function select (docObjects, rules = conditorRules.default, isConditor = true) {
 
   if (!sourceManager.hasSources()) return { err: true, msg: 'docObjects with source not found', res: result };
 
-  if (isConditor && sourceManager.hasSource('hal') && !sourceManager.getPropertyOf('hal', '_business.hasFulltext')) {
+  if (sourceManager.hasSource('hal') && !sourceManager.getPropertyOf('hal', '_business.hasFulltext')) {
     rules = conditorRules.noFulltext;
   }
 

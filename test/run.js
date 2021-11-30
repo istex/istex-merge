@@ -25,7 +25,7 @@ describe('select.js', () => {
     expectError(testData.noPriorities, 'priorities not found');
   });
 
-  it('Success: global priorities)', () => {
+  it('Success: global priorities', () => {
     expectSuccess(testData.globalPriorities, expected.globalPriorities);
   });
 
@@ -160,7 +160,7 @@ describe('generateHalTEI.js', () => {
  * @param {object} expectedResult The expect result.
  */
 function expectSuccess (inputData, expectedResult) {
-  const result = select(inputData.docObjects, inputData.rules, inputData.isConditor);
+  const result = select(inputData.docObjects, inputData.rules);
   expect(result.err).to.be.false;
   expect(result.msg).to.be.equal('success');
   expect(result.res).to.eql(expectedResult);
@@ -172,7 +172,7 @@ function expectSuccess (inputData, expectedResult) {
  * @param {string} expectedErrorMessage The expect error message.
  */
 function expectError (inputData, expectedErrorMessage) {
-  const result = select(inputData.docObjects, inputData.rules, inputData.isConditor);
+  const result = select(inputData.docObjects, inputData.rules);
   expect(result.err).to.be.true;
   expect(result.msg).to.be.equal(expectedErrorMessage);
   expect(result.res).to.be.undefined;
