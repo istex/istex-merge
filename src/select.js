@@ -19,9 +19,9 @@ function select (docObjects, rules = conditorRules.default) {
   let properties;
   let result;
 
-  if (!_.isObject(mapping)) return { err: true, msg: 'mapping not found', res: result };
+  if (!_.isObject(mapping)) throw new Error('Mapping not found');
 
-  if (!SourceManager.isNonEmptyArray(docObjects)) return { err: true, msg: 'docObjects not found', res: result };
+  if (!SourceManager.isNonEmptyArray(docObjects)) throw new Error('docObjects not found');
 
   for (const docObject of docObjects) {
     if (!_.isObject(docObject) || !docObject.source) continue;
@@ -29,14 +29,14 @@ function select (docObjects, rules = conditorRules.default) {
     sourceManager.addSource(docObject.source, docObject);
   }
 
-  if (!sourceManager.hasSources()) return { err: true, msg: 'docObjects with source not found', res: result };
+  if (!sourceManager.hasSources()) throw new Error('docObjects with source not found');
 
   if (sourceManager.hasSource('hal') && !sourceManager.getPropertyOf('hal', '_business.hasFulltext')) {
     rules = conditorRules.noFulltext;
   }
 
   if (!SourceManager.isNonEmptyArray(rules.priorities)) {
-    return { err: true, msg: 'priorities not found', res: result };
+    throw new Error('Priorities not found');
   }
 
   sourceManager.setPriorities(rules.priorities);
@@ -52,9 +52,9 @@ function select (docObjects, rules = conditorRules.default) {
     break;
   }
 
-  if (!result) return { err: true, msg: 'docObject corresponding to one of given sources not found', res: result };
+  if (!result) throw new Error('docObject corresponding to one of given sources not found');
 
-  if (!_.isObject(rules.keys)) return { err: true, msg: 'rules not found', res: result };
+  if (!_.isObject(rules.keys)) throw new Error('Rules not found');
 
   for (const key in rules.keys) {
     let currentRules = rules.priorities; // default value
@@ -77,7 +77,7 @@ function select (docObjects, rules = conditorRules.default) {
   properties.sources = properties.sources ? properties.sources : Object.keys(sources);
   result.origins = properties;
 
-  return { err: false, msg: 'success', res: result };
+  return result;
 }
 
 module.exports = select;

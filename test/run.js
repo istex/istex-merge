@@ -22,7 +22,7 @@ describe('select.js', () => {
   });
 
   it('Fail: no priorities were found', () => {
-    expectError(testData.noPriorities, 'priorities not found');
+    expectError(testData.noPriorities, 'Priorities not found');
   });
 
   it('Success: global priorities', () => {
@@ -161,9 +161,7 @@ describe('generateHalTEI.js', () => {
  */
 function expectSuccess (inputData, expectedResult) {
   const result = select(inputData.docObjects, inputData.rules);
-  expect(result.err).to.be.false;
-  expect(result.msg).to.be.equal('success');
-  expect(result.res).to.eql(expectedResult);
+  expect(result).to.eql(expectedResult);
 }
 
 /**
@@ -172,8 +170,5 @@ function expectSuccess (inputData, expectedResult) {
  * @param {string} expectedErrorMessage The expect error message.
  */
 function expectError (inputData, expectedErrorMessage) {
-  const result = select(inputData.docObjects, inputData.rules);
-  expect(result.err).to.be.true;
-  expect(result.msg).to.be.equal(expectedErrorMessage);
-  expect(result.res).to.be.undefined;
+  expect(() => select(inputData.docObjects, inputData.rules)).to.throw(expectedErrorMessage);
 }
