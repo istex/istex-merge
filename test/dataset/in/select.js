@@ -364,7 +364,6 @@ const globalAndCustomPrioritiesButNoData = {
 const globalPrioritiesAndDeleteUnwantedData = {
   docObjects: [
     {
-      idConditor: 'hal1',
       source: 'hal',
       authors: [],
       abstract: {
@@ -372,7 +371,6 @@ const globalPrioritiesAndDeleteUnwantedData = {
       },
     },
     {
-      idConditor: 'hal2',
       source: 'hal',
       authors: [
         'authors.hal.1',
@@ -410,16 +408,16 @@ const globalPrioritiesAndDeleteUnwantedData = {
 const defaultPrioritiesAndHalWithoutFulltext = {
   docObjects: [
     {
-      idConditor: 'hal',
       source: 'hal',
       authors: [],
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      hasFulltext: false,
+      _business: {
+        hasFulltext: false,
+      },
     },
     {
-      idConditor: 'crossref',
       source: 'crossref',
       authors: [
         'authors.crossref.1',
@@ -437,16 +435,16 @@ const defaultPrioritiesAndHalWithoutFulltext = {
 const defaultPrioritiesAndHalWithFulltext = {
   docObjects: [
     {
-      idConditor: 'hal',
       source: 'hal',
       authors: [],
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      hasFulltext: true,
+      _business: {
+        hasFulltext: true,
+      },
     },
     {
-      idConditor: 'crossref',
       source: 'crossref',
       authors: [
         'authors.crossref.1',
@@ -464,33 +462,35 @@ const defaultPrioritiesAndHalWithFulltext = {
 const mergeDuplicates = {
   docObjects: [
     {
-      idConditor: 'hal:hal1',
       source: 'hal',
       authors: [],
-      duplicates: [
-        {
-          idConditor: 'crossref:crossref1',
-          source: 'crossref',
-        },
-      ],
+      _business: {
+        hasFulltext: true,
+        duplicates: [
+          {
+            sourceUid: 'crossref:crossref1',
+            source: 'crossref',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      hasFulltext: true,
     },
     {
-      idConditor: 'crossref:crossref1',
       source: 'crossref',
       authors: [
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      duplicates: [
-        {
-          idConditor: 'hal:hal1',
-          source: 'hal',
-        },
-      ],
+      _business: {
+        duplicates: [
+          {
+            sourceUid: 'hal:hal1',
+            source: 'hal',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.crossref.fr',
         en: 'abstract.crossref.en',
@@ -503,40 +503,41 @@ const mergeDuplicates = {
 const mergeDuplicatesWithOneEmptyDuplicate = {
   docObjects: [
     {
-      idConditor: 'hal:hal1',
       source: 'hal',
       authors: [],
-      duplicates: [
-        {
-          idConditor: 'crossref:crossref1',
-          source: 'crossref',
-        },
-      ],
+      _business: {
+        hasFulltext: true,
+        duplicates: [
+          {
+            sourceUid: 'crossref:crossref1',
+            source: 'crossref',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      hasFulltext: true,
     },
     {
-      idConditor: 'crossref:crossref1',
       source: 'crossref',
       authors: [
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      duplicates: [
-        {
-          idConditor: 'hal:hal1',
-          source: 'hal',
-        },
-      ],
+      _business: {
+        duplicates: [
+          {
+            sourceUid: 'hal:hal1',
+            source: 'hal',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.crossref.fr',
         en: 'abstract.crossref.en',
       },
     },
     {
-      idConditor: 'sudoc:sudoc1',
       source: 'sudoc',
       authors: [],
       duplicates: [],
@@ -549,33 +550,35 @@ const mergeDuplicatesWithOneEmptyDuplicate = {
 const mergeDuplicatesWithSameDuplicates = {
   docObjects: [
     {
-      idConditor: 'hal:hal1',
       source: 'hal',
       authors: [],
-      duplicates: [
-        {
-          idConditor: 'sudoc:sudoc1',
-          source: 'sudoc',
-        },
-      ],
+      _business: {
+        hasFulltext: true,
+        duplicates: [
+          {
+            sourceUid: 'sudoc:sudoc1',
+            source: 'sudoc',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      hasFulltext: true,
     },
     {
-      idConditor: 'crossref:crossref1',
       source: 'crossref',
       authors: [
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      duplicates: [
-        {
-          idConditor: 'sudoc:sudoc1',
-          source: 'sudoc',
-        },
-      ],
+      _business: {
+        duplicates: [
+          {
+            sourceUid: 'sudoc:sudoc1',
+            source: 'sudoc',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.crossref.fr',
         en: 'abstract.crossref.en',
@@ -588,35 +591,37 @@ const mergeDuplicatesWithSameDuplicates = {
 const mergeSourceUid = {
   docObjects: [
     {
-      idConditor: 'hal:hal1',
       sourceUid: 'hal:hal1',
       source: 'hal',
       authors: [],
-      duplicates: [
-        {
-          idConditor: 'crossref:crossref1',
-          source: 'crossref',
-        },
-      ],
+      _business: {
+        hasFulltext: true,
+        duplicates: [
+          {
+            sourceUid: 'crossref:crossref1',
+            source: 'crossref',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      hasFulltext: true,
     },
     {
-      idConditor: 'crossref:crossref1',
       sourceUid: 'crossref:crossref1',
       source: 'crossref',
       authors: [
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      duplicates: [
-        {
-          idConditor: 'hal:hal1',
-          source: 'hal',
-        },
-      ],
+      _business: {
+        duplicates: [
+          {
+            sourceUid: 'hal:hal1',
+            source: 'hal',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.crossref.fr',
         en: 'abstract.crossref.en',
@@ -629,51 +634,54 @@ const mergeSourceUid = {
 const mergeSourceUidButSameSourceUid = {
   docObjects: [
     {
-      idConditor: 'hal:hal1',
       sourceUid: 'hal:hal1',
       source: 'hal',
       authors: [],
-      duplicates: [
-        {
-          idConditor: 'crossref:crossref1',
-          source: 'crossref',
-        },
-      ],
+      _business: {
+        hasFulltext: true,
+        duplicates: [
+          {
+            sourceUid: 'crossref:crossref1',
+            source: 'crossref',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      hasFulltext: true,
     },
     {
-      idConditor: 'hal:hal1',
       sourceUid: 'hal:hal1',
       source: 'hal',
       authors: [],
-      duplicates: [
-        {
-          idConditor: 'crossref:crossref1',
-          source: 'crossref',
-        },
-      ],
+      _business: {
+        hasFulltext: true,
+        duplicates: [
+          {
+            sourceUid: 'crossref:crossref1',
+            source: 'crossref',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      hasFulltext: true,
     },
     {
-      idConditor: 'crossref:crossref1',
       sourceUid: 'crossref:crossref1',
       source: 'crossref',
       authors: [
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      duplicates: [
-        {
-          idConditor: 'hal:hal1',
-          source: 'hal',
-        },
-      ],
+      _business: {
+        duplicates: [
+          {
+            sourceUid: 'hal:hal1',
+            source: 'hal',
+          },
+        ],
+      },
       abstract: {
         fr: 'abstract.crossref.fr',
         en: 'abstract.crossref.en',
@@ -686,7 +694,6 @@ const mergeSourceUidButSameSourceUid = {
 const mergeEnrichments = {
   docObjects: [
     {
-      idConditor: 'hal:hal1',
       sourceUid: 'hal:hal1',
       source: 'hal',
       enrichments: {
@@ -711,7 +718,6 @@ const mergeEnrichments = {
       },
     },
     {
-      idConditor: 'crossref:crossref1',
       sourceUid: 'crossref:crossref1',
       source: 'crossref',
       enrichments: {
@@ -746,7 +752,6 @@ const mergeEnrichments = {
 const mergeKeywords = {
   docObjects: [
     {
-      idConditor: 'hal:hal1',
       sourceUid: 'hal:hal1',
       source: 'hal',
       enrichments: {
@@ -762,7 +767,6 @@ const mergeKeywords = {
       },
     },
     {
-      idConditor: 'crossref:crossref1',
       sourceUid: 'crossref:crossref1',
       source: 'crossref',
       enrichments: {
@@ -784,7 +788,6 @@ const mergeKeywords = {
 const mergeOrcId = {
   docObjects: [
     {
-      idConditor: 'pubmed:pubmed1',
       sourceUid: 'pubmed:pubmed1',
       source: 'pubmed',
       authors: [
@@ -803,7 +806,6 @@ const mergeOrcId = {
       ],
     },
     {
-      idConditor: 'crossref:crossref1',
       sourceUid: 'crossref:crossref1',
       source: 'crossref',
       authors: [

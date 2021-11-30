@@ -15,10 +15,7 @@ const globalPriorities = {
 const globalAndCustomPriorities = {
   authors: ['authors.hal.1', 'authors.hal.2'],
   source: 'hal',
-  abstract: {
-    fr: 'abstract.crossref.fr',
-    en: 'abstract.pubmed.en',
-  },
+  abstract: { fr: 'abstract.crossref.fr', en: 'abstract.pubmed.en' },
   origins: {
     authors: 'hal',
     source: 'hal',
@@ -87,15 +84,17 @@ const defaultPrioritiesAndHalWithFulltext = {
 
 const mergeDuplicates = {
   source: 'hal',
-  duplicates: [
-    { idConditor: 'crossref:crossref1', source: 'crossref' },
-    { idConditor: 'hal:hal1', source: 'hal' },
-  ],
+  _business: {
+    duplicates: [
+      { source: 'crossref', sourceUid: 'crossref:crossref1' },
+      { source: 'hal', sourceUid: 'hal:hal1' },
+    ],
+  },
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
     source: 'hal',
-    duplicates: ['hal', 'crossref'],
+    '_business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
     'abstract.fr': 'hal',
     sources: ['hal', 'crossref'],
@@ -106,15 +105,17 @@ const mergeDuplicates = {
 
 const mergeDuplicatesWithOneEmptyDuplicate = {
   source: 'hal',
-  duplicates: [
-    { idConditor: 'crossref:crossref1', source: 'crossref' },
-    { idConditor: 'hal:hal1', source: 'hal' },
-  ],
+  _business: {
+    duplicates: [
+      { source: 'crossref', sourceUid: 'crossref:crossref1' },
+      { source: 'hal', sourceUid: 'hal:hal1' },
+    ],
+  },
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
     source: 'hal',
-    duplicates: ['hal', 'crossref', 'sudoc'],
+    '_business.duplicates': ['hal', 'crossref', 'sudoc'],
     abstract: 'hal',
     'abstract.fr': 'hal',
     sources: ['hal', 'crossref', 'sudoc'],
@@ -125,12 +126,16 @@ const mergeDuplicatesWithOneEmptyDuplicate = {
 
 const mergeDuplicatesWithSameDuplicates = {
   source: 'hal',
-  duplicates: [{ idConditor: 'sudoc:sudoc1', source: 'sudoc' }],
+  _business: {
+    duplicates: [
+      { source: 'sudoc', sourceUid: 'sudoc:sudoc1' },
+    ],
+  },
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
     source: 'hal',
-    duplicates: ['hal', 'crossref'],
+    '_business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
     'abstract.fr': 'hal',
     sources: ['hal', 'crossref'],
@@ -142,16 +147,18 @@ const mergeDuplicatesWithSameDuplicates = {
 const mergeSourceUid = {
   sourceUid: ['hal:hal1', 'crossref:crossref1'],
   source: 'hal',
-  duplicates: [
-    { idConditor: 'crossref:crossref1', source: 'crossref' },
-    { idConditor: 'hal:hal1', source: 'hal' },
-  ],
+  _business: {
+    duplicates: [
+      { source: 'crossref', sourceUid: 'crossref:crossref1' },
+      { source: 'hal', sourceUid: 'hal:hal1' },
+    ],
+  },
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
     sourceUid: ['hal', 'crossref'],
     source: 'hal',
-    duplicates: ['hal', 'crossref'],
+    '_business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
     'abstract.fr': 'hal',
     sources: ['hal', 'crossref'],
@@ -163,16 +170,18 @@ const mergeSourceUid = {
 const mergeSourceUidButSameSourceUid = {
   sourceUid: ['hal:hal1', 'crossref:crossref1'],
   source: 'hal',
-  duplicates: [
-    { idConditor: 'crossref:crossref1', source: 'crossref' },
-    { idConditor: 'hal:hal1', source: 'hal' },
-  ],
+  _business: {
+    duplicates: [
+      { source: 'crossref', sourceUid: 'crossref:crossref1' },
+      { source: 'hal', sourceUid: 'hal:hal1' },
+    ],
+  },
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
     sourceUid: ['hal', 'crossref'],
     source: 'hal',
-    duplicates: ['hal', 'crossref'],
+    '_business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
     'abstract.fr': 'hal',
     sources: ['hal', 'crossref'],

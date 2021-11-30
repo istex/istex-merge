@@ -1,112 +1,30 @@
 {
-  "fingerprint": false,
-  "idConditor": false,
-  "sourceId": false,
-  "sourceUid": {
-    "action": "merge"
-  },
-  "sessionName": false,
-  "path": false,
-  "teiBlob": false,
-  "first3AuthorNames": false,
-  "first3AuthorNamesWithInitials": false,
-  "authorNames": true,
-  "authors": true,
-  "defenseOrganisms": true,
-  "doi": true,
-  "pii": true,
-  "hasDoi": false,
-  "idHal": true,
-  "halId": true,
-  "idProdinra": true,
-  "halAuthorId": true,
-  "orcId": true,
-  "researcherId": true,
-  "viaf": true,
-  "arxiv": true,
-  "pmId": true,
-  "nnt": true,
-  "patentNumber": true,
-  "utKey": false,
-  "issn": true,
-  "eissn": true,
-  "xissn": false,
-  "isbn": true,
-  "isni": true,
-  "rnsr": true,
-  "ppn": true,
-  "articleNumber": true,
-  "bibCode": true,
-  "eisbn": true,
-  "ensam": true,
-  "ineris": true,
-  "inspire": true,
-  "ird": true,
-  "irstea": true,
-  "localRef": true,
-  "oatao": true,
-  "okina": true,
-  "otherNumber": true,
-  "pmc": true,
-  "sciencespo": true,
-  "reportNumber": true,
-  "cern": true,
-  "issue": true,
-  "specialIssue": true,
-  "meetingAbstractNumber": true,
-  "pageRange": true,
-  "source": true,
-  "title": true,
-  "title.default": true,
-  "title.fr": true,
-  "title.en": true,
-  "title.meeting": true,
-  "title.monography": true,
-  "title.journal": true,
-  "volume": true,
-  "part": true,
-  "supplement": true,
-  "documentType": true,
-  "typeConditor": true,
-  "isDuplicate": false,
-  "isDeduplicable": false,
-  "hasTransDuplicate": false,
-  "duplicates": {
-    "action": "merge",
-    "id": "idConditor"
-  },
-  "duplicateRules": true,
-  "idDuplicate": true,
-  "idChain": true,
   "abstract": true,
-  "abstract.fr": true,
   "abstract.en": true,
-  "publicationDate": true,
-  "electronicPublicationDate": true,
-  "xPublicationDate": false,
-  "nearDuplicates": {
-    "action": "merge",
-    "id": "idConditor"
-  },
-  "nearDuplicatesDetectedBySimilarity": {
-    "action": "merge",
-    "id": "idConditor"
-  },
-  "isNearDuplicate": false,
-  "creationDate": true,
-  "hasFulltext": false,
-  "fulltextPath": true,
-  "enrichments": true,
-  "classification.hal": {
+  "abstract.fr": true,
+  "abstract.default": true,
+  "arxiv": true,
+  "authors": true,
+  "bibCode": true,
+  "cern": true,
+  "classifications.dewey": {
     "action": "merge"
   },
-  "classification.tef": {
+  "classifications.hal": {
     "action": "merge"
   },
-  "classification.dewey": {
+  "classifications.tef": {
     "action": "merge"
   },
-  "classification.thesisDewey": {
+  "classifications.thesisDomain": {
+    "action": "merge"
+  },
+  "doi": true,
+  "host": true,
+  "keywords.en.author": {
+    "action": "merge"
+  },
+  "keywords.en.mesh": {
     "action": "merge"
   },
   "keywords.fr.author": {
@@ -118,19 +36,82 @@
   "keywords.fr.rameau": {
     "action": "merge"
   },
-  "keywords.en.author": {
+  "keywords.und.author": {
     "action": "merge"
   },
-  "keywords.en.mesh": {
+  "keywords.und.mesh": {
     "action": "merge"
   },
-  "keywords.undetermined": {
+  "keywords.other.author": {
     "action": "merge"
   },
-  "funders":true,
-  "thesisAdvisor":true,
-  "publisher":true,
-  "language":true,
-  "editor":true,
-  "publishingDirector":true
+  "keywords.other.mesh": {
+    "action": "merge"
+  },
+  "enrichmentTypes": true,
+  "enrichments": true,
+  "ensam": true,
+  "fulltextUrl": true,
+  "funders": true,
+  "halId": true,
+  "idProdinra": true,
+  "ineris": true,
+  "inspire": true,
+  "ird": true,
+  "irstea": true,
+  "language": true,
+  "localRef": true,
+  "nnt": true,
+  "oatao": true,
+  "okina": true,
+  "patentNumber": true,
+  "pii": true,
+  "pmId": true,
+  "pmcId": true,
+  "ppn": true,
+  "publicationDate": true,
+  "reportNumber": true,
+  "sciencespo": true,
+  "_technical": false,
+  "_business.name": false,
+  "_business.duplicateGenre": true,
+  "_business.sourceUidChain": false,
+  "_business.duplicates": {
+    "action": "merge",
+    "id": "sourceUid"
+  },
+  "_business.duplicateRules": true,
+  "_business.isDuplicate": false,
+  "_business.xPublicationDate": false,
+  "_business.xissn": false,
+  "_business.first3AuthorNames": false,
+  "_business.first3AuthorNamesWithInitials": false,
+  "_business.hasDoi": false,
+  "_business.hasFulltext": false,
+  "_business.isDeduplicable": false,
+  "_business.hasTransDuplicate": false,
+  "_mergedDocuments": false,
+  "title.default": true,
+  "title.en": true,
+  "title.fr": true,
+  "utKey": false,
+  "accessCondition": false,
+  "ark.istex": true,
+  "ark.publisher": true,
+  "copyrightDate": true,
+  "corpusName": true,
+  "source": true,
+  "sourceId": false,
+  "sourceUid": {
+    "action": "merge"
+  },
+  "files": true,
+  "idIstex": true,
+  "erratumOf": true,
+  "genre": true,
+  "originalGenre": true,
+  "qualityIndicators": true,
+  "refBibs": true,
+  "serie": true,
+  "sici": true
 }

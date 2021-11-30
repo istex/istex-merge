@@ -32,7 +32,7 @@ function select (docObjects, rules = conditorRules.default, isConditor = true) {
 
   if (!sourceManager.hasSources()) return { err: true, msg: 'docObjects with source not found', res: result };
 
-  if (isConditor && sourceManager.hasSource('hal') && !sourceManager.getPropertyOf('hal', 'hasFulltext')) {
+  if (isConditor && sourceManager.hasSource('hal') && !sourceManager.getPropertyOf('hal', '_business.hasFulltext')) {
     rules = conditorRules.noFulltext;
   }
 
