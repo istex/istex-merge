@@ -1,14 +1,30 @@
 # co-reference
-Library to build merged documents.
+Library to build merged documents and generate Hal TEIs from them.
+
+
+## Table of Contents
+- [Install](#install)
+- [generateMergedDocument](#generatemergeddocument)
+  - [Prerequisites](#prerequisites)
+    - [Mapping](#mapping)
+    - [Rules](#rules)
+  - [Usage](#usage)
+  - [Example](#example)
+- [generateHalTEI](#generatehaltei)
+  - [Prerequisites](#prerequisites)
+  - [Usage](#usage)
 
 ## Install
 ```
 npm install co-reference
 ```
 
-## Prerequisites
+## generateMergedDocument
+Function to create a merged document from multiple documents with a set of rules.
 
-### Mapping
+### Prerequisites
+
+#### Mapping
 Complete the [resources/mapping.json file](./resources/mapping.json).
 
 This JSON file's structure is as follows:
@@ -39,7 +55,7 @@ This file describes the fields that will be present in the generated merged docu
 
 **Note**: For fields with an array value (like `_business.duplicates`), `co-reference` can merge the data coming from all sources. A property (`sourceUid` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
 
-### Rules
+#### Rules
 Complete the JSON files describing the priority rules (example: [rules/default.json](./rules/default.json)).
 
 This JSON file's structure is as follows:
@@ -72,10 +88,9 @@ The priority mechanism:
 - `priorities` defines the default priority order. It is applied to every field without a specific priority order.
 - `keys.<field>` defines a specific priority order for `<field>`. Use an empty array (`[]`) to tell `co-reference` to use the default priority order.
 
-## Usage
-This library strictly builds the merged document. It must be integrated in an environment with direct access to the `docObject`s and the JSON file with the rules.
+### Usage
+This library must be integrated in an environment with direct access to the `docObject`s and the JSON file with the rules.
 
-Example:
 ```JS
 const { generateMergedDocument } = require('co-reference');
 const rules = require('./myCustomFile.json');
@@ -84,7 +99,7 @@ const docObjects = [{...}, {...}, {...}];
 const mergedDocument = generateMergedDocument(docObjects, rules);
 ```
 
-## Example
+### Example
 Considering the following list of documents:
 ```JSON
 [
@@ -195,3 +210,20 @@ Description:
 - `origins.<field>`: the source that was modified by `co-reference` for `<field>`
 - `origins.sources`: an array compiling all the sources used in the merged document
 - If the source on top of the priority list has no data for a field (in our example, the prioritized source (hal) has no `authors`), `co-reference` will go down the priority list until it finds a source with data for this field.
+
+## generateHalTEI
+Function to generate a Hal TEI from a merged document.
+
+### Prerequisites
+Generate a merged document using the [generateMergedDocument function](#generatemergeddocument)
+
+### Usage
+```JS
+const { generateMergedDocument, generateHalTEI } = require('co-reference');
+const rules = require('./myCustomFile.json');
+const docObjects = [{...}, {...}, {...}];
+
+const mergedDocument = generateMergedDocument(docObjects, rules);
+
+const halTEIAsString = generateHalTEI(mergedDocument);
+```
