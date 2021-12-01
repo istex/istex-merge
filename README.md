@@ -14,41 +14,30 @@ Complete the [resources/mapping.json file](./resources/mapping.json).
 This JSON file's structure is as follows:
 ```JSON
 {
-  "fingerprint": false,
-  "idConditor": false,
+  "corpusName": true,
+  "source": true,
   "sourceId": false,
   "sourceUid": {
     "action": "merge"
   },
   // ...
-  "title": true,
   "title.default": true,
-  "title.fr": true,
   "title.en": true,
-  "title.meeting": true,
-  "title.monography": true,
-  "title.journal": true,
+  "title.fr": true,
+  "utKey": false,
   // ...
-  "duplicates": {
+  "_business.duplicates": {
     "action": "merge",
-    "id": "idConditor"
-  },
-  "nearDuplicates": {
-    "action": "merge",
-    "id": "idConditor"
-  },
-  "nearDuplicatesDetectedBySimilarity": {
-    "action": "merge",
-    "id": "idConditor"
+    "id": "sourceUid"
   },
   // ...
-  "hasFulltext": false,
-  "fulltextPath": false
+  "_business.hasFulltext": false,
+  "fulltextUrl": true
 }
 ```
 This file describes the fields that will be present in the generated merged document.
 
-**Note**: For fields with an array value (`duplicates`, `nearDuplicates` or `nearDuplicatesDetectedBySimilarity`), `co-reference` can merge the data coming from all sources. A property (`idConditor` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
+**Note**: For fields with an array value (like `_business.duplicates`), `co-reference` can merge the data coming from all sources. A property (`sourceUid` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
 
 ### Rules
 Complete the JSON files describing the priority rules (example: [rules/default.json](./rules/default.json)).
@@ -63,21 +52,18 @@ This JSON file's structure is as follows:
     "sudoc"
   ],
   "keys": {
-    "fingerprint": [/*...*/],
-    "idConditor": [/*...*/],
+    "corpusName": [/*...*/],
+    "source": [/*...*/],
     "sourceId": [/*...*/],
     "sourceUid": [/*...*/],
     // ...
-    "title": [/*...*/],
     "title.default": [/*...*/],
     "title.fr": [/*...*/],
     "title.en": [/*...*/],
-    "title.meeting": [/*...*/],
-    "title.monography": [/*...*/],
-    "title.journal": [/*...*/],
+    "utKey": [/*...*/],
     // ...
-    "hasFulltext": [/*...*/],
-    "fulltextPath": [/*...*/]
+    "_business.hasFulltext": [/*...*/],
+    "fulltextUrl": [/*...*/]
   }
 }
 ```
