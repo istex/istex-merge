@@ -1,7 +1,7 @@
-const select = require('./src/select');
+const generateMergedDocument = require('./src/generateMergedDocument');
 const generateHalTEI = require('./src/generateHalTEI');
 
 module.exports = {
-  select,
+  generateMergedDocument,
   generateHalTEI,
 };

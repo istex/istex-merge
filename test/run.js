@@ -3,11 +3,11 @@
 
 const { expect } = require('chai');
 const rewire = require('rewire');
-const { select } = require('../index');
+const { generateMergedDocument } = require('../index');
 
-describe('select.js', () => {
-  const testData = require('./dataset/in/select');
-  const expected = require('./dataset/expected/select');
+describe('generateMergedDocument.js', () => {
+  const testData = require('./dataset/in/generateMergedDocument');
+  const expected = require('./dataset/expected/generateMergedDocument');
 
   it('Fail: no docObjects were found', () => {
     expectError(testData.noDocObjects, 'docObjects not found');
@@ -93,7 +93,7 @@ describe('generateHalTEI.js', () => {
   }
 
   it('Success: identifiers', () => {
-    callPrivateFunction('insertIdentifiers', biblFull, testData.correctRecord);
+    callPrivateFunction('insertIdentifiers', biblFull, testData.correctDocument);
 
     expect(biblFull.sourceDesc.biblStruct.idno).to.deep.include({ '@type': 'doi', '#': '10.1039/c8nr07898j' });
     expect(biblFull.sourceDesc.biblStruct.monogr.idno).to.deep.include({ '@type': 'issn', '#': '2040-3364' });
@@ -101,20 +101,20 @@ describe('generateHalTEI.js', () => {
   });
 
   it('Success: abstract', () => {
-    callPrivateFunction('insertAbstract', biblFull, testData.correctRecord);
+    callPrivateFunction('insertAbstract', biblFull, testData.correctDocument);
 
     expect(biblFull.profileDesc.abstract['@xml:lang']).to.be.equal('en');
     expect(biblFull.profileDesc.abstract.p.length).to.be.greaterThan(0);
   });
 
   it('Success: language', () => {
-    callPrivateFunction('insertLanguage', biblFull, testData.correctRecord);
+    callPrivateFunction('insertLanguage', biblFull, testData.correctDocument);
 
     expect(biblFull.profileDesc.langUsage.language).to.deep.include({ '@ident': 'en', '#': 'English' });
   });
 
   it('Success: titles', () => {
-    callPrivateFunction('insertTitles', biblFull, testData.correctRecord);
+    callPrivateFunction('insertTitles', biblFull, testData.correctDocument);
 
     expect(biblFull.titleStmt.title).to.deep.include({ '@xml:lang': 'en', '#': 'Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.' });
     expect(biblFull.sourceDesc.biblStruct.analytic.title).to.eql(biblFull.titleStmt.title);
@@ -123,7 +123,7 @@ describe('generateHalTEI.js', () => {
   });
 
   it('Success: authors', () => {
-    callPrivateFunction('insertAuthors', biblFull, testData.correctRecord);
+    callPrivateFunction('insertAuthors', biblFull, testData.correctDocument);
 
     expect(biblFull.titleStmt.author.length).to.be.equal(7);
     expect(biblFull.titleStmt.author).to.deep.include({
@@ -137,7 +137,7 @@ describe('generateHalTEI.js', () => {
   });
 
   it('Success: catalog data', () => {
-    callPrivateFunction('insertCatalogData', biblFull, testData.correctRecord);
+    callPrivateFunction('insertCatalogData', biblFull, testData.correctDocument);
 
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'issue', '#': '3' });
     expect(biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope).to.deep.include({ '@unit': 'pp', '#': '1273-1285' });
@@ -148,7 +148,7 @@ describe('generateHalTEI.js', () => {
   });
 
   it('Success: meeting data', () => {
-    callPrivateFunction('insertMeetingData', biblFull, testData.correctRecord);
+    callPrivateFunction('insertMeetingData', biblFull, testData.correctDocument);
 
     expect(biblFull.sourceDesc.biblStruct.monogr.meeting.title).to.equal('My Conference');
   });
@@ -160,7 +160,7 @@ describe('generateHalTEI.js', () => {
  * @param {object} expectedResult The expect result.
  */
 function expectSuccess (inputData, expectedResult) {
-  const result = select(inputData.docObjects, inputData.rules);
+  const result = generateMergedDocument(inputData.docObjects, inputData.rules);
   expect(result).to.eql(expectedResult);
 }
 
@@ -170,5 +170,5 @@ function expectSuccess (inputData, expectedResult) {
  * @param {string} expectedErrorMessage The expect error message.
  */
 function expectError (inputData, expectedErrorMessage) {
-  expect(() => select(inputData.docObjects, inputData.rules)).to.throw(expectedErrorMessage);
+  expect(() => generateMergedDocument(inputData.docObjects, inputData.rules)).to.throw(expectedErrorMessage);
 }

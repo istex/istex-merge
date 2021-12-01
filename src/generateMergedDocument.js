@@ -8,12 +8,12 @@ const conditorRules = {
 };
 
 /**
- * Creates a unified record from records of various sources.
+ * Creates a merged document from documents of various sources.
  * @param {[]} docObjects The array of `docObject`s.
  * @param {object} rules The object defining the rules.
  * @returns {object} An object with the result and potentially an error message.
  */
-function select (docObjects, rules = conditorRules.default) {
+function generateMergedDocument (docObjects, rules = conditorRules.default) {
   const sourceManager = new SourceManager();
   const sources = {};
   let properties;
@@ -80,4 +80,4 @@ function select (docObjects, rules = conditorRules.default) {
   return result;
 }
 
-module.exports = select;
+module.exports = generateMergedDocument;

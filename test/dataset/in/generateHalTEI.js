@@ -1,4 +1,4 @@
-const correctRecord = {
+const correctDocument = {
   abstract: {
     en: 'Cerium-containing oxide materials have several very interesting applications due to their capacity to store and release oxygen under oxidizing and reducing conditions respectively. In the case of pure ceria this property is highly size dependent inasmuch as the phenomenon is limited to the surface and subsurface oxygen atoms. As a consequence, the design of nanocrystals of ceria has been attracting much attention. In this paper, the evaporation-induced self-assembly method was used to prepare a series of mixed oxide materials composed of nanoclusters of ceria very well dispersed over large surface mesoporous alumina. We observed a total and reversible reduction of Ce4+ into Ce3+ at 400 °C for the materials with a Ce loading between 20 and 35 wt%. A combination of analyses including in situ X-ray diffraction, temperature-programmed reduction, oxygen storage capacity, isotopic exchange, 27-Al and 17-O solid state NMR, and X-ray absorption spectroscopy at the Ce L3-edge was employed to investigate this unexpected redox behavior. The results reveal that the strong structural disorder observed in both CeO2 and Al2O3 nanoclusters favors the formation of non-crystallized CeAlO3 pseudo phase at the interface between the two oxides.',
     fr: '',
@@ -550,5 +550,5 @@ const correctRecord = {
 };
 
 module.exports = {
-  correctRecord,
+  correctDocument,
 };
