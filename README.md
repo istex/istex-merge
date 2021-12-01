@@ -11,8 +11,8 @@ Library to build merged documents and generate Hal TEIs from them.
   - [Usage](#usage)
   - [Example](#example)
 - [generateHalTEI](#generatehaltei)
-  - [Prerequisites](#prerequisites)
-  - [Usage](#usage)
+  - [Prerequisites](#prerequisites-1)
+  - [Usage](#usage-1)
 
 ## Install
 ```
