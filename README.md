@@ -227,3 +227,9 @@ const mergedDocument = generateMergedDocument(docObjects, rules);
 
 const halTEIAsString = generateHalTEI(mergedDocument);
 ```
+
+You can also pass an `options` object to `generateHalTEI`. This object is passed as is to [xmlbuilder2](https://oozcitak.github.io/xmlbuilder2/) (the XML builder used by `co-reference`). You can find all the available options [here](https://oozcitak.github.io/xmlbuilder2/serialization.html#serialization-settings).
+For example, you can use this `options` object to pretty print the TEI like so:
+```JS
+const prettyPrintedTEI = generateHalTEI(mergedDocument, { prettyPrint: true });
+```
