@@ -8,6 +8,9 @@ const _ = require('lodash');
  * @returns {string} The XML string.
  */
 function generateHalTEI (mergedDocument, options) {
+  // Throw an error if mergedDocument is not an object
+  if (!_.isObject(mergedDocument)) throw new Error('mergedDocument needs to be an object');
+
   const xmlDoc = {};
   xmlDoc.TEI = {};
 
