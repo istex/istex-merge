@@ -1,6 +1,6 @@
 {
   "name": "@istex/istex-merge",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "description": "Library to build merged documents and generate Hal TEIs from them.",
   "main": "index.js",
   "scripts": {
