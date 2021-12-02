@@ -1,4 +1,4 @@
-# co-reference
+# istex-merge
 Library to build merged documents and generate Hal TEIs from them.
 
 
@@ -16,7 +16,7 @@ Library to build merged documents and generate Hal TEIs from them.
 
 ## Install
 ```
-npm install co-reference
+npm install istex-merge
 ```
 
 ## generateMergedDocument
@@ -55,7 +55,7 @@ This JSON file's structure is as follows:
 This file describes the fields that will be present in the generated merged document.
 
 **Note**:
-`co-reference` can merge the data coming from all sources. The two possible scenarios are:
+`istex-merge` can merge the data coming from all sources. The two possible scenarios are:
 - Fields with a simple value (like a string): you can specify a path to where the merged data will be in the final object. In the example above, the `sourceUid` field is merged and placed into `sourceUids` (we make it plurial because the value becomes an array).
 - Fields with an array value (like `_business.duplicates`): a property (`sourceUid` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
 
@@ -91,13 +91,13 @@ This JSON file's structure is as follows:
 
 The priority mechanism:
 - `priorities` defines the default priority order. It is applied to every field without a specific priority order.
-- `keys.<field>` defines a specific priority order for `<field>`. Use an empty array (`[]`) to tell `co-reference` to use the default priority order.
+- `keys.<field>` defines a specific priority order for `<field>`. Use an empty array (`[]`) to tell `istex-merge` to use the default priority order.
 
 ### Usage
 This library must be integrated in an environment with direct access to the `docObject`s and the JSON file with the rules.
 
 ```JS
-const { generateMergedDocument } = require('co-reference');
+const { generateMergedDocument } = require('istex-merge');
 const rules = require('./myCustomFile.json');
 const docObjects = [{...}, {...}, {...}];
 
@@ -212,9 +212,9 @@ Which will give me the following result:
 
 Description:
 - `source`: the base source
-- `origins.<field>`: the source that was modified by `co-reference` for `<field>`
+- `origins.<field>`: the source that was modified by `istex-merge` for `<field>`
 - `origins.sources`: an array compiling all the sources used in the merged document
-- If the source on top of the priority list has no data for a field (in our example, the prioritized source (hal) has no `authors`), `co-reference` will go down the priority list until it finds a source with data for this field.
+- If the source on top of the priority list has no data for a field (in our example, the prioritized source (hal) has no `authors`), `istex-merge` will go down the priority list until it finds a source with data for this field.
 
 ## generateHalTEI
 Function to generate a Hal TEI from a merged document.
@@ -224,7 +224,7 @@ Generate a merged document using the [generateMergedDocument function](#generate
 
 ### Usage
 ```JS
-const { generateMergedDocument, generateHalTEI } = require('co-reference');
+const { generateMergedDocument, generateHalTEI } = require('istex-merge');
 const rules = require('./myCustomFile.json');
 const docObjects = [{...}, {...}, {...}];
 
@@ -233,7 +233,7 @@ const mergedDocument = generateMergedDocument(docObjects, rules);
 const halTEIAsString = generateHalTEI(mergedDocument);
 ```
 
-You can also pass an `options` object to `generateHalTEI`. This object is passed as is to [xmlbuilder2](https://oozcitak.github.io/xmlbuilder2/) (the XML builder used by `co-reference`). You can find all the available options [here](https://oozcitak.github.io/xmlbuilder2/serialization.html#serialization-settings).
+You can also pass an `options` object to `generateHalTEI`. This object is passed as is to [xmlbuilder2](https://oozcitak.github.io/xmlbuilder2/) (the XML builder used by `istex-merge`). You can find all the available options [here](https://oozcitak.github.io/xmlbuilder2/serialization.html#serialization-settings).
 For example, you can use this `options` object to pretty print the TEI like so:
 ```JS
 const prettyPrintedTEI = generateHalTEI(mergedDocument, { prettyPrint: true });
