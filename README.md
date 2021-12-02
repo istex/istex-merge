@@ -16,7 +16,7 @@ Library to build merged documents and generate Hal TEIs from them.
 
 ## Install
 ```
-npm install istex-merge
+npm install @istex/istex-merge
 ```
 
 ## generateMergedDocument
