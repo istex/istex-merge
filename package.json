@@ -1,17 +1,24 @@
 {
-  "name": "co-reference",
+  "name": "@istex/istex-merge",
   "version": "1.6.0",
-  "description": "",
+  "description": "Library to build merged documents and generate Hal TEIs from them.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
+  "keywords": [
+    "ISTEX"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/conditor-project/co-reference.git"
+    "url": "git+https://github.com/istex/istex-merge.git"
   },
   "author": "INIST",
   "license": "CECILL-2.1",
+  "bugs": {
+    "url": "https://github.com/istex/istex-merge/issues"
+  },
+  "homepage": "https://github.com/istex/istex-merge#readme",
   "dependencies": {
     "lodash": "^4.17.21",
     "xmlbuilder2": "^3.0.2"
