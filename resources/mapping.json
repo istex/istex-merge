@@ -103,7 +103,8 @@
   "source": true,
   "sourceId": false,
   "sourceUid": {
-    "action": "merge"
+    "action": "merge",
+    "path": "sourceUids"
   },
   "files": true,
   "idIstex": true,

@@ -34,7 +34,8 @@ This JSON file's structure is as follows:
   "source": true,
   "sourceId": false,
   "sourceUid": {
-    "action": "merge"
+    "action": "merge",
+    "path": "sourceUids"
   },
   // ...
   "title.default": true,
@@ -53,7 +54,11 @@ This JSON file's structure is as follows:
 ```
 This file describes the fields that will be present in the generated merged document.
 
-**Note**: For fields with an array value (like `_business.duplicates`), `co-reference` can merge the data coming from all sources. A property (`sourceUid` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
+**Note**:
+`co-reference` can merge the data coming from all sources. The two possible scenarios are:
+- Fields with a simple value (like a string): you can specify a path to where the merged data will be in the final object. In the example above, the `sourceUid` field is merged and placed into `sourceUids` (we make it plurial because the value becomes an array).
+- Fields with an array value (like `_business.duplicates`): a property (`sourceUid` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
+
 
 #### Rules
 Complete the JSON files describing the priority rules (example: [rules/default.json](./rules/default.json)).

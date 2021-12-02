@@ -145,7 +145,7 @@ const mergeDuplicatesWithSameDuplicates = {
 };
 
 const mergeSourceUid = {
-  sourceUid: ['hal:hal1', 'crossref:crossref1'],
+  sourceUids: ['hal:hal1', 'crossref:crossref1'],
   source: 'hal',
   _business: {
     duplicates: [
@@ -168,7 +168,7 @@ const mergeSourceUid = {
 };
 
 const mergeSourceUidButSameSourceUid = {
-  sourceUid: ['hal:hal1', 'crossref:crossref1'],
+  sourceUids: ['hal:hal1', 'crossref:crossref1'],
   source: 'hal',
   _business: {
     duplicates: [
@@ -191,7 +191,7 @@ const mergeSourceUidButSameSourceUid = {
 };
 
 const mergeEnrichments = {
-  sourceUid: ['hal:hal1', 'crossref:crossref1'],
+  sourceUids: ['hal:hal1', 'crossref:crossref1'],
   source: 'crossref',
   enrichments: {
     oa: {
@@ -222,7 +222,7 @@ const mergeEnrichments = {
 };
 
 const mergeKeywords = {
-  sourceUid: ['hal:hal1', 'crossref:crossref1'],
+  sourceUids: ['hal:hal1', 'crossref:crossref1'],
   source: 'crossref',
   enrichments: {
     oa: {
@@ -245,7 +245,7 @@ const mergeKeywords = {
 };
 
 const mergeOrcId = {
-  sourceUid: ['pubmed:pubmed1', 'crossref:crossref1'],
+  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
   authors: [
     {
       forename: 'Gérard ',
