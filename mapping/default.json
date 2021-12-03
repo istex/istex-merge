@@ -100,7 +100,7 @@
   "ark.publisher": true,
   "copyrightDate": true,
   "corpusName": true,
-  "source": true,
+  "source": false,
   "sourceId": false,
   "sourceUid": {
     "action": "merge",
