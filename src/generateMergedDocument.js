@@ -4,7 +4,7 @@ const SourceManager = require('../lib/SourcesManager.js');
 
 const conditorRules = {
   default: require('../rules/default.json'),
-  noFulltext: require('../rules/hal.hasNotFulltext.json'),
+  noFulltext: require('../rules/halWithoutFulltext.json'),
 };
 
 /**
