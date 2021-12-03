@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const mapping = require('../resources/mapping.json');
+const mapping = require('../mapping/default.json');
 const SourceManager = require('../lib/SourcesManager.js');
 
 const conditorRules = {
