@@ -1,19 +1,18 @@
 const _ = require('lodash');
-const mapping = require('../resources/mapping.json');
 const SourceManager = require('../lib/SourcesManager.js');
 
-const conditorRules = {
-  default: require('../rules/default.json'),
-  noFulltext: require('../rules/hal.hasNotFulltext.json'),
-};
+const defaultMapping = require('../mapping/default.json');
+const defaultRules = require('../rules/default.json');
+const halWithoutFulltextRules = require('../rules/halWithoutFulltext.json');
 
 /**
  * Creates a merged document from documents of various sources.
  * @param {[]} docObjects The array of `docObject`s.
  * @param {object} rules The object defining the rules.
+ * @param  {object} mappping The object defining the mapping.
  * @returns {object} An object with the result and potentially an error message.
  */
-function generateMergedDocument (docObjects, rules = conditorRules.default) {
+function generateMergedDocument (docObjects, rules = defaultRules, mapping = defaultMapping) {
   const sourceManager = new SourceManager();
   const sources = {};
   let properties;
@@ -32,7 +31,7 @@ function generateMergedDocument (docObjects, rules = conditorRules.default) {
   if (!sourceManager.hasSources()) throw new Error('docObjects with source not found');
 
   if (sourceManager.hasSource('hal') && !sourceManager.getPropertyOf('hal', '_business.hasFulltext')) {
-    rules = conditorRules.noFulltext;
+    rules = halWithoutFulltextRules;
   }
 
   if (!SourceManager.isNonEmptyArray(rules.priorities)) {

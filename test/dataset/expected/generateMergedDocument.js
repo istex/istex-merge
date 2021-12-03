@@ -1,10 +1,8 @@
 const globalPriorities = {
   authors: ['authors.hal.1', 'authors.hal.2'],
-  source: 'hal',
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.hal.en' },
   origins: {
     authors: 'hal',
-    source: 'hal',
     abstract: 'hal',
     'abstract.fr': 'hal',
     'abstract.en': 'hal',
@@ -14,11 +12,9 @@ const globalPriorities = {
 
 const globalAndCustomPriorities = {
   authors: ['authors.hal.1', 'authors.hal.2'],
-  source: 'hal',
   abstract: { fr: 'abstract.crossref.fr', en: 'abstract.pubmed.en' },
   origins: {
     authors: 'hal',
-    source: 'hal',
     abstract: 'hal',
     'abstract.fr': 'crossref',
     'abstract.en': 'pubmed',
@@ -27,11 +23,9 @@ const globalAndCustomPriorities = {
 };
 
 const globalAndCustomPrioritiesButNoData = {
-  source: 'hal',
   abstract: { fr: 'abstract.crossref.fr', en: 'abstract.pubmed.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
-    source: 'hal',
     abstract: 'hal',
     'abstract.fr': 'crossref',
     'abstract.en': 'pubmed',
@@ -42,11 +36,9 @@ const globalAndCustomPrioritiesButNoData = {
 
 const globalPrioritiesAndDeleteUnwantedData = {
   authors: ['authors.hal.1', 'authors.hal.2'],
-  source: 'hal',
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.hal.en' },
   origins: {
     authors: 'hal',
-    source: 'hal',
     abstract: 'hal',
     'abstract.fr': 'hal',
     'abstract.en': 'hal',
@@ -56,11 +48,9 @@ const globalPrioritiesAndDeleteUnwantedData = {
 
 const defaultPrioritiesAndHalWithoutFulltext = {
   authors: ['authors.crossref.1', 'authors.crossref.2'],
-  source: 'crossref',
   abstract: { fr: 'abstract.crossref.fr', en: 'abstract.crossref.en' },
   origins: {
     authors: 'crossref',
-    source: 'crossref',
     abstract: 'crossref',
     'abstract.fr': 'crossref',
     'abstract.en': 'crossref',
@@ -69,11 +59,9 @@ const defaultPrioritiesAndHalWithoutFulltext = {
 };
 
 const defaultPrioritiesAndHalWithFulltext = {
-  source: 'hal',
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
-    source: 'hal',
     abstract: 'hal',
     'abstract.fr': 'hal',
     authors: 'crossref',
@@ -83,7 +71,6 @@ const defaultPrioritiesAndHalWithFulltext = {
 };
 
 const mergeDuplicates = {
-  source: 'hal',
   _business: {
     duplicates: [
       { source: 'crossref', sourceUid: 'crossref:crossref1' },
@@ -93,7 +80,6 @@ const mergeDuplicates = {
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
-    source: 'hal',
     '_business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
     'abstract.fr': 'hal',
@@ -104,7 +90,6 @@ const mergeDuplicates = {
 };
 
 const mergeDuplicatesWithOneEmptyDuplicate = {
-  source: 'hal',
   _business: {
     duplicates: [
       { source: 'crossref', sourceUid: 'crossref:crossref1' },
@@ -114,7 +99,6 @@ const mergeDuplicatesWithOneEmptyDuplicate = {
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
-    source: 'hal',
     '_business.duplicates': ['hal', 'crossref', 'sudoc'],
     abstract: 'hal',
     'abstract.fr': 'hal',
@@ -125,7 +109,6 @@ const mergeDuplicatesWithOneEmptyDuplicate = {
 };
 
 const mergeDuplicatesWithSameDuplicates = {
-  source: 'hal',
   _business: {
     duplicates: [
       { source: 'sudoc', sourceUid: 'sudoc:sudoc1' },
@@ -134,7 +117,6 @@ const mergeDuplicatesWithSameDuplicates = {
   abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
-    source: 'hal',
     '_business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
     'abstract.fr': 'hal',
@@ -146,7 +128,6 @@ const mergeDuplicatesWithSameDuplicates = {
 
 const mergeSourceUid = {
   sourceUids: ['hal:hal1', 'crossref:crossref1'],
-  source: 'hal',
   _business: {
     duplicates: [
       { source: 'crossref', sourceUid: 'crossref:crossref1' },
@@ -157,7 +138,6 @@ const mergeSourceUid = {
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
     sourceUid: ['hal', 'crossref'],
-    source: 'hal',
     '_business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
     'abstract.fr': 'hal',
@@ -169,7 +149,6 @@ const mergeSourceUid = {
 
 const mergeSourceUidButSameSourceUid = {
   sourceUids: ['hal:hal1', 'crossref:crossref1'],
-  source: 'hal',
   _business: {
     duplicates: [
       { source: 'crossref', sourceUid: 'crossref:crossref1' },
@@ -180,7 +159,6 @@ const mergeSourceUidButSameSourceUid = {
   authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
     sourceUid: ['hal', 'crossref'],
-    source: 'hal',
     '_business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
     'abstract.fr': 'hal',
@@ -192,7 +170,6 @@ const mergeSourceUidButSameSourceUid = {
 
 const mergeEnrichments = {
   sourceUids: ['hal:hal1', 'crossref:crossref1'],
-  source: 'crossref',
   enrichments: {
     oa: {
       unpaywall: ['crossref'],
@@ -215,7 +192,6 @@ const mergeEnrichments = {
   },
   origins: {
     sourceUid: ['hal', 'crossref'],
-    source: 'crossref',
     enrichments: 'crossref',
     sources: ['hal', 'crossref'],
   },
@@ -223,7 +199,6 @@ const mergeEnrichments = {
 
 const mergeKeywords = {
   sourceUids: ['hal:hal1', 'crossref:crossref1'],
-  source: 'crossref',
   enrichments: {
     oa: {
       unpaywall: ['crossref'],
@@ -237,7 +212,6 @@ const mergeKeywords = {
   },
   origins: {
     sourceUid: ['hal', 'crossref'],
-    source: 'crossref',
     enrichments: 'crossref',
     'keywords.fr.author': ['hal', 'crossref'],
     sources: ['hal', 'crossref'],
@@ -259,11 +233,9 @@ const mergeOrcId = {
     },
     { forename: 'Charles' },
   ],
-  source: 'pubmed',
   origins: {
     sourceUid: ['pubmed', 'crossref'],
     authors: 'pubmed',
-    source: 'pubmed',
     sources: ['pubmed', 'crossref'],
   },
 };
