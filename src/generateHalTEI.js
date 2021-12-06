@@ -79,13 +79,17 @@ function insertTitles (biblFull, mergedDocument) {
 
   // Host title
   if (_.get(mergedDocument, 'host.title')) {
-    const genreLowerCase = mergedDocument.genre.toLowerCase();
+    const genre = mergedDocument.genre || _.get(mergedDocument, '_business.duplicateGenre');
 
-    let level; // Hal identifers for genres
-    if (genreLowerCase === 'article') level = 'j';
-    else if (genreLowerCase === 'ouvrage' || genreLowerCase === 'chapitre') level = 'm';
+    if (genre) {
+      const genreLowerCase = genre.toLowerCase();
 
-    if (level) monogrTitles.push({ '@level': level, '#': mergedDocument.host.title });
+      let level; // Hal identifers for genres
+      if (genreLowerCase === 'article') level = 'j';
+      else if (genreLowerCase === 'ouvrage' || genreLowerCase === 'chapitre') level = 'm';
+
+      if (level) monogrTitles.push({ '@level': level, '#': mergedDocument.host.title });
+    }
   }
 
   // Meeting title
@@ -121,7 +125,7 @@ function insertAuthors (biblFull, mergedDocument) {
     };
 
     // idRef
-    if (!_.isEmpty(author.idRef) || !_.isEmpty(author.enrichments.idRef)) {
+    if (!_.isEmpty(author.idRef) || !_.isEmpty(_.get(author, 'enrichments.idRef'))) {
       setIfNotExists(halAuthor, 'idno', []);
 
       const idRef = _.get(author, 'idRef[0]') || _.get(author, 'enrichments.idRef[0]');
