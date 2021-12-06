@@ -25,7 +25,7 @@ Function to create a merged document from multiple documents with a set of rules
 ### Prerequisites
 
 #### Mapping
-Complete the [resources/mapping.json file](./resources/mapping.json).
+A mapping example can be found [here](./mapping/default.json).
 
 This JSON file's structure is as follows:
 ```JSON
@@ -54,14 +54,22 @@ This JSON file's structure is as follows:
 ```
 This file describes the fields that will be present in the generated merged document.
 
+The default mapping is exported, which means you can build your own mapping from it without having to recreate everything. This can be done like so:
+```JS
+const { defaultMapping } = require('@istex/istex-merge');
+
+// default: true
+defaultMapping.authors = false;
+```
+
 **Note**:
-`istex-merge` can merge the data coming from all sources. The two possible scenarios are:
+`istex-merge` can merge data coming from all sources. The two possible scenarios are:
 - Fields with a simple value (like a string): you can specify a path to where the merged data will be in the final object. In the example above, the `sourceUid` field is merged and placed into `sourceUids` (we make it plurial because the value becomes an array).
 - Fields with an array value (like `_business.duplicates`): a property (`sourceUid` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
 
 
 #### Rules
-Complete the JSON files describing the priority rules (example: [rules/default.json](./rules/default.json)).
+An example file describing the priority rules can be found [here](./rules/default.json).
 
 This JSON file's structure is as follows:
 ```JSON
@@ -93,15 +101,46 @@ The priority mechanism:
 - `priorities` defines the default priority order. It is applied to every field without a specific priority order.
 - `keys.<field>` defines a specific priority order for `<field>`. Use an empty array (`[]`) to tell `istex-merge` to use the default priority order.
 
-### Usage
-This library must be integrated in an environment with direct access to the `docObject`s and the JSON file with the rules.
-
+The default rules are exported, which means you can build your own rules from them without having to recreate everything. This can be done like so:
 ```JS
-const { generateMergedDocument } = require('istex-merge');
-const rules = require('./myCustomFile.json');
+const { defaultRules } = require('@istex/istex-merge');
+
+// default: ['sudoc-theses', 'sudoc-ouvrages', 'hal', 'pubmed', 'crossref']
+defaultRules.keys.abstract = ['pubmed', 'crossref', 'hal'];
+```
+
+### Usage
+This library must be integrated in an environment with direct access to the `docObject`s.
+```JS
+const { generateMergedDocument, defaultRules, defaultMapping } = require('@istex/istex-merge');
 const docObjects = [{...}, {...}, {...}];
 
-const mergedDocument = generateMergedDocument(docObjects, rules);
+defaultRules.keys.abstract = ['pubmed', 'crossref', 'hal'];
+
+defaultMapping.authors = false;
+
+const mergedDocument = generateMergedDocument(docObjects, defaultRules, defaultMapping);
+```
+
+If you want to keep the default mapping or rules you can pass `null` or `undefined` to the second and third arguments of `generateMergedDocument`:
+```JS
+const { generateMergedDocument, defaultRules, defaultMapping } = require('@istex/istex-merge');
+const docObjects = [{...}, {...}, {...}];
+
+const customRules = defaultRules;
+customRules.keys.abstract = ['pubmed', 'crossref', 'hal'];
+
+const customMapping = defaultMapping;
+customMapping.authors = false;
+
+// custom rules and default mapping
+const doc1 = generateMergedDocument(docObjects, customRules);
+
+// default rules and custom mapping
+const doc2 = generateMergedDocument(docObjects, null, customMapping);
+
+// default rules and default mapping
+const doc3 = generateMergedDocument(docObjects);
 ```
 
 ### Example
@@ -220,15 +259,14 @@ Description:
 Function to generate a Hal TEI from a merged document.
 
 ### Prerequisites
-Generate a merged document using the [generateMergedDocument function](#generatemergeddocument)
+Generate a merged document using the [generateMergedDocument function](#generatemergeddocument).
 
 ### Usage
 ```JS
-const { generateMergedDocument, generateHalTEI } = require('istex-merge');
-const rules = require('./myCustomFile.json');
+const { generateMergedDocument, generateHalTEI } = require('@istex/istex-merge');
 const docObjects = [{...}, {...}, {...}];
 
-const mergedDocument = generateMergedDocument(docObjects, rules);
+const mergedDocument = generateMergedDocument(docObjects);
 
 const halTEIAsString = generateHalTEI(mergedDocument);
 ```
