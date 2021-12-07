@@ -119,28 +119,7 @@ defaultRules.keys.abstract = ['pubmed', 'crossref', 'hal'];
 
 defaultMapping.authors = false;
 
-const mergedDocument = generateMergedDocument(docObjects, defaultRules, defaultMapping);
-```
-
-If you want to keep the default mapping or rules you can pass `null` or `undefined` to the second and third arguments of `generateMergedDocument`:
-```JS
-const { generateMergedDocument, defaultRules, defaultMapping } = require('@istex/istex-merge');
-const docObjects = [{...}, {...}, {...}];
-
-const customRules = defaultRules;
-customRules.keys.abstract = ['pubmed', 'crossref', 'hal'];
-
-const customMapping = defaultMapping;
-customMapping.authors = false;
-
-// custom rules and default mapping
-const doc1 = generateMergedDocument(docObjects, customRules);
-
-// default rules and custom mapping
-const doc2 = generateMergedDocument(docObjects, null, customMapping);
-
-// default rules and default mapping
-const doc3 = generateMergedDocument(docObjects);
+const mergedDocument = generateMergedDocument(docObjects, { rules: defaultRules, mapping: defaultMapping });
 ```
 
 ### Example
