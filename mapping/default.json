@@ -76,6 +76,7 @@
   "_business.name": false,
   "_business.duplicateGenre": true,
   "_business.sourceUidChain": false,
+  "_business.sources": false,
   "_business.duplicates": {
     "action": "merge",
     "id": "sourceUid"
@@ -90,7 +91,6 @@
   "_business.hasFulltext": false,
   "_business.isDeduplicable": false,
   "_business.hasTransDuplicate": false,
-  "_mergedDocuments": false,
   "title.default": true,
   "title.en": true,
   "title.fr": true,

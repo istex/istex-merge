@@ -116,6 +116,7 @@
     "_business.name": [],
     "_business.duplicateGenre": [],
     "_business.sourceUidChain": [],
+    "_business.sources": [],
     "_business.duplicates": [],
     "_business.duplicateRules": [],
     "_business.isDuplicate": [],
@@ -127,7 +128,6 @@
     "_business.hasFulltext": [],
     "_business.isDeduplicable": [],
     "_business.hasTransDuplicate": [],
-    "_mergedDocuments": [],
     "title.default": [
       "sudoc-theses",
       "sudoc-ouvrages",
