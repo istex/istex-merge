@@ -160,7 +160,7 @@ describe('generateHalTEI.js', () => {
  * @param {object} expectedResult The expect result.
  */
 function expectSuccess (inputData, expectedResult) {
-  const result = generateMergedDocument(inputData.docObjects, inputData.rules);
+  const result = generateMergedDocument(inputData.docObjects, { rules: inputData.rules });
   expect(result).to.eql(expectedResult);
 }
 
@@ -170,5 +170,5 @@ function expectSuccess (inputData, expectedResult) {
  * @param {string} expectedErrorMessage The expect error message.
  */
 function expectError (inputData, expectedErrorMessage) {
-  expect(() => generateMergedDocument(inputData.docObjects, inputData.rules)).to.throw(expectedErrorMessage);
+  expect(() => generateMergedDocument(inputData.docObjects, { rules: inputData.rules })).to.throw(expectedErrorMessage);
 }

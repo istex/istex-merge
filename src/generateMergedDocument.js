@@ -8,16 +8,10 @@ const halWithoutFulltextRules = require('../rules/halWithoutFulltext.json');
 /**
  * Creates a merged document from documents of various sources.
  * @param {[]} docObjects The array of `docObject`s.
- * @param {object} rules The object defining the rules.
- * @param  {object} mappping The object defining the mapping.
+ * @param {object} options The object defining the rules and the mapping.
  * @returns {object} An object with the result and potentially an error message.
  */
-function generateMergedDocument (docObjects, rules = defaultRules, mapping = defaultMapping) {
-  // This allows to pass null or undefined to rules to use the default rules
-  // instead of requiring them before passing them. You can use the function
-  // like so: generateMergedDocument(docObjects, null, customMapping)
-  if (rules == null) rules = defaultRules;
-
+function generateMergedDocument (docObjects, { rules = defaultRules, mapping = defaultMapping } = {}) {
   const sourceManager = new SourceManager();
   const sources = {};
   let properties;
