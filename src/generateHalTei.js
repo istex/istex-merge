@@ -82,7 +82,7 @@ function insertTitles (biblFull, mergedDocument) {
 
   // Host title
   if (_.get(mergedDocument, 'host.title')) {
-    const genre = mergedDocument.genre || _.get(mergedDocument, '_business.duplicateGenre');
+    const genre = mergedDocument.genre || _.get(mergedDocument, 'business.duplicateGenre');
 
     if (genre) {
       const genreLowerCase = genre.toLowerCase();

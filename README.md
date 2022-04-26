@@ -43,12 +43,12 @@ This JSON file's structure is as follows:
   "title.fr": true,
   "utKey": false,
   // ...
-  "_business.duplicates": {
+  "business.duplicates": {
     "action": "merge",
     "id": "sourceUid"
   },
   // ...
-  "_business.hasFulltext": false,
+  "business.hasFulltext": false,
   "fulltextUrl": true
 }
 ```
@@ -65,7 +65,7 @@ defaultMapping.authors = false;
 **Note**:
 `istex-merge` can merge data coming from all sources. The two possible scenarios are:
 - Fields with a simple value (like a string): you can specify a path to where the merged data will be in the final object. In the example above, the `sourceUid` field is merged and placed into `sourceUids` (we make it plurial because the value becomes an array).
-- Fields with an array value (like `_business.duplicates`): a property (`sourceUid` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
+- Fields with an array value (like `business.duplicates`): a property (`sourceUid` in the example above) must be used to discriminate the values and remove potential duplicates if the values are objects.
 
 
 #### Rules
@@ -91,7 +91,7 @@ This JSON file's structure is as follows:
     "title.en": [/*...*/],
     "utKey": [/*...*/],
     // ...
-    "_business.hasFulltext": [/*...*/],
+    "business.hasFulltext": [/*...*/],
     "fulltextUrl": [/*...*/]
   }
 }

@@ -29,7 +29,7 @@ function generateMergedDocument (docObjects, { rules = defaultRules, mapping = d
 
   if (!sourceManager.hasSources()) throw new Error('docObjects with source not found');
 
-  if (sourceManager.hasSource('hal') && !sourceManager.getPropertyOf('hal', '_business.hasFulltext')) {
+  if (sourceManager.hasSource('hal') && !sourceManager.getPropertyOf('hal', 'business.hasFulltext')) {
     rules = halWithoutFulltextRules;
   }
 

@@ -105,7 +105,7 @@ const noPriorities = {
         fr: 'abstract.hal.fr',
         en: 'abstract.hal.en',
       },
-      _business: {
+      business: {
         hasFulltext: true,
       },
     },
@@ -172,7 +172,7 @@ const globalPriorities = {
         fr: 'abstract.hal.fr',
         en: 'abstract.hal.en',
       },
-      _business: {
+      business: {
         hasFulltext: true,
       },
     },
@@ -237,7 +237,7 @@ const globalAndCustomPriorities = {
         fr: 'abstract.hal.fr',
         en: 'abstract.hal.en',
       },
-      _business: {
+      business: {
         hasFulltext: true,
       },
     },
@@ -306,7 +306,7 @@ const globalAndCustomPrioritiesButNoData = {
         fr: 'abstract.hal.fr',
         en: 'abstract.hal.en',
       },
-      _business: {
+      business: {
         hasFulltext: true,
       },
     },
@@ -417,7 +417,7 @@ const defaultPrioritiesAndHalWithoutFulltext = {
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      _business: {
+      business: {
         hasFulltext: false,
       },
     },
@@ -443,7 +443,7 @@ const defaultPrioritiesAndHalWithFulltext = {
       abstract: {
         fr: 'abstract.hal.fr',
       },
-      _business: {
+      business: {
         hasFulltext: true,
       },
     },
@@ -466,7 +466,7 @@ const mergeDuplicates = {
     {
       source: 'hal',
       authors: [],
-      _business: {
+      business: {
         hasFulltext: true,
         duplicates: [
           {
@@ -485,7 +485,7 @@ const mergeDuplicates = {
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      _business: {
+      business: {
         duplicates: [
           {
             sourceUid: 'hal:hal1',
@@ -506,7 +506,7 @@ const mergeDuplicatesWithOneEmptyDuplicate = {
     {
       source: 'hal',
       authors: [],
-      _business: {
+      business: {
         hasFulltext: true,
         duplicates: [
           {
@@ -525,7 +525,7 @@ const mergeDuplicatesWithOneEmptyDuplicate = {
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      _business: {
+      business: {
         duplicates: [
           {
             sourceUid: 'hal:hal1',
@@ -552,7 +552,7 @@ const mergeDuplicatesWithSameDuplicates = {
     {
       source: 'hal',
       authors: [],
-      _business: {
+      business: {
         hasFulltext: true,
         duplicates: [
           {
@@ -571,7 +571,7 @@ const mergeDuplicatesWithSameDuplicates = {
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      _business: {
+      business: {
         duplicates: [
           {
             sourceUid: 'sudoc:sudoc1',
@@ -593,7 +593,7 @@ const mergeSourceUid = {
       sourceUid: 'hal:hal1',
       source: 'hal',
       authors: [],
-      _business: {
+      business: {
         hasFulltext: true,
         duplicates: [
           {
@@ -613,7 +613,7 @@ const mergeSourceUid = {
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      _business: {
+      business: {
         duplicates: [
           {
             sourceUid: 'hal:hal1',
@@ -635,7 +635,7 @@ const mergeSourceUidButSameSourceUid = {
       sourceUid: 'hal:hal1',
       source: 'hal',
       authors: [],
-      _business: {
+      business: {
         hasFulltext: true,
         duplicates: [
           {
@@ -652,7 +652,7 @@ const mergeSourceUidButSameSourceUid = {
       sourceUid: 'hal:hal1',
       source: 'hal',
       authors: [],
-      _business: {
+      business: {
         hasFulltext: true,
         duplicates: [
           {
@@ -672,7 +672,7 @@ const mergeSourceUidButSameSourceUid = {
         'authors.crossref.1',
         'authors.crossref.2',
       ],
-      _business: {
+      business: {
         duplicates: [
           {
             sourceUid: 'hal:hal1',

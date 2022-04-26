@@ -317,7 +317,7 @@ const correctDocument = {
   publicationDate: '',
   reportNumber: '',
   sciencespo: '',
-  _technical: {
+  technical: {
     sessionName: '',
     creationDate: '',
     modificationDate: '',
@@ -325,7 +325,7 @@ const correctDocument = {
     teiXsltVersion: '',
     modsXsltVersion: '',
   },
-  _business: {
+  business: {
     name: '',
     duplicateGenre: 'Article',
     sourceUidChain: '',
