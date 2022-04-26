@@ -10,7 +10,7 @@ Library to build merged documents and generate Hal TEIs from them.
     - [Rules](#rules)
   - [Usage](#usage)
   - [Example](#example)
-- [generateHalTEI](#generatehaltei)
+- [generateHalTei](#generatehaltei)
   - [Prerequisites](#prerequisites-1)
   - [Usage](#usage-1)
 
@@ -234,7 +234,7 @@ Description:
 - `origins.sources`: an array compiling all the sources used in the merged document
 - If the source on top of the priority list has no data for a field (in our example, the prioritized source (hal) has no `authors`), `istex-merge` will go down the priority list until it finds a source with data for this field.
 
-## generateHalTEI
+## generateHalTei
 Function to generate a Hal TEI from a merged document.
 
 ### Prerequisites
@@ -242,16 +242,16 @@ Generate a merged document using the [generateMergedDocument function](#generate
 
 ### Usage
 ```JS
-const { generateMergedDocument, generateHalTEI } = require('@istex/istex-merge');
+const { generateMergedDocument, generateHalTei } = require('@istex/istex-merge');
 const docObjects = [{...}, {...}, {...}];
 
 const mergedDocument = generateMergedDocument(docObjects);
 
-const halTEIAsString = generateHalTEI(mergedDocument);
+const halTeiAsString = generateHalTei(mergedDocument);
 ```
 
-You can also pass an `options` object to `generateHalTEI`. This object is passed as is to [xmlbuilder2](https://oozcitak.github.io/xmlbuilder2/) (the XML builder used by `istex-merge`). You can find all the available options [here](https://oozcitak.github.io/xmlbuilder2/serialization.html#serialization-settings).
+You can also pass an `options` object to `generateHalTei`. This object is passed as is to [xmlbuilder2](https://oozcitak.github.io/xmlbuilder2/) (the XML builder used by `istex-merge`). You can find all the available options [here](https://oozcitak.github.io/xmlbuilder2/serialization.html#serialization-settings).
 For example, you can use this `options` object to pretty print the TEI like so:
 ```JS
-const prettyPrintedTEI = generateHalTEI(mergedDocument, { prettyPrint: true });
+const prettyPrintedTei = generateHalTei(mergedDocument, { prettyPrint: true });
 ```

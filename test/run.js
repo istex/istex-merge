@@ -82,13 +82,13 @@ describe('generateMergedDocument.js', () => {
   });
 });
 
-describe('generateHalTEI.js', () => {
-  const generateHalTEIModule = rewire('../src/generateHalTEI.js');
-  const testData = require('./dataset/in/generateHalTEI');
+describe('generateHalTei.js', () => {
+  const generateHalTeiModule = rewire('../src/generateHalTei.js');
+  const testData = require('./dataset/in/generateHalTei');
   const biblFull = {};
 
   function callPrivateFunction (name, ...args) {
-    const func = generateHalTEIModule.__get__(name);
+    const func = generateHalTeiModule.__get__(name);
     func(...args);
   }
 
@@ -156,7 +156,7 @@ describe('generateHalTEI.js', () => {
   it('Success: classifications', () => {
     callPrivateFunction('insertClassifications', biblFull, testData.correctDocument);
 
-    expect(biblFull.profileDesc.textClass.classCode).to.deep.include({ '@scheme': 'halDomain', '@n': 'TO DEFINE!!!', '#': 'Chemical Sciences/Catalysis' });
+    expect(biblFull.profileDesc.textClass.classCode).to.deep.include({ '@scheme': 'halDomain', '#': 'Chemical Sciences/Catalysis' });
   });
 });
 

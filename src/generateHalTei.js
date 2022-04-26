@@ -7,7 +7,7 @@ const _ = require('lodash');
  * @param {object} options The options object passed to `xmlbuilder2`.
  * @returns {string} The XML string.
  */
-function generateHalTEI (mergedDocument, options) {
+function generateHalTei (mergedDocument, options) {
   // Throw an error if mergedDocument is not an object
   if (!_.isObject(mergedDocument)) throw new Error('mergedDocument needs to be an object');
 
@@ -337,4 +337,4 @@ function isNonEmptyArray (value) {
   return _.isArray(value) && !_.isEmpty(value);
 }
 
-module.exports = generateHalTEI;
+module.exports = generateHalTei;
