@@ -152,6 +152,12 @@ describe('generateHalTEI.js', () => {
 
     expect(biblFull.sourceDesc.biblStruct.monogr.meeting.title).to.equal('My Conference');
   });
+
+  it('Success: classifications', () => {
+    callPrivateFunction('insertClassifications', biblFull, testData.correctDocument);
+
+    expect(biblFull.profileDesc.textClass.classCode).to.deep.include({ '@scheme': 'halDomain', '@n': 'TO DEFINE!!!', '#': 'Chemical Sciences/Catalysis' });
+  });
 });
 
 /**

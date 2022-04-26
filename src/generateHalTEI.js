@@ -28,7 +28,7 @@ function generateHalTEI (mergedDocument, options) {
   }
 
   // Authors
-  if (_.isArray(mergedDocument.authors) && !_.isEmpty(mergedDocument.authors)) {
+  if (isNonEmptyArray(mergedDocument.authors)) {
     insertAuthors(biblFull, mergedDocument);
   }
 
@@ -36,7 +36,7 @@ function generateHalTEI (mergedDocument, options) {
   insertIdentifiers(biblFull, mergedDocument);
 
   // Language
-  if (_.isArray(mergedDocument.language) && !_.isEmpty(mergedDocument.language)) {
+  if (isNonEmptyArray(mergedDocument.language)) {
     insertLanguage(biblFull, mergedDocument);
   }
 
@@ -50,6 +50,9 @@ function generateHalTEI (mergedDocument, options) {
 
   // Meeting data
   insertMeetingData(biblFull, mergedDocument);
+
+  // Classifications
+  insertClassifications(biblFull, mergedDocument);
 
   return create(xmlDoc).end(options);
 }
@@ -291,6 +294,29 @@ function insertMeetingData (biblFull, mergedDocument) {
 }
 
 /**
+ * Inserts the classifications from `mergedDocument` into `biblFull`.
+ * @param {object} biblFull The <biblFull> node to insert the classifications in.
+ * @param {object} mergedDocument The merged document to get the classifiactions from.
+ */
+function insertClassifications (biblFull, mergedDocument) {
+  setIfNotExists(biblFull, 'profileDesc.textClass.classCode', []);
+
+  const classCodes = biblFull.profileDesc.textClass.classCode;
+
+  // HAL classification
+  if (isNonEmptyArray(_.get(mergedDocument, 'classifications.hal'))) {
+    const classifications = mergedDocument.classifications.hal;
+
+    classifications.forEach(classification => {
+      classCodes.push({
+        '@scheme': 'halDomain',
+        '#': classification,
+      });
+    });
+  }
+}
+
+/**
  * Sets `value` at `path` in `object` only if `path` does not exist in `object`.
  * @param {object} object The object to modify.
  * @param {string} path The path of the property to set.
@@ -300,6 +326,15 @@ function setIfNotExists (object, path, value) {
   if (!_.has(object, path)) {
     _.set(object, path, value);
   }
+}
+
+/**
+ * Checks whether `value` is a non-empty array.
+ * @param {object} value The object to test.
+ * @returns `true` if `value` is a non-empty array, `false` otherwise.
+ */
+function isNonEmptyArray (value) {
+  return _.isArray(value) && !_.isEmpty(value);
 }
 
 module.exports = generateHalTEI;
