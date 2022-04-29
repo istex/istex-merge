@@ -80,6 +80,10 @@ describe('generateMergedDocument.js', () => {
   it('Success: merge orcId', () => {
     expectSuccess(testData.mergeOrcId, expected.mergeOrcId);
   });
+
+  it('Success: merge RNSR', () => {
+    expectSuccess(testData.mergeRnsr, expected.mergeRnsr);
+  });
 });
 
 describe('generateHalTei.js', () => {

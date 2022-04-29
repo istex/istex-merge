@@ -825,6 +825,98 @@ const mergeOrcId = {
   ],
 };
 
+const mergeRnsr = {
+  docObjects: [
+    {
+      sourceUid: 'pubmed:pubmed1',
+      source: 'pubmed',
+      authors: [
+        {
+          forename: 'Gérard',
+          surname: 'André',
+          affiliations: [
+            {
+              rnsr: [
+                '200412801A',
+                '200412801B',
+              ],
+              enrichments: {
+                rnsr: [
+                  '200412801C',
+                ],
+              },
+            },
+          ],
+        },
+        {
+          forename: ' Lea',
+          surname: 'De Marche ',
+          affiliations: [],
+        },
+        {
+          forename: 'Charles',
+        },
+      ],
+    },
+    {
+      sourceUid: 'crossref:crossref1',
+      source: 'crossref',
+      authors: [
+        {
+          forename: 'Gerard',
+          surname: 'Andre',
+          affiliations: [
+            {
+              rnsr: [
+                '200412801A',
+                '200412801D',
+              ],
+            },
+            {
+              rnsr: [
+                '198822446A',
+              ],
+              enrichments: {
+                rnsr: [
+                  '198822446B',
+                  '198822446C',
+                ],
+              },
+            },
+          ],
+        },
+        {
+          forename: 'Léa',
+          surname: 'De Marché',
+          affiliations: [
+            {
+              rnsr: [
+                '198912571A',
+              ],
+              enrichments: {
+                rnsr: [
+                  '198912571B',
+                ],
+              },
+            },
+          ],
+        },
+        {
+          forename: 'Charles',
+          surname: 'Attend',
+          affiliations: [
+            {
+              rnsr: [
+                'RNSR-LOST',
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 module.exports = {
   noDocObjects,
   noDocObjectsWithSource,
@@ -844,4 +936,5 @@ module.exports = {
   mergeEnrichments,
   mergeKeywords,
   mergeOrcId,
+  mergeRnsr,
 };

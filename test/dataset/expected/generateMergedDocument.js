@@ -240,6 +240,55 @@ const mergeOrcId = {
   },
 };
 
+const mergeRnsr = {
+  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
+  authors: [
+    {
+      forename: 'Gérard',
+      surname: 'André',
+      affiliations: [
+        {
+          rnsr: [
+            '200412801A',
+            '200412801B',
+          ],
+          enrichments: {
+            rnsr: [
+              '200412801C',
+            ],
+          },
+        },
+      ],
+      rnsr: [
+        '200412801A',
+        '200412801B',
+        '200412801C',
+        '200412801D',
+        '198822446A',
+        '198822446B',
+        '198822446C',
+      ],
+    },
+    {
+      forename: ' Lea',
+      surname: 'De Marche ',
+      affiliations: [],
+      rnsr: [
+        '198912571A',
+        '198912571B',
+      ],
+    },
+    {
+      forename: 'Charles',
+    },
+  ],
+  origins: {
+    sourceUid: ['pubmed', 'crossref'],
+    authors: 'pubmed',
+    sources: ['pubmed', 'crossref'],
+  },
+};
+
 module.exports = {
   globalPriorities,
   globalAndCustomPriorities,
@@ -255,4 +304,5 @@ module.exports = {
   mergeEnrichments,
   mergeKeywords,
   mergeOrcId,
+  mergeRnsr,
 };
