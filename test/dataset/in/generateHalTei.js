@@ -174,18 +174,20 @@ const correctDocument = {
     sici: '',
     publisher: 'My Publisher',
     publisherId: '',
-    authors: [{
-      fullname: '',
-      forename: '',
-      surname: '',
-      halAuthorId: [],
-      idHal: [],
-      idRef: [],
-      isni: [],
-      orcId: [],
-      researcherId: [],
-      viaf: [],
-    }],
+    authors: [
+      {
+        fullname: '',
+        forename: '',
+        surname: '',
+        halAuthorId: [],
+        idHal: [],
+        idRef: [],
+        isni: [],
+        orcId: [],
+        researcherId: [],
+        viaf: [],
+      },
+    ],
     bookId: '',
     journalId: '',
     conference: {
@@ -194,21 +196,23 @@ const correctDocument = {
       place: '',
       country: '',
     },
-    editor: [{
-      affiliations: [
-        {
-          address: '',
-          orgName: '',
-          country: '',
-        },
-      ],
-      roles: [],
-      idRef: '',
-      fullname: '',
-      forename: '',
-      surname: '',
-      orgName: '',
-    }],
+    editor: [
+      {
+        affiliations: [
+          {
+            address: '',
+            orgName: '',
+            country: '',
+          },
+        ],
+        roles: [],
+        idRef: '',
+        fullname: '',
+        forename: '',
+        surname: '',
+        orgName: '',
+      },
+    ],
     pages: [
       {
         first: '',
@@ -225,22 +229,30 @@ const correctDocument = {
     },
     enrichments: {
       categories: {
-        inist: [{
-          level: '',
-          value: '',
-        }],
-        scienceMetrix: [{
-          level: '',
-          value: '',
-        }],
-        scopus: [{
-          level: '',
-          value: '',
-        }],
-        wos: [{
-          level: '',
-          value: '',
-        }],
+        inist: [
+          {
+            level: '',
+            value: '',
+          },
+        ],
+        scienceMetrix: [
+          {
+            level: '',
+            value: '',
+          },
+        ],
+        scopus: [
+          {
+            level: '',
+            value: '',
+          },
+        ],
+        wos: [
+          {
+            level: '',
+            value: '',
+          },
+        ],
       },
     },
   },
@@ -375,79 +387,103 @@ const correctDocument = {
   sourceId: '',
   sourceUid: '',
   files: {
-    annexes: [{
-      uri: '',
-      mimetype: '',
-      extension: '',
-      original: true,
-    }],
-    covers: [{
-      uri: '',
-      mimetype: '',
-      extension: '',
-      original: true,
-    }],
-    fulltext: [{
-      uri: '',
-      mimetype: '',
-      extension: '',
-      original: true,
-    }],
-    metadata: [{
-      uri: '',
-      extension: '',
-      mimetype: '',
-      original: true,
-    }],
+    annexes: [
+      {
+        uri: '',
+        mimetype: '',
+        extension: '',
+        original: true,
+      },
+    ],
+    covers: [
+      {
+        uri: '',
+        mimetype: '',
+        extension: '',
+        original: true,
+      },
+    ],
+    fulltext: [
+      {
+        uri: '',
+        mimetype: '',
+        extension: '',
+        original: true,
+      },
+    ],
+    metadata: [
+      {
+        uri: '',
+        extension: '',
+        mimetype: '',
+        original: true,
+      },
+    ],
     enrichments: {
-      grobid: [{
-        uri: '',
-        extension: '',
-        mime: '',
-        original: false,
-      }],
-      multicat: [{
-        uri: '',
-        extension: '',
-        mime: '',
-        original: false,
-      }],
-      nb: [{
-        uri: '',
-        extension: '',
-        mime: '',
-        original: false,
-      }],
-      nerd: [{
-        uri: '',
-        extension: '',
-        mime: '',
-        original: false,
-      }],
-      ocr: [{
-        uri: '',
-        extension: '',
-        mime: '',
-        original: false,
-      }],
-      refBibs: [{
-        uri: '',
-        extension: '',
-        mime: '',
-        original: false,
-      }],
-      teeft: [{
-        uri: '',
-        extension: '',
-        mime: '',
-        original: false,
-      }],
-      unitex: [{
-        uri: '',
-        extension: '',
-        mime: '',
-        original: false,
-      }],
+      grobid: [
+        {
+          uri: '',
+          extension: '',
+          mime: '',
+          original: false,
+        },
+      ],
+      multicat: [
+        {
+          uri: '',
+          extension: '',
+          mime: '',
+          original: false,
+        },
+      ],
+      nb: [
+        {
+          uri: '',
+          extension: '',
+          mime: '',
+          original: false,
+        },
+      ],
+      nerd: [
+        {
+          uri: '',
+          extension: '',
+          mime: '',
+          original: false,
+        },
+      ],
+      ocr: [
+        {
+          uri: '',
+          extension: '',
+          mime: '',
+          original: false,
+        },
+      ],
+      refBibs: [
+        {
+          uri: '',
+          extension: '',
+          mime: '',
+          original: false,
+        },
+      ],
+      teeft: [
+        {
+          uri: '',
+          extension: '',
+          mime: '',
+          original: false,
+        },
+      ],
+      unitex: [
+        {
+          uri: '',
+          extension: '',
+          mime: '',
+          original: false,
+        },
+      ],
     },
   },
   idIstex: '',
@@ -466,17 +502,9 @@ const correctDocument = {
     refBibsNative: true,
     score: 0,
   },
-  refBibs: [{
-    title: '',
-    authors: [{
-      fullname: '',
-      forename: '',
-      surname: '',
-    }],
-    host: {
+  refBibs: [
+    {
       title: '',
-      publicationDate: '',
-      editor: '',
       authors: [
         {
           fullname: '',
@@ -484,38 +512,50 @@ const correctDocument = {
           surname: '',
         },
       ],
+      host: {
+        title: '',
+        publicationDate: '',
+        editor: '',
+        authors: [
+          {
+            fullname: '',
+            forename: '',
+            surname: '',
+          },
+        ],
+        doi: '',
+        isbn: '',
+        issn: '',
+        issue: '',
+        volume: '',
+        pages: [
+          {
+            first: '',
+            last: '',
+          },
+        ],
+      },
+      arkIstex: '',
+      idIstex: '',
       doi: '',
-      isbn: '',
-      issn: '',
-      issue: '',
-      volume: '',
-      pages: [
-        {
-          first: '',
-          last: '',
-        },
-      ],
+      pmcId: '',
+      pmId: '',
+      publisher: '',
+      serie: {
+        doi: '',
+        issn: '',
+        issue: '',
+        pages: [
+          {
+            first: '',
+            last: '',
+          },
+        ],
+        title: '',
+        volume: '',
+      },
     },
-    arkIstex: '',
-    idIstex: '',
-    doi: '',
-    pmcId: '',
-    pmId: '',
-    publisher: '',
-    serie: {
-      doi: '',
-      issn: '',
-      issue: '',
-      pages: [
-        {
-          first: '',
-          last: '',
-        },
-      ],
-      title: '',
-      volume: '',
-    },
-  }],
+  ],
   serie: {
     title: '',
     conference: {
