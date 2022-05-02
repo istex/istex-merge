@@ -90,6 +90,7 @@ describe('generateHalTei.js', () => {
   const generateHalTeiModule = rewire('../src/generateHalTei.js');
   const testData = require('./dataset/in/generateHalTei');
   const biblFull = {};
+  const back = {};
 
   function callPrivateFunction (name, ...args) {
     const func = generateHalTeiModule.__get__(name);
@@ -126,8 +127,8 @@ describe('generateHalTei.js', () => {
     expect(biblFull.sourceDesc.biblStruct.monogr.title).to.deep.include({ '@level': 'm', '#': 'My Conference' });
   });
 
-  it('Success: authors', () => {
-    callPrivateFunction('insertAuthors', biblFull, testData.correctDocument);
+  it('Success: authors and their affiliations', () => {
+    callPrivateFunction('insertAuthors', biblFull, back, testData.correctDocument);
 
     expect(biblFull.titleStmt.author.length).to.be.equal(7);
     expect(biblFull.titleStmt.author).to.deep.include({
@@ -136,8 +137,22 @@ describe('generateHalTei.js', () => {
         forename: { '@type': 'first', '#': 'Juliana' },
         surname: 'Fonseca',
       },
+      affiliation: [
+        { '@ref': '#localStruct-0' },
+        { '@ref': '#localStruct-1' },
+        { '@ref': '#localStruct-2' },
+      ],
     });
     expect(biblFull.sourceDesc.biblStruct.analytic.author).to.eql(biblFull.titleStmt.author);
+
+    expect(back.listOrg.org).to.deep.include({
+      '@type': 'laboratory',
+      '@xml:id': '#localStruct-0',
+      idno: {
+        '@type': 'RNSR',
+        '#': '200412801A',
+      },
+    });
   });
 
   it('Success: catalog data', () => {

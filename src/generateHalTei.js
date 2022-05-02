@@ -20,16 +20,20 @@ function generateHalTei (mergedDocument, options) {
 
   // Create the base <text> structure
   _.set(xmlDoc.TEI, 'text.body.listBibl.biblFull', {});
-  const biblFull = xmlDoc.TEI.text.body.listBibl.biblFull;
+  const { biblFull } = xmlDoc.TEI.text.body.listBibl;
+
+  // Create the <back> node
+  xmlDoc.TEI.text.back = {};
+  const { back } = xmlDoc.TEI.text;
 
   // Titles
   if (_.isObject(mergedDocument.title)) {
     insertTitles(biblFull, mergedDocument);
   }
 
-  // Authors
+  // Authors and their affiliations
   if (isNonEmptyArray(mergedDocument.authors)) {
-    insertAuthors(biblFull, mergedDocument);
+    insertAuthors(biblFull, back, mergedDocument);
   }
 
   // Identifiers
@@ -105,11 +109,48 @@ function insertTitles (biblFull, mergedDocument) {
 }
 
 /**
+ * Inserts the affiliations from `mergedDocument` into `back`.
+ * @param {object} back The <back> node to insert the affiliations in.
+ * @param {object} mergedDocument The merged document to get the affiliations from.
+ */
+function insertAffiliations (back, mergedDocument) {
+  setIfNotExists(back, 'listOrg', { '@type': 'structures' });
+  setIfNotExists(back.listOrg, 'org', []);
+
+  // Combine the RNSR codes of all authors in an array
+  let rnsrCodesFromAllAuthors = [];
+  mergedDocument.authors.forEach(author => {
+    if (!isNonEmptyArray(author.rnsr)) return;
+
+    rnsrCodesFromAllAuthors = rnsrCodesFromAllAuthors.concat(author.rnsr);
+  });
+
+  // Remove the potential duplicates (happens if multiple authors have the same affiliation)
+  rnsrCodesFromAllAuthors = _.uniq(rnsrCodesFromAllAuthors);
+
+  // Insert an affiliation for each RNSR code in the <listOrg> node
+  rnsrCodesFromAllAuthors.forEach((rnsr, index) => {
+    back.listOrg.org.push({
+      '@type': 'laboratory',
+      '@xml:id': `#localStruct-${index}`,
+      idno: {
+        '@type': 'RNSR',
+        '#': rnsr,
+      },
+    });
+  });
+}
+
+/**
  * Inserts the authors from `mergedDocument` into `biblFull`.
  * @param {object} biblFull The <biblFull> node to insert the authors in.
+ * @param {object} back The <back> node to get the affiliations from.
  * @param {object} mergedDocument The merged document to get the authors from.
  */
-function insertAuthors (biblFull, mergedDocument) {
+function insertAuthors (biblFull, back, mergedDocument) {
+  // Insert the affiliations in the <back> node first to later reference them in each author
+  insertAffiliations(back, mergedDocument);
+
   // Initialize the author container
   setIfNotExists(biblFull, 'titleStmt.author', []);
 
@@ -134,6 +175,22 @@ function insertAuthors (biblFull, mergedDocument) {
       const idRef = _.get(author, 'idRef[0]') || _.get(author, 'enrichments.idRef[0]');
 
       halAuthor.idno.push({ '@type': 'http://www.idref.fr/', '#': idRef });
+    }
+
+    // Affiliations
+    if (isNonEmptyArray(author.rnsr)) {
+      setIfNotExists(halAuthor, 'affiliation', []);
+
+      author.rnsr.forEach(rnsr => {
+        // Find the affiliation for the current RNSR code in the <back> node
+        const affiliation = back.listOrg.org.find(affiliation => affiliation.idno['#'] === rnsr);
+
+        if (!affiliation) return;
+
+        halAuthor.affiliation.push({
+          '@ref': affiliation['@xml:id'],
+        });
+      });
     }
 
     biblFull.titleStmt.author.push(halAuthor);

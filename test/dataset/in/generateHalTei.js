@@ -36,6 +36,11 @@ const correctDocument = {
       researcherId: [],
       surname: 'Fonseca',
       viaf: [],
+      rnsr: [
+        '200412801A',
+        '200412801B',
+        '200412801C',
+      ],
     },
     {
       affiliations: [],
@@ -54,6 +59,11 @@ const correctDocument = {
       researcherId: [],
       surname: 'Bion',
       viaf: [],
+      rnsr: [
+        '200412801A',
+        '200412801D',
+        '200412801E',
+      ],
     },
     {
       affiliations: [],
