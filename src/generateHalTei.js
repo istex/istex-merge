@@ -361,13 +361,23 @@ function insertClassifications (biblFull, mergedDocument) {
   const classCodes = biblFull.profileDesc.textClass.classCode;
 
   // HAL classification
-  if (_.get(mergedDocument, 'classifications.hal')) {
-    const classification = mergedDocument.classifications.hal;
+  const classification = _.get(mergedDocument, 'classifications.hal');
+  const enrichedClassification = _.get(mergedDocument, 'classifications.enrichments.hal');
 
+  // If a native classification is present, use it, otherwise use the enriched one if it is present,
+  // if no classification is present, don't do anything
+  let finalClassification;
+  if (classification.code) {
+    finalClassification = classification;
+  } else if (enrichedClassification.code) {
+    finalClassification = enrichedClassification;
+  }
+
+  if (finalClassification) {
     classCodes.push({
       '@scheme': 'halDomain',
-      '@n': classification.code,
-      '#': classification.en,
+      '@n': finalClassification.code,
+      '#': finalClassification.en,
     });
   }
 }

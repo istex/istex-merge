@@ -167,6 +167,13 @@ const correctDocument = {
     },
     tef: [],
     thesisDomain: [],
+    enrichments: {
+      hal: {
+        code: 'sdu',
+        en: 'Sciences of the Universe [physics]',
+        fr: 'Planète et Univers [physics]',
+      },
+    },
   },
   doi: '10.1039/c8nr07898j',
   host: {
