@@ -361,14 +361,13 @@ function insertClassifications (biblFull, mergedDocument) {
   const classCodes = biblFull.profileDesc.textClass.classCode;
 
   // HAL classification
-  if (isNonEmptyArray(_.get(mergedDocument, 'classifications.hal'))) {
-    const classifications = mergedDocument.classifications.hal;
+  if (_.get(mergedDocument, 'classifications.hal')) {
+    const classification = mergedDocument.classifications.hal;
 
-    classifications.forEach(classification => {
-      classCodes.push({
-        '@scheme': 'halDomain',
-        '#': classification,
-      });
+    classCodes.push({
+      '@scheme': 'halDomain',
+      '@n': classification.code,
+      '#': classification.en,
     });
   }
 }

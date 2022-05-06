@@ -175,7 +175,7 @@ describe('generateHalTei.js', () => {
   it('Success: classifications', () => {
     callPrivateFunction('insertClassifications', biblFull, testData.correctDocument);
 
-    expect(biblFull.profileDesc.textClass.classCode).to.deep.include({ '@scheme': 'halDomain', '#': 'Chemical Sciences/Catalysis' });
+    expect(biblFull.profileDesc.textClass.classCode).to.deep.include({ '@scheme': 'halDomain', '@n': 'phys', '#': 'Physics [physics]' });
   });
 });
 

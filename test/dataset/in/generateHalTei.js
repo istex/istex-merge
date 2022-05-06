@@ -160,7 +160,11 @@ const correctDocument = {
   cern: '',
   classifications: {
     dewey: [],
-    hal: ['Chemical Sciences/Catalysis'],
+    hal: {
+      code: 'phys',
+      en: 'Physics [physics]',
+      fr: 'Physique [physics]',
+    },
     tef: [],
     thesisDomain: [],
   },
