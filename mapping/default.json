@@ -11,7 +11,8 @@
     "action": "merge"
   },
   "classifications.hal": {
-    "action": "merge"
+    "action": "merge",
+    "id": "code"
   },
   "classifications.tef": {
     "action": "merge"
@@ -19,6 +20,7 @@
   "classifications.thesisDomain": {
     "action": "merge"
   },
+  "classifications.enrichments": true,
   "doi": true,
   "host": true,
   "keywords.en.author": {
