@@ -132,7 +132,7 @@ function insertAffiliations (back, mergedDocument) {
   rnsrCodesFromAllAuthors.forEach((rnsr, index) => {
     back.listOrg.org.push({
       '@type': 'laboratory',
-      '@xml:id': `#localStruct-${index}`,
+      '@xml:id': `localStruct-${index}`,
       idno: {
         '@type': 'RNSR',
         '#': rnsr,
@@ -188,7 +188,7 @@ function insertAuthors (biblFull, back, mergedDocument) {
         if (!affiliation) return;
 
         halAuthor.affiliation.push({
-          '@ref': affiliation['@xml:id'],
+          '@ref': '#' + affiliation['@xml:id'],
         });
       });
     }

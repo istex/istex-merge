@@ -147,7 +147,7 @@ describe('generateHalTei.js', () => {
 
     expect(back.listOrg.org).to.deep.include({
       '@type': 'laboratory',
-      '@xml:id': '#localStruct-0',
+      '@xml:id': 'localStruct-0',
       idno: {
         '@type': 'RNSR',
         '#': '200412801A',
