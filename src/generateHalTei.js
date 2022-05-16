@@ -26,11 +26,6 @@ function generateHalTei (mergedDocument, options) {
   xmlDoc.TEI.text.back = {};
   const { back } = xmlDoc.TEI.text;
 
-  // Titles
-  if (_.isObject(mergedDocument.title)) {
-    insertTitles(biblFull, mergedDocument);
-  }
-
   // Authors and their affiliations
   if (isNonEmptyArray(mergedDocument.authors)) {
     insertAuthors(biblFull, back, mergedDocument);
@@ -39,10 +34,18 @@ function generateHalTei (mergedDocument, options) {
   // Identifiers
   insertIdentifiers(biblFull, mergedDocument);
 
+  // Titles
+  if (_.isObject(mergedDocument.title)) {
+    insertTitles(biblFull, mergedDocument);
+  }
+
   // Language
   if (isNonEmptyArray(mergedDocument.language)) {
     insertLanguage(biblFull, mergedDocument);
   }
+
+  // Classifications
+  insertClassifications(biblFull, mergedDocument);
 
   // Abstract
   if (_.isObject(mergedDocument.abstract)) {
@@ -53,10 +56,9 @@ function generateHalTei (mergedDocument, options) {
   insertCatalogData(biblFull, mergedDocument);
 
   // Meeting data
-  insertMeetingData(biblFull, mergedDocument);
-
-  // Classifications
-  insertClassifications(biblFull, mergedDocument);
+  if (_.get(mergedDocument, 'host.conference.name')) {
+    insertMeetingData(biblFull, mergedDocument);
+  }
 
   return create(xmlDoc).end(options);
 }
