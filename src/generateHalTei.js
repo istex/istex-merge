@@ -367,9 +367,9 @@ function insertClassifications (biblFull, mergedDocument) {
   // If a native classification is present, use it, otherwise use the enriched one if it is present,
   // if no classification is present, don't do anything
   let finalClassification;
-  if (classification?.code) {
+  if (_.get(classification, 'code')) {
     finalClassification = classification;
-  } else if (enrichedClassification?.code) {
+  } else if (_.get(enrichedClassification, 'code')) {
     finalClassification = enrichedClassification;
   }
 
