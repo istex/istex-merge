@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 
+const fs = require('fs-extra');
+const path = require('path');
 const { expect } = require('chai');
 const rewire = require('rewire');
-const { generateMergedDocument } = require('../index');
+const { generateMergedDocument, generateHalTei } = require('../index');
 
 describe('generateMergedDocument.js', () => {
   const testData = require('./dataset/in/generateMergedDocument');
@@ -176,6 +178,16 @@ describe('generateHalTei.js', () => {
     callPrivateFunction('insertClassifications', biblFull, testData.correctDocument);
 
     expect(biblFull.profileDesc.textClass.classCode).to.deep.include({ '@scheme': 'halDomain', '@n': 'phys', '#': 'Physics [physics]' });
+  });
+
+  after(done => {
+    const outputPath = path.join(__dirname, 'output', 'correct.tei.xml');
+
+    fs.outputFile(outputPath, generateHalTei(testData.correctDocument, { prettyPrint: true }), 'utf-8', err => {
+      if (err) throw err;
+
+      done();
+    });
   });
 });
 
