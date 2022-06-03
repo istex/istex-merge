@@ -289,6 +289,21 @@ const mergeRnsr = {
   },
 };
 
+const mergeAuthors = {
+  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
+  authors: [
+    {
+      forename: 'Gérard',
+      surname: 'André',
+    },
+  ],
+  origins: {
+    sourceUid: ['pubmed', 'crossref'],
+    authors: 'pubmed',
+    sources: ['pubmed', 'crossref'],
+  },
+};
+
 module.exports = {
   globalPriorities,
   globalAndCustomPriorities,
@@ -305,4 +320,5 @@ module.exports = {
   mergeKeywords,
   mergeOrcId,
   mergeRnsr,
+  mergeAuthors,
 };

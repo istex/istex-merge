@@ -917,6 +917,44 @@ const mergeRnsr = {
   ],
 };
 
+const mergeAuthors = {
+  docObjects: [
+    {
+      sourceUid: 'pubmed:pubmed1',
+      source: 'pubmed',
+      authors: [
+        {
+          forename: 'Gérard',
+          surname: 'André',
+        },
+      ],
+    },
+    {
+      sourceUid: 'crossref:crossref1',
+      source: 'crossref',
+      authors: [
+        {
+          forename: 'Gerard',
+          surname: 'Andre',
+        },
+        {
+          forename: '',
+          isni: [],
+          researcherId: [],
+          surname: '',
+          affiliations: [],
+          halAuthorId: [],
+          orcId: [],
+          fullname: '',
+          idHal: [],
+          idRef: [],
+          viaf: [],
+        },
+      ],
+    },
+  ],
+};
+
 module.exports = {
   noDocObjects,
   noDocObjectsWithSource,
@@ -937,4 +975,5 @@ module.exports = {
   mergeKeywords,
   mergeOrcId,
   mergeRnsr,
+  mergeAuthors,
 };

@@ -43,11 +43,11 @@ describe('generateMergedDocument.js', () => {
     expectSuccess(testData.globalPrioritiesAndDeleteUnwantedData, expected.globalPrioritiesAndDeleteUnwantedData);
   });
 
-  it('Success: default prorities and Hal without a fulltext', () => {
+  it('Success: default priorities and Hal without a fulltext', () => {
     expectSuccess(testData.defaultPrioritiesAndHalWithoutFulltext, expected.defaultPrioritiesAndHalWithoutFulltext);
   });
 
-  it('Success: default prorities and Hal with a fulltext', () => {
+  it('Success: default priorities and Hal with a fulltext', () => {
     expectSuccess(testData.defaultPrioritiesAndHalWithFulltext, expected.defaultPrioritiesAndHalWithFulltext);
   });
 
@@ -85,6 +85,10 @@ describe('generateMergedDocument.js', () => {
 
   it('Success: merge RNSR', () => {
     expectSuccess(testData.mergeRnsr, expected.mergeRnsr);
+  });
+
+  it('Success: merge authors with strange cases', () => {
+    expectSuccess(testData.mergeAuthors, expected.mergeAuthors);
   });
 });
 

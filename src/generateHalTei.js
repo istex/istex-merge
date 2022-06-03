@@ -161,14 +161,20 @@ function insertAuthors (biblFull, back, mergedDocument) {
   authors.forEach(author => {
     const halAuthor = {};
 
+    // An author must have surname+forename, or a halId or a halAuthorId
+    // cf page 10 of https://github.com/CCSDForge/HAL/blob/master/Sword/SWORD_import_HAL.pdf
+    if (_.isEmpty(author.forename) && _.isEmpty(author.surname) && _.isEmpty(author.halAuthorId) && _.isEmpty(author.idHal)) return;
+
     // Role
     halAuthor['@role'] = 'aut';
 
     // Name
-    halAuthor.persName = {
-      forename: { '@type': 'first', '#': author.forename },
-      surname: author.surname,
-    };
+    if (!_.isEmpty(author.forename) && !_.isEmpty(author.surname)) {
+      halAuthor.persName = {
+        forename: { '@type': 'first', '#': author.forename },
+        surname: author.surname,
+      };
+    }
 
     // idRef
     if (!_.isEmpty(author.idRef) || !_.isEmpty(_.get(author, 'enrichments.idRef'))) {
