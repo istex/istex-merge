@@ -3,8 +3,13 @@
     "commonjs": true,
     "es2021": true
   },
-  "extends": "semistandard",
+  "extends": "standard",
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
   "rules": {
+    "semi": ["error", "always"],
+    "no-extra-semi": "error",
     "comma-dangle": ["error", {
       "arrays": "always-multiline",
       "objects": "always-multiline",
