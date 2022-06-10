@@ -510,7 +510,7 @@ const correctDocument = {
   idIstex: '',
   erratumOf: '',
   genre: 'Article',
-  originalGenre: '',
+  originalGenre: 'Journal Article',
   qualityIndicators: {
     abstractCharCount: 0,
     abstractWordCount: 0,
@@ -608,6 +608,10 @@ const correctDocument = {
     publicationDate: '',
   },
   sici: '',
+  origins: {
+    originalGenre: 'pubmed',
+    sources: ['crossref', 'pubmed'],
+  },
 };
 
 module.exports = {

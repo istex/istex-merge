@@ -182,6 +182,7 @@ describe('generateHalTei.js', () => {
     callPrivateFunction('insertClassifications', biblFull, testData.correctDocument);
 
     expect(biblFull.profileDesc.textClass.classCode).to.deep.include({ '@scheme': 'halDomain', '@n': 'phys', '#': 'Physics [physics]' });
+    expect(biblFull.profileDesc.textClass.classCode).to.deep.include({ '@scheme': 'halTypology', '@n': 'ART' });
   });
 
   after(done => {

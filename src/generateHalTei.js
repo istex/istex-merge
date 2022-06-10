@@ -1,5 +1,6 @@
 const { create } = require('xmlbuilder2');
 const _ = require('lodash');
+const { metadata } = require('corhal-config');
 
 /**
  * Generates a Hal TEI from a merged document.
@@ -387,6 +388,19 @@ function insertClassifications (biblFull, mergedDocument) {
       '@n': finalClassification.code,
       '#': finalClassification.en,
     });
+  }
+
+  // HAL typology
+  if (mergedDocument.originalGenre) {
+    const typologyMappingForCurrentSource = metadata.halTypologies.find(sourceMapping => sourceMapping.source === mergedDocument.origins.originalGenre);
+
+    const halTypology = _.get(typologyMappingForCurrentSource, `mapping.${mergedDocument.originalGenre}`);
+    if (halTypology) {
+      classCodes.push({
+        '@scheme': 'halTypology',
+        '@n': halTypology,
+      });
+    }
   }
 }
 

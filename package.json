@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/istex/istex-merge#readme",
   "dependencies": {
+    "corhal-config": "github:istex/corhal-config",
     "lodash": "^4.17.21",
     "xmlbuilder2": "^3.0.2"
   },
