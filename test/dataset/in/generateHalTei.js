@@ -217,7 +217,7 @@ const correctDocument = {
       place: '',
       country: '',
     },
-    editor: [
+    editors: [
       {
         affiliations: [
           {
@@ -536,7 +536,7 @@ const correctDocument = {
       host: {
         title: '',
         publicationDate: '',
-        editor: '',
+        editors: '',
         authors: [
           {
             fullname: '',
@@ -584,7 +584,7 @@ const correctDocument = {
     },
     copyrightDate: '',
     doi: '',
-    editor: {
+    editors: {
       fullname: '',
       forename: '',
       surname: '',
