@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-undef */
+/* eslint-env mocha */
 
 const fs = require('fs-extra');
 const path = require('path');
@@ -185,14 +184,10 @@ describe('generateHalTei.js', () => {
     expect(biblFull.profileDesc.textClass.classCode).to.deep.include({ '@scheme': 'halTypology', '@n': 'ART' });
   });
 
-  after(done => {
+  after(() => {
     const outputPath = path.join(__dirname, 'output', 'correct.tei.xml');
 
-    fs.outputFile(outputPath, generateHalTei(testData.correctDocument, { prettyPrint: true }), 'utf-8', err => {
-      if (err) throw err;
-
-      done();
-    });
+    return fs.outputFile(outputPath, generateHalTei(testData.correctDocument, { prettyPrint: true }), 'utf-8');
   });
 });
 
