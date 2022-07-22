@@ -10,6 +10,18 @@ describe('generateMergedDocument.js', () => {
   const testData = require('./dataset/in/generateMergedDocument');
   const expected = require('./dataset/expected/generateMergedDocument');
 
+  before(() => {
+    const defaultMapping = require('../mapping/default.json');
+    const defaultRules = require('../rules/default.json').keys;
+    const halRules = require('../rules/halWithoutFulltext.json').keys;
+    const defaultMappingKeys = Object.keys(defaultMapping);
+    const defaultRulesKeys = Object.keys(defaultRules);
+    const halRulesKeys = Object.keys(halRules);
+
+    expect(defaultMappingKeys).to.eql(defaultRulesKeys);
+    expect(defaultRulesKeys).to.eql(halRulesKeys);
+  });
+
   it('Fail: no docObjects were found', () => {
     expectError(testData.noDocObjects, 'docObjects not found');
   });
