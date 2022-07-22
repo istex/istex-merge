@@ -80,6 +80,7 @@
   "ird": true,
   "irstea": true,
   "issue": true,
+  "keywords": true,
   "keywords.en.author": {
     "action": "merge"
   },

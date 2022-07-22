@@ -347,6 +347,7 @@ const mergeKeywords = {
     'enrichments.oa': 'crossref',
     'enrichments.oa.core': 'crossref',
     'enrichments.oa.unpaywall': 'crossref',
+    keywords: 'crossref',
     'keywords.fr.author': ['hal', 'crossref'],
     sources: ['hal', 'crossref'],
     sourceUid: ['hal', 'crossref'],
