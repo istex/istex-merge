@@ -9,6 +9,7 @@
   "arxiv": true,
   "authors": true,
   "bibCode": true,
+  "business": true,
   "business.duplicateGenre": true,
   "business.duplicateRules": true,
   "business.duplicates": {

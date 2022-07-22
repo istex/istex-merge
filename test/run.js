@@ -50,15 +50,15 @@ describe('generateMergedDocument.js', () => {
     expectSuccess(testData.defaultPrioritiesAndHalWithFulltext, expected.defaultPrioritiesAndHalWithFulltext);
   });
 
-  it('Success: merge duplicates with idConditor', () => {
+  it('Success: merge duplicates with sourceUid', () => {
     expectSuccess(testData.mergeDuplicates, expected.mergeDuplicates);
   });
 
-  it('Success: merge duplicates with idConditor (one empty duplicate)', () => {
+  it('Success: merge duplicates with sourceUid (one empty duplicate)', () => {
     expectSuccess(testData.mergeDuplicatesWithOneEmptyDuplicate, expected.mergeDuplicatesWithOneEmptyDuplicate);
   });
 
-  it('Success: merge duplicates with idConditor (identical duplicates)', () => {
+  it('Success: merge duplicates with sourceUid (identical duplicates)', () => {
     expectSuccess(testData.mergeDuplicatesWithSameDuplicates, expected.mergeDuplicatesWithSameDuplicates);
   });
 

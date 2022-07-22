@@ -1,208 +1,336 @@
 const globalPriorities = {
-  authors: ['authors.hal.1', 'authors.hal.2'],
-  abstract: { fr: 'abstract.hal.fr', en: 'abstract.hal.en' },
+  abstract: {
+    en: 'abstract.hal.en',
+    fr: 'abstract.hal.fr',
+  },
+  authors: [
+    'authors.hal.1',
+    'authors.hal.2',
+  ],
+  business: {
+    hasFulltext: true,
+  },
   origins: {
-    authors: 'hal',
     abstract: 'hal',
-    'abstract.fr': 'hal',
     'abstract.en': 'hal',
+    'abstract.fr': 'hal',
+    authors: 'hal',
+    business: 'hal',
     sources: ['hal'],
   },
 };
 
 const globalAndCustomPriorities = {
-  authors: ['authors.hal.1', 'authors.hal.2'],
-  abstract: { fr: 'abstract.crossref.fr', en: 'abstract.pubmed.en' },
+  abstract: {
+    en: 'abstract.pubmed.en',
+    fr: 'abstract.crossref.fr',
+  },
+  authors: [
+    'authors.hal.1',
+    'authors.hal.2',
+  ],
+  business: {
+    hasFulltext: true,
+  },
   origins: {
-    authors: 'hal',
     abstract: 'hal',
-    'abstract.fr': 'crossref',
     'abstract.en': 'pubmed',
-    sources: ['hal', 'crossref', 'pubmed'],
+    'abstract.fr': 'crossref',
+    authors: 'hal',
+    business: 'hal',
+    sources: ['hal', 'pubmed', 'crossref'],
   },
 };
 
 const globalAndCustomPrioritiesButNoData = {
-  abstract: { fr: 'abstract.crossref.fr', en: 'abstract.pubmed.en' },
-  authors: ['authors.crossref.1', 'authors.crossref.2'],
+  abstract: {
+    en: 'abstract.pubmed.en',
+    fr: 'abstract.crossref.fr',
+  },
+  authors: [
+    'authors.crossref.1',
+    'authors.crossref.2',
+  ],
+  business: {
+    hasFulltext: true,
+  },
   origins: {
     abstract: 'hal',
-    'abstract.fr': 'crossref',
     'abstract.en': 'pubmed',
+    'abstract.fr': 'crossref',
     authors: 'crossref',
-    sources: ['hal', 'crossref', 'pubmed'],
+    business: 'hal',
+    sources: ['hal', 'pubmed', 'crossref'],
   },
 };
 
 const globalPrioritiesAndDeleteUnwantedData = {
-  authors: ['authors.hal.1', 'authors.hal.2'],
-  abstract: { fr: 'abstract.hal.fr', en: 'abstract.hal.en' },
+  authors: [
+    'authors.hal.1',
+    'authors.hal.2',
+  ],
+  abstract: {
+    en: 'abstract.hal.en',
+    fr: 'abstract.hal.fr',
+  },
   origins: {
     authors: 'hal',
     abstract: 'hal',
-    'abstract.fr': 'hal',
     'abstract.en': 'hal',
+    'abstract.fr': 'hal',
     sources: ['hal'],
   },
 };
 
 const defaultPrioritiesAndHalWithoutFulltext = {
-  authors: ['authors.crossref.1', 'authors.crossref.2'],
-  abstract: { fr: 'abstract.crossref.fr', en: 'abstract.crossref.en' },
+  abstract: {
+    en: 'abstract.crossref.en',
+    fr: 'abstract.crossref.fr',
+  },
+  authors: [
+    'authors.crossref.1',
+    'authors.crossref.2',
+  ],
+  business: {
+    hasFulltext: false,
+  },
   origins: {
-    authors: 'crossref',
     abstract: 'crossref',
-    'abstract.fr': 'crossref',
     'abstract.en': 'crossref',
+    'abstract.fr': 'crossref',
+    authors: 'crossref',
+    business: 'crossref',
     sources: ['crossref'],
   },
 };
 
 const defaultPrioritiesAndHalWithFulltext = {
-  abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
-  authors: ['authors.crossref.1', 'authors.crossref.2'],
+  abstract: {
+    en: 'abstract.crossref.en',
+    fr: 'abstract.hal.fr',
+  },
+  authors: [
+    'authors.crossref.1',
+    'authors.crossref.2',
+  ],
+  business: {
+    hasFulltext: true,
+  },
   origins: {
     abstract: 'hal',
+    'abstract.en': 'crossref',
     'abstract.fr': 'hal',
     authors: 'crossref',
-    'abstract.en': 'crossref',
+    business: 'hal',
     sources: ['hal', 'crossref'],
   },
 };
 
 const mergeDuplicates = {
+  abstract: {
+    en: 'abstract.crossref.en',
+    fr: 'abstract.hal.fr',
+  },
+  authors: [
+    'authors.crossref.1',
+    'authors.crossref.2',
+  ],
   business: {
     duplicates: [
-      { source: 'crossref', sourceUid: 'crossref:crossref1' },
-      { source: 'hal', sourceUid: 'hal:hal1' },
+      {
+        source: 'crossref',
+        sourceUid: 'crossref:crossref1',
+      },
+      {
+        source: 'hal',
+        sourceUid: 'hal:hal1',
+      },
     ],
+    hasFulltext: true,
   },
-  abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
-  authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
-    'business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
-    'abstract.fr': 'hal',
-    sources: ['hal', 'crossref'],
-    authors: 'crossref',
     'abstract.en': 'crossref',
+    'abstract.fr': 'hal',
+    authors: 'crossref',
+    business: 'hal',
+    'business.duplicates': ['hal', 'crossref'],
+    sources: ['hal', 'crossref'],
   },
 };
 
 const mergeDuplicatesWithOneEmptyDuplicate = {
+  abstract: {
+    en: 'abstract.crossref.en',
+    fr: 'abstract.hal.fr',
+  },
+  authors: [
+    'authors.crossref.1',
+    'authors.crossref.2',
+  ],
   business: {
     duplicates: [
-      { source: 'crossref', sourceUid: 'crossref:crossref1' },
-      { source: 'hal', sourceUid: 'hal:hal1' },
+      {
+        source: 'crossref',
+        sourceUid: 'crossref:crossref1',
+      },
+      {
+        source: 'hal',
+        sourceUid: 'hal:hal1',
+      },
     ],
+    hasFulltext: true,
   },
-  abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
-  authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
-    'business.duplicates': ['hal', 'crossref', 'sudoc'],
     abstract: 'hal',
-    'abstract.fr': 'hal',
-    sources: ['hal', 'crossref', 'sudoc'],
-    authors: 'crossref',
     'abstract.en': 'crossref',
+    'abstract.fr': 'hal',
+    authors: 'crossref',
+    business: 'hal',
+    'business.duplicates': ['hal', 'crossref', 'sudoc'],
+    sources: ['hal', 'crossref', 'sudoc'],
   },
 };
 
 const mergeDuplicatesWithSameDuplicates = {
+  abstract: {
+    en: 'abstract.crossref.en',
+    fr: 'abstract.hal.fr',
+  },
+  authors: [
+    'authors.crossref.1',
+    'authors.crossref.2',
+  ],
   business: {
     duplicates: [
-      { source: 'sudoc', sourceUid: 'sudoc:sudoc1' },
+      {
+        source: 'sudoc',
+        sourceUid: 'sudoc:sudoc1',
+      },
     ],
+    hasFulltext: true,
   },
-  abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
-  authors: ['authors.crossref.1', 'authors.crossref.2'],
   origins: {
-    'business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
-    'abstract.fr': 'hal',
-    sources: ['hal', 'crossref'],
-    authors: 'crossref',
     'abstract.en': 'crossref',
+    'abstract.fr': 'hal',
+    business: 'hal',
+    'business.duplicates': ['hal', 'crossref'],
+    authors: 'crossref',
+    sources: ['hal', 'crossref'],
   },
 };
 
 const mergeSourceUid = {
-  sourceUids: ['hal:hal1', 'crossref:crossref1'],
+  abstract: {
+    fr: 'abstract.hal.fr',
+    en: 'abstract.crossref.en',
+  },
+  authors: [
+    'authors.crossref.1',
+    'authors.crossref.2',
+  ],
   business: {
     duplicates: [
-      { source: 'crossref', sourceUid: 'crossref:crossref1' },
-      { source: 'hal', sourceUid: 'hal:hal1' },
+      {
+        source: 'crossref',
+        sourceUid: 'crossref:crossref1',
+      },
+      {
+        source: 'hal',
+        sourceUid: 'hal:hal1',
+      },
     ],
+    hasFulltext: true,
   },
-  abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
-  authors: ['authors.crossref.1', 'authors.crossref.2'],
+  sourceUids: [
+    'hal:hal1',
+    'crossref:crossref1',
+  ],
   origins: {
-    sourceUid: ['hal', 'crossref'],
-    'business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
-    'abstract.fr': 'hal',
-    sources: ['hal', 'crossref'],
-    authors: 'crossref',
     'abstract.en': 'crossref',
+    'abstract.fr': 'hal',
+    authors: 'crossref',
+    business: 'hal',
+    'business.duplicates': ['hal', 'crossref'],
+    sources: ['hal', 'crossref'],
+    sourceUid: ['hal', 'crossref'],
   },
 };
 
 const mergeSourceUidButSameSourceUid = {
-  sourceUids: ['hal:hal1', 'crossref:crossref1'],
+  abstract: {
+    fr: 'abstract.hal.fr',
+    en: 'abstract.crossref.en',
+  },
+  authors: [
+    'authors.crossref.1',
+    'authors.crossref.2',
+  ],
   business: {
     duplicates: [
-      { source: 'crossref', sourceUid: 'crossref:crossref1' },
-      { source: 'hal', sourceUid: 'hal:hal1' },
+      {
+        source: 'crossref',
+        sourceUid: 'crossref:crossref1',
+      },
+      {
+        source: 'hal',
+        sourceUid: 'hal:hal1',
+      },
     ],
+    hasFulltext: true,
   },
-  abstract: { fr: 'abstract.hal.fr', en: 'abstract.crossref.en' },
-  authors: ['authors.crossref.1', 'authors.crossref.2'],
+  sourceUids: [
+    'hal:hal1',
+    'crossref:crossref1',
+  ],
   origins: {
-    sourceUid: ['hal', 'crossref'],
+    business: 'hal',
     'business.duplicates': ['hal', 'crossref'],
     abstract: 'hal',
-    'abstract.fr': 'hal',
-    sources: ['hal', 'crossref'],
-    authors: 'crossref',
     'abstract.en': 'crossref',
+    'abstract.fr': 'hal',
+    authors: 'crossref',
+    sources: ['hal', 'crossref'],
+    sourceUid: ['hal', 'crossref'],
   },
 };
 
 const mergeEnrichments = {
-  sourceUids: ['hal:hal1', 'crossref:crossref1'],
   enrichments: {
-    oa: {
-      unpaywall: ['crossref'],
-      core: ['crossref'],
-    },
     classifications: {
-      scopus: [
-        {
-          level: 1,
-          label: 'crossref',
-        },
-      ],
       scienceMetrix: [
         {
-          level: 1,
           label: 'crossref',
+          level: 1,
+        },
+      ],
+      scopus: [
+        {
+          label: 'crossref',
+          level: 1,
         },
       ],
     },
+    oa: {
+      core: ['crossref'],
+      unpaywall: ['crossref'],
+    },
   },
+  sourceUids: ['hal:hal1', 'crossref:crossref1'],
   origins: {
-    sourceUid: ['hal', 'crossref'],
     enrichments: 'crossref',
     sources: ['hal', 'crossref'],
+    sourceUid: ['hal', 'crossref'],
   },
 };
 
 const mergeKeywords = {
-  sourceUids: ['hal:hal1', 'crossref:crossref1'],
   enrichments: {
     oa: {
-      unpaywall: ['crossref'],
       core: ['crossref'],
+      unpaywall: ['crossref'],
     },
   },
   keywords: {
@@ -210,55 +338,54 @@ const mergeKeywords = {
       author: ['test1', 'test2', 'test3'],
     },
   },
+  sourceUids: ['hal:hal1', 'crossref:crossref1'],
   origins: {
-    sourceUid: ['hal', 'crossref'],
     enrichments: 'crossref',
     'keywords.fr.author': ['hal', 'crossref'],
     sources: ['hal', 'crossref'],
+    sourceUid: ['hal', 'crossref'],
   },
 };
 
 const mergeOrcId = {
-  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
   authors: [
     {
       forename: 'Gérard ',
-      surname: ' André',
       orcId: '0000-0003-3946-1982',
+      surname: ' André',
     },
     {
       forename: ' Lea',
-      surname: 'De Marche ',
       orcId: '0000-0003-4093-3000',
+      surname: 'De Marche ',
     },
-    { forename: 'Charles' },
+    {
+      forename: 'Charles',
+    },
   ],
+  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
   origins: {
-    sourceUid: ['pubmed', 'crossref'],
     authors: 'pubmed',
     sources: ['pubmed', 'crossref'],
+    sourceUid: ['pubmed', 'crossref'],
   },
 };
 
 const mergeRnsr = {
-  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
   authors: [
     {
-      forename: 'Gérard',
-      surname: 'André',
       affiliations: [
         {
+          enrichments: {
+            rnsr: ['200412801C'],
+          },
           rnsr: [
             '200412801A',
             '200412801B',
           ],
-          enrichments: {
-            rnsr: [
-              '200412801C',
-            ],
-          },
         },
       ],
+      forename: 'Gérard',
       rnsr: [
         '200412801A',
         '200412801B',
@@ -268,20 +395,22 @@ const mergeRnsr = {
         '198822446B',
         '198822446C',
       ],
+      surname: 'André',
     },
     {
-      forename: ' Lea',
-      surname: 'De Marche ',
       affiliations: [],
+      forename: ' Lea',
       rnsr: [
         '198912571A',
         '198912571B',
       ],
+      surname: 'De Marche ',
     },
     {
       forename: 'Charles',
     },
   ],
+  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
   origins: {
     sourceUid: ['pubmed', 'crossref'],
     authors: 'pubmed',
@@ -290,13 +419,13 @@ const mergeRnsr = {
 };
 
 const mergeAuthors = {
-  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
   authors: [
     {
       forename: 'Gérard',
       surname: 'André',
     },
   ],
+  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
   origins: {
     sourceUid: ['pubmed', 'crossref'],
     authors: 'pubmed',
