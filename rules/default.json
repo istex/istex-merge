@@ -136,6 +136,15 @@
       "pubmed"
     ],
     "keywords": [],
+    "keywords.en.author": [],
+    "keywords.en.mesh": [],
+    "keywords.fr.author": [],
+    "keywords.fr.mesh": [],
+    "keywords.fr.rameau": [],
+    "keywords.other.author": [],
+    "keywords.other.mesh": [],
+    "keywords.und.author": [],
+    "keywords.und.mesh": [],
     "language": [],
     "localRef": [],
     "nnt": [],
@@ -158,6 +167,7 @@
     "sourceId": [],
     "sourceUid": [],
     "technical": [],
+    "title": [],
     "title.default": [
       "sudoc-theses",
       "sudoc-ouvrages",

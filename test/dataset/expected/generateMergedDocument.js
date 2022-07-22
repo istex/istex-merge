@@ -321,6 +321,9 @@ const mergeEnrichments = {
   sourceUids: ['hal:hal1', 'crossref:crossref1'],
   origins: {
     enrichments: 'crossref',
+    'enrichments.oa': 'crossref',
+    'enrichments.oa.core': 'crossref',
+    'enrichments.oa.unpaywall': 'crossref',
     sources: ['hal', 'crossref'],
     sourceUid: ['hal', 'crossref'],
   },
@@ -341,6 +344,9 @@ const mergeKeywords = {
   sourceUids: ['hal:hal1', 'crossref:crossref1'],
   origins: {
     enrichments: 'crossref',
+    'enrichments.oa': 'crossref',
+    'enrichments.oa.core': 'crossref',
+    'enrichments.oa.unpaywall': 'crossref',
     'keywords.fr.author': ['hal', 'crossref'],
     sources: ['hal', 'crossref'],
     sourceUid: ['hal', 'crossref'],
