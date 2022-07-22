@@ -948,6 +948,25 @@ const mergeAuthors = {
   ],
 };
 
+const issn = {
+  docObjects: [
+    {
+      host: {
+        issn: 'pubmedIssn',
+      },
+      source: 'pubmed',
+      sourceUid: 'pubmed:pubmed1',
+    },
+    {
+      host: {
+        issn: 'crossrefIssn',
+      },
+      source: 'crossref',
+      sourceUid: 'crossref:crossref1',
+    },
+  ],
+};
+
 module.exports = {
   noDocObjects,
   noDocObjectsWithSource,
@@ -969,4 +988,5 @@ module.exports = {
   mergeOrcId,
   mergeRnsr,
   mergeAuthors,
+  issn,
 };

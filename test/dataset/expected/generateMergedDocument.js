@@ -440,6 +440,19 @@ const mergeAuthors = {
   },
 };
 
+const issn = {
+  host: {
+    issn: 'crossrefIssn',
+  },
+  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
+  origins: {
+    host: 'pubmed',
+    'host.issn': 'crossref',
+    sources: ['pubmed', 'crossref'],
+    sourceUid: ['pubmed', 'crossref'],
+  },
+};
+
 module.exports = {
   globalPriorities,
   globalAndCustomPriorities,
@@ -457,4 +470,5 @@ module.exports = {
   mergeOrcId,
   mergeRnsr,
   mergeAuthors,
+  issn,
 };

@@ -101,6 +101,10 @@ describe('generateMergedDocument.js', () => {
   it('Success: merge authors with strange cases', () => {
     expectSuccess(testData.mergeAuthors, expected.mergeAuthors);
   });
+
+  it('Success: issn', () => {
+    expectSuccess(testData.issn, expected.issn);
+  });
 });
 
 describe('generateHalTei.js', () => {
