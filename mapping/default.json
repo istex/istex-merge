@@ -4,6 +4,7 @@
   "abstract.en": true,
   "abstract.fr": true,
   "accessCondition": false,
+  "ark": true,
   "ark.istex": true,
   "ark.publisher": true,
   "arxiv": true,
@@ -29,6 +30,7 @@
   "business.xissn": false,
   "business.xPublicationDate": false,
   "cern": true,
+  "classifications": true,
   "classifications.dewey": {
     "action": "merge"
   },
