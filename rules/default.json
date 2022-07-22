@@ -87,6 +87,13 @@
     "genre": [],
     "halId": [],
     "host": [],
+    "host.conference.name": [
+      "sudoc-theses",
+      "sudoc-ouvrages",
+      "crossref",
+      "hal",
+      "pubmed"
+    ],
     "host.eisbn": [
       "sudoc-theses",
       "sudoc-ouvrages",
@@ -115,7 +122,49 @@
       "hal",
       "pubmed"
     ],
+    "host.issue": [
+      "sudoc-theses",
+      "sudoc-ouvrages",
+      "crossref",
+      "hal",
+      "pubmed"
+    ],
     "host.pages.range": [
+      "sudoc-theses",
+      "sudoc-ouvrages",
+      "crossref",
+      "hal",
+      "pubmed"
+    ],
+    "host.publisher": [
+      "sudoc-theses",
+      "sudoc-ouvrages",
+      "hal",
+      "crossref",
+      "pubmed"
+    ],
+    "host.specialIssue": [
+      "sudoc-theses",
+      "sudoc-ouvrages",
+      "crossref",
+      "hal",
+      "pubmed"
+    ],
+    "host.supplement": [
+      "sudoc-theses",
+      "sudoc-ouvrages",
+      "crossref",
+      "hal",
+      "pubmed"
+    ],
+    "host.title": [
+      "sudoc-theses",
+      "sudoc-ouvrages",
+      "crossref",
+      "hal",
+      "pubmed"
+    ],
+    "host.volume": [
       "sudoc-theses",
       "sudoc-ouvrages",
       "crossref",
