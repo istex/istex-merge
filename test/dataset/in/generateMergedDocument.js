@@ -948,11 +948,13 @@ const mergeAuthors = {
   ],
 };
 
-const issn = {
+const identifiers = {
   docObjects: [
     {
       host: {
         issn: 'pubmedIssn',
+        eisbn: 'pubmedEissn',
+        publisher: 'pubmedPublisher',
       },
       source: 'pubmed',
       sourceUid: 'pubmed:pubmed1',
@@ -960,6 +962,8 @@ const issn = {
     {
       host: {
         issn: 'crossrefIssn',
+        eisbn: 'crossrefEissn',
+        publisher: 'crossrefPublisher',
       },
       source: 'crossref',
       sourceUid: 'crossref:crossref1',
@@ -988,5 +992,5 @@ module.exports = {
   mergeOrcId,
   mergeRnsr,
   mergeAuthors,
-  issn,
+  identifiers,
 };

@@ -102,8 +102,8 @@ describe('generateMergedDocument.js', () => {
     expectSuccess(testData.mergeAuthors, expected.mergeAuthors);
   });
 
-  it('Success: issn', () => {
-    expectSuccess(testData.issn, expected.issn);
+  it('Success: identifiers', () => {
+    expectSuccess(testData.identifiers, expected.identifiers);
   });
 });
 
