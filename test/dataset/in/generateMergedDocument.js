@@ -713,8 +713,7 @@ const mergeEnrichments = {
             },
           ],
         },
-        oa: {
-          core: ['hal'],
+        openAccess: {
           unpaywall: ['hal'],
         },
       },
@@ -737,8 +736,7 @@ const mergeEnrichments = {
             },
           ],
         },
-        oa: {
-          core: ['crossref'],
+        openAccess: {
           unpaywall: ['crossref'],
         },
       },
@@ -752,8 +750,7 @@ const mergeKeywords = {
   docObjects: [
     {
       enrichments: {
-        oa: {
-          core: ['hal'],
+        openAccess: {
           unpaywall: ['hal'],
         },
       },
@@ -767,8 +764,7 @@ const mergeKeywords = {
     },
     {
       enrichments: {
-        oa: {
-          core: ['crossref'],
+        openAccess: {
           unpaywall: ['crossref'],
         },
       },

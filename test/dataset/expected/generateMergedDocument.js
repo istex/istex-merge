@@ -313,17 +313,15 @@ const mergeEnrichments = {
         },
       ],
     },
-    oa: {
-      core: ['crossref'],
+    openAccess: {
       unpaywall: ['crossref'],
     },
   },
   sourceUids: ['hal:hal1', 'crossref:crossref1'],
   origins: {
     enrichments: 'crossref',
-    'enrichments.oa': 'crossref',
-    'enrichments.oa.core': 'crossref',
-    'enrichments.oa.unpaywall': 'crossref',
+    'enrichments.openAccess': 'crossref',
+    'enrichments.openAccess.unpaywall': 'crossref',
     sources: ['hal', 'crossref'],
     sourceUid: ['hal', 'crossref'],
   },
@@ -331,8 +329,7 @@ const mergeEnrichments = {
 
 const mergeKeywords = {
   enrichments: {
-    oa: {
-      core: ['crossref'],
+    openAccess: {
       unpaywall: ['crossref'],
     },
   },
@@ -344,10 +341,10 @@ const mergeKeywords = {
   sourceUids: ['hal:hal1', 'crossref:crossref1'],
   origins: {
     enrichments: 'crossref',
-    'enrichments.oa': 'crossref',
-    'enrichments.oa.core': 'crossref',
-    'enrichments.oa.unpaywall': 'crossref',
+    'enrichments.openAccess': 'crossref',
+    'enrichments.openAccess.unpaywall': 'crossref',
     keywords: 'crossref',
+    'keywords.fr': 'crossref',
     'keywords.fr.author': ['hal', 'crossref'],
     sources: ['hal', 'crossref'],
     sourceUid: ['hal', 'crossref'],
