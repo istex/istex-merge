@@ -31,20 +31,9 @@
     "business.duplicateGenre": [],
     "business.duplicateRules": [],
     "business.duplicates": [],
-    "business.first3AuthorNames": [],
-    "business.first3AuthorNamesWithInitials": [],
-    "business.hasDoi": [],
-    "business.hasFulltext": [],
-    "business.hasTransDuplicate": [],
-    "business.isDeduplicable": [],
-    "business.isDuplicate": [],
-    "business.name": [],
     "business.pageRange": [],
     "business.sourceUidChain": [],
-    "business.sources": [],
-    "business.xPublicationDate": [],
     "business.xisbn": [],
-    "business.xissn": [],
     "cern": [],
     "classifications": [],
     "classifications.dewey": [],
@@ -78,7 +67,6 @@
       "pubmed"
     ],
     "ensam": [],
-    "files": [],
     "fulltextUrl": [],
     "funders": [],
     "genre": [],
@@ -216,13 +204,9 @@
     "pmcId": [],
     "ppn": [],
     "publicationDate": [],
-    "qualityIndicators": [],
     "reportNumber": [],
     "sciencespo": [],
-    "source": [],
-    "sourceId": [],
     "sourceUid": [],
-    "technical": [],
     "title": [],
     "title.default": [
       "sudoc-theses",
@@ -244,7 +228,6 @@
       "crossref",
       "hal",
       "pubmed"
-    ],
-    "utKey": []
+    ]
   }
 }

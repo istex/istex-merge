@@ -10,15 +10,16 @@ describe('generateMergedDocument.js', () => {
   const testData = require('./dataset/in/generateMergedDocument');
   const expected = require('./dataset/expected/generateMergedDocument');
 
+  // Here we make sure all the mapping fields have corresponding rules and vice-versa
   before(() => {
     const defaultMapping = require('../mapping/default.json');
     const defaultRules = require('../rules/default.json').keys;
     const halRules = require('../rules/halWithoutFulltext.json').keys;
-    const defaultMappingKeys = Object.keys(defaultMapping);
+    const defaultMappingKeysSetToTrue = Object.keys(Object.fromEntries(Object.entries(defaultMapping).filter(([key, value]) => value !== false)));
     const defaultRulesKeys = Object.keys(defaultRules);
     const halRulesKeys = Object.keys(halRules);
 
-    expect(defaultMappingKeys).to.eql(defaultRulesKeys);
+    expect(defaultMappingKeysSetToTrue).to.eql(defaultRulesKeys);
     expect(defaultRulesKeys).to.eql(halRulesKeys);
   });
 
