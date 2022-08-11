@@ -967,6 +967,30 @@ const identifiers = {
   ],
 };
 
+const missingSubfieldsInPrimarySource = {
+  docObjects: [
+    {
+      host: {
+        subject: {
+          lang: 'en',
+        },
+      },
+      source: 'pubmed',
+      sourceUid: 'pubmed:pubmed1',
+    },
+    {
+      host: {
+        subject: {
+          lang: 'en',
+          value: 'very cool subject',
+        },
+      },
+      source: 'crossref',
+      sourceUid: 'crossref:crossref1',
+    },
+  ],
+};
+
 module.exports = {
   noDocObjects,
   noDocObjectsWithSource,
@@ -989,4 +1013,5 @@ module.exports = {
   mergeRnsr,
   mergeAuthors,
   identifiers,
+  missingSubfieldsInPrimarySource,
 };

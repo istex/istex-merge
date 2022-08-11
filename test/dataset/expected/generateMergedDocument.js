@@ -454,6 +454,21 @@ const identifiers = {
   },
 };
 
+const missingSubfieldsInPrimarySource = {
+  host: {
+    subject: {
+      lang: 'en',
+    },
+  },
+  sourceUids: ['pubmed:pubmed1', 'crossref:crossref1'],
+  origins: {
+    host: 'pubmed',
+    'host.subject': 'pubmed',
+    sources: ['pubmed', 'crossref'],
+    sourceUid: ['pubmed', 'crossref'],
+  },
+};
+
 module.exports = {
   globalPriorities,
   globalAndCustomPriorities,
@@ -472,4 +487,5 @@ module.exports = {
   mergeRnsr,
   mergeAuthors,
   identifiers,
+  missingSubfieldsInPrimarySource,
 };

@@ -106,6 +106,12 @@ describe('generateMergedDocument.js', () => {
   it('Success: identifiers', () => {
     expectSuccess(testData.identifiers, expected.identifiers);
   });
+
+  // This test makes sure the missing subfields from the primary source are not taken from the
+  // secondary source when not declared explicitely in the mapping
+  it('Success: missing subfields from primary source', () => {
+    expectSuccess(testData.missingSubfieldsInPrimarySource, expected.missingSubfieldsInPrimarySource);
+  });
 });
 
 describe('generateHalTei.js', () => {
