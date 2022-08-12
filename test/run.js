@@ -112,6 +112,10 @@ describe('generateMergedDocument.js', () => {
   it('Success: missing subfields from primary source', () => {
     expectSuccess(testData.missingSubfieldsInPrimarySource, expected.missingSubfieldsInPrimarySource);
   });
+
+  it('Success: business', () => {
+    expectSuccess(testData.business, expected.business);
+  });
 });
 
 describe('generateHalTei.js', () => {

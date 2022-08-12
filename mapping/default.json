@@ -10,10 +10,10 @@
   "arxiv": true,
   "authors": true,
   "bibCode": true,
-  "business": true,
   "business.authorsAddresses": true,
-  "business.authorsRnsr": true,
-  "business.classifications.hal.code": true,
+  "business.authorsRnsr": {
+    "action": "merge"
+  },
   "business.duplicateGenre": true,
   "business.duplicateRules": true,
   "business.duplicates": {
@@ -31,9 +31,9 @@
   "business.pageRange": true,
   "business.sourceUidChain": true,
   "business.sources": false,
-  "business.xPublicationDate": false,
+  "business.xPublicationDate": true,
   "business.xisbn": true,
-  "business.xissn": false,
+  "business.xissn": true,
   "cern": true,
   "classifications": true,
   "classifications.dewey": {
@@ -151,10 +151,20 @@
     "action": "merge",
     "path": "sourceUids"
   },
-  "technical": false,
+  "technical.creationDate": {
+    "action": "merge"
+  },
+  "technical.deletionDate": false,
+  "technical.internalId": false,
+  "technical.modificationDate": false,
+  "technical.modsXsltVersion": false,
+  "technical.sessionName": {
+    "action": "merge"
+  },
+  "technical.teiXsltVersion": false,
   "title": true,
   "title.default": true,
   "title.en": true,
   "title.fr": true,
-  "utKey": false
+  "utKey": true
 }

@@ -24,16 +24,16 @@
     "arxiv": [],
     "authors": [],
     "bibCode": [],
-    "business": [],
     "business.authorsAddresses": [],
     "business.authorsRnsr": [],
-    "business.classifications.hal.code": [],
     "business.duplicateGenre": [],
     "business.duplicateRules": [],
     "business.duplicates": [],
     "business.pageRange": [],
     "business.sourceUidChain": [],
+    "business.xPublicationDate": [],
     "business.xisbn": [],
+    "business.xissn": [],
     "cern": [],
     "classifications": [],
     "classifications.dewey": [],
@@ -207,6 +207,8 @@
     "reportNumber": [],
     "sciencespo": [],
     "sourceUid": [],
+    "technical.creationDate": [],
+    "technical.sessionName": [],
     "title": [],
     "title.default": [
       "sudoc-theses",
@@ -228,6 +230,7 @@
       "crossref",
       "hal",
       "pubmed"
-    ]
+    ],
+    "utKey": []
   }
 }

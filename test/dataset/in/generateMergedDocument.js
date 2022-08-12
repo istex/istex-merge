@@ -991,6 +991,71 @@ const missingSubfieldsInPrimarySource = {
   ],
 };
 
+const business = {
+  docObjects: [
+    {
+      business: {
+        authorsAddresses: ['pubmedAddress1'],
+        authorsRnsr: ['rnsr1', 'rnsr2'],
+        duplicateGenre: 'pubmedArticle',
+        duplicateRules: ['pubmedRule1', 'pubmedRule2'],
+        duplicates: [
+          {
+            source: 'crossref',
+            sourceUid: 'crossref:crossref1',
+          },
+        ],
+        first3AuthorNames: 'name1 name2 name3',
+        first3AuthorNamesWithInitials: 'A. name1 B. name2 C. name3',
+        hasDoi: true,
+        hasFulltext: true,
+        hasTransDuplicate: true,
+        isDeduplicable: true,
+        isDuplicate: true,
+        name: 'name1',
+        pageRange: '1-10',
+        sourceUidChain: 'pubmedSourceUidChain',
+        sources: 'pubmed',
+        xPublicationDate: '2022-08-12',
+        xisbn: 'pubmedIsbn',
+        xissn: 'pubmedIssn',
+      },
+      source: 'pubmed',
+      sourceUid: 'pubmed:pubmed1',
+    },
+    {
+      business: {
+        authorsAddresses: ['crossrefAddress1'],
+        authorsRnsr: ['rnsr2', 'rnsr3'],
+        duplicateGenre: 'crossrefArticle',
+        duplicateRules: ['crossrefRule1', 'crossrefRule2'],
+        duplicates: [
+          {
+            source: 'pubmed',
+            sourceUid: 'pubmed:pubmed1',
+          },
+        ],
+        first3AuthorNames: 'name1 name2 name3',
+        first3AuthorNamesWithInitials: 'A. name1 B. name2 C. name3',
+        hasDoi: true,
+        hasFulltext: true,
+        hasTransDuplicate: true,
+        isDeduplicable: true,
+        isDuplicate: true,
+        name: 'name2',
+        pageRange: '2-11',
+        sourceUidChain: 'crossrefSourceUidChain',
+        sources: 'crossref',
+        xPublicationDate: '2022-08-13',
+        xisbn: 'crossrefIsbn',
+        xissn: 'crossrefIssn',
+      },
+      source: 'crossref',
+      sourceUid: 'crossref:crossref1',
+    },
+  ],
+};
+
 module.exports = {
   noDocObjects,
   noDocObjectsWithSource,
@@ -1014,4 +1079,5 @@ module.exports = {
   mergeAuthors,
   identifiers,
   missingSubfieldsInPrimarySource,
+  business,
 };
