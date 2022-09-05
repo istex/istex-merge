@@ -221,7 +221,7 @@ describe('generateHalTei.js', () => {
 /**
  * Runs tests for success cases.
  * @param {object} inputData The input data.
- * @param {object} expectedResult The expect result.
+ * @param {object} expectedResult The expected result.
  */
 function expectSuccess (inputData, expectedResult) {
   const result = generateMergedDocument(inputData.docObjects, { rules: inputData.rules });
