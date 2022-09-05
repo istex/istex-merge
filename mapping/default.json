@@ -162,7 +162,6 @@
     "action": "merge"
   },
   "technical.teiXsltVersion": false,
-  "title": true,
   "title.default": true,
   "title.en": true,
   "title.fr": true,
