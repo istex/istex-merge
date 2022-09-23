@@ -18,6 +18,8 @@ function generateHalTei (mergedDocument, options) {
   // Set the root TEI node attributes
   xmlDoc.TEI['@xmlns'] = 'http://www.tei-c.org/ns/1.0';
   xmlDoc.TEI['@xmlns:hal'] = 'http://hal.archives-ouvertes.fr/';
+  xmlDoc.TEI['@xmlns:xsi'] = 'http://www.w3.org/2001/XMLSchema-instance';
+  xmlDoc.TEI['@xsi:schemaLocation'] = 'http://www.tei-c.org/ns/1.0 https://api.archives-ouvertes.fr/documents/aofr-sword.xsd';
 
   // Create the base <text> structure
   _.set(xmlDoc.TEI, 'text.body.listBibl.biblFull', {});
@@ -27,6 +29,11 @@ function generateHalTei (mergedDocument, options) {
   xmlDoc.TEI.text.back = {};
   const { back } = xmlDoc.TEI.text;
 
+  // Titles
+  if (_.isObject(mergedDocument.title)) {
+    insertTitles(biblFull, mergedDocument);
+  }
+
   // Authors and their affiliations
   if (isNonEmptyArray(mergedDocument.authors)) {
     insertAuthors(biblFull, back, mergedDocument);
@@ -35,14 +42,11 @@ function generateHalTei (mergedDocument, options) {
   // Identifiers
   insertIdentifiers(biblFull, mergedDocument);
 
-  // Titles
-  if (_.isObject(mergedDocument.title)) {
-    insertTitles(biblFull, mergedDocument);
-  }
-
   // Language
   if (isNonEmptyArray(mergedDocument.language)) {
     insertLanguage(biblFull, mergedDocument);
+  } else if (isNonEmptyArray(mergedDocument.host.language)) {
+    insertLanguage(biblFull, mergedDocument.host);
   }
 
   // Classifications
@@ -289,7 +293,14 @@ function insertAbstract (biblFull, mergedDocument) {
  * @param {object} mergedDocument The merged document to get the catalog data from.
  */
 function insertCatalogData (biblFull, mergedDocument) {
-  // Initialize the catalog data container
+  // Initialize the imprint catalog data container
+  setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.imprint', {});
+
+  // Publisher
+  if (_.get(mergedDocument, 'host.publisher')) {
+    _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.publisher', mergedDocument.host.publisher);
+  }
+
   setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.imprint.biblScope', []);
   setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.imprint.date', []);
 
@@ -319,11 +330,6 @@ function insertCatalogData (biblFull, mergedDocument) {
   // Electronic publication date
   if (_.get(mergedDocument, 'host.electronicPublicationDate')) {
     dates.push({ '@type': 'dateEpub', '#': mergedDocument.host.electronicPublicationDate });
-  }
-
-  // Publisher
-  if (_.get(mergedDocument, 'host.publisher')) {
-    _.set(biblFull, 'sourceDesc.biblStruct.monogr.imprint.publisher', mergedDocument.host.publisher);
   }
 }
 
