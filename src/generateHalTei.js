@@ -31,7 +31,7 @@ function generateHalTei (mergedDocument, options) {
 
   // Titles
   if (_.isObject(mergedDocument.title)) {
-    insertTitles(biblFull, mergedDocument);
+    insertAnalyticTitles(biblFull, mergedDocument);
   }
 
   // Authors and their affiliations
@@ -57,6 +57,10 @@ function generateHalTei (mergedDocument, options) {
     insertAbstract(biblFull, mergedDocument);
   }
 
+  if (_.isObject(mergedDocument.host)) {
+    insertMonographicTitles(biblFull, mergedDocument);
+  }
+
   // Catalog data
   insertCatalogData(biblFull, mergedDocument);
 
@@ -73,13 +77,12 @@ function generateHalTei (mergedDocument, options) {
  * @param {object} biblFull The <biblFull> node to insert the titles in.
  * @param {object} mergedDocument The merged document to get the titles from.
  */
-function insertTitles (biblFull, mergedDocument) {
+function insertAnalyticTitles (biblFull, mergedDocument) {
   // Initialize the title container
   setIfNotExists(biblFull, 'titleStmt.title', []);
-  setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.title', []);
+  setIfNotExists(biblFull, 'sourceDesc.biblStruct.analytic', {});
 
   const titles = biblFull.titleStmt.title;
-  const monogrTitles = biblFull.sourceDesc.biblStruct.monogr.title;
 
   // English title
   if (_.get(mergedDocument, 'title.en')) {
@@ -90,6 +93,21 @@ function insertTitles (biblFull, mergedDocument) {
   if (_.get(mergedDocument, 'title.fr')) {
     titles.push({ '@xml:lang': 'fr', '#': mergedDocument.title.fr });
   }
+
+  // The title is repeated under <sourceDesc>
+  _.set(biblFull, 'sourceDesc.biblStruct.analytic.title', titles);
+}
+
+/**
+  * Inserts the titles from `mergedDocument` into `biblFull`.
+  * @param {object} biblFull The <biblFull> node to insert the titles in.
+  * @param {object} mergedDocument The merged document to get the titles from.
+  */
+function insertMonographicTitles (biblFull, mergedDocument) {
+  // Initialize the title container
+  setIfNotExists(biblFull, 'sourceDesc.biblStruct.monogr.title', []);
+
+  const monogrTitles = biblFull.sourceDesc.biblStruct.monogr.title;
 
   // Host title
   if (_.get(mergedDocument, 'host.title')) {
@@ -110,9 +128,6 @@ function insertTitles (biblFull, mergedDocument) {
   if (_.get(mergedDocument, 'host.conference.name')) {
     monogrTitles.push({ '@level': 'm', '#': mergedDocument.host.conference.name });
   }
-
-  // The title is repeated under <sourceDesc>
-  _.set(biblFull, 'sourceDesc.biblStruct.analytic.title', titles);
 }
 
 /**

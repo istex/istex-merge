@@ -151,7 +151,8 @@ describe('generateHalTei.js', () => {
   });
 
   it('Success: titles', () => {
-    callPrivateFunction('insertTitles', biblFull, testData.correctDocument);
+    callPrivateFunction('insertAnalyticTitles', biblFull, testData.correctDocument);
+    callPrivateFunction('insertMonographicTitles', biblFull, testData.correctDocument);
 
     expect(biblFull.titleStmt.title).to.deep.include({ '@xml:lang': 'en', '#': 'Unexpected redox behaviour of large surface alumina containing highly dispersed ceria nanoclusters.' });
     expect(biblFull.sourceDesc.biblStruct.analytic.title).to.eql(biblFull.titleStmt.title);
