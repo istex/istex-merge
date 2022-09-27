@@ -197,7 +197,13 @@
     "nnt": [],
     "oatao": [],
     "okina": [],
-    "originalGenre": [],
+    "originalGenre": [
+      "sudoc-theses",
+      "sudoc-ouvrages",
+      "hal",
+      "crossref",
+      "pubmed"
+    ],
     "patentNumber": [],
     "pii": [],
     "pmId": [],
