@@ -182,7 +182,7 @@ const correctDocument = {
     isbn: '',
     eissn: '2040-3372',
     issn: '2040-3364',
-    electronicPublicationDate: '2019',
+    electronicPublicationDate: '2019-',
     publicationDate: '2019-01-17',
     copyrightDate: '',
     issue: '3',

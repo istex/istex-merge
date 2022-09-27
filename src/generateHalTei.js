@@ -321,6 +321,7 @@ function insertCatalogData (biblFull, mergedDocument) {
 
   const biblScopes = biblFull.sourceDesc.biblStruct.monogr.imprint.biblScope;
   const dates = biblFull.sourceDesc.biblStruct.monogr.imprint.date;
+  _.map(dates, cleanDate);
 
   // Issue
   if (_.get(mergedDocument, 'host.issue')) {
@@ -339,12 +340,12 @@ function insertCatalogData (biblFull, mergedDocument) {
 
   // Publication date
   if (_.get(mergedDocument, 'host.publicationDate')) {
-    dates.push({ '@type': 'datePub', '#': mergedDocument.host.publicationDate });
+    dates.push({ '@type': 'datePub', '#': cleanDate(mergedDocument.host.publicationDate) });
   }
 
   // Electronic publication date
   if (_.get(mergedDocument, 'host.electronicPublicationDate')) {
-    dates.push({ '@type': 'dateEpub', '#': mergedDocument.host.electronicPublicationDate });
+    dates.push({ '@type': 'dateEpub', '#': cleanDate(mergedDocument.host.electronicPublicationDate) });
   }
 }
 
@@ -444,6 +445,16 @@ function setIfNotExists (object, path, value) {
  */
 function isNonEmptyArray (value) {
   return _.isArray(value) && !_.isEmpty(value);
+}
+
+/**
+ * Normalize dates format to be HAL-TEI compatible.
+ * For example remove trailing '-'
+ * @param {object} value The date string to clean.
+ * @returns the cleaned date
+ */
+function cleanDate (value) {
+  return _.trim(value, '-/');
 }
 
 module.exports = generateHalTei;
